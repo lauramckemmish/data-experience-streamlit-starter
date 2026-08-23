@@ -1,11 +1,20 @@
-"""Neutral landing page for the reusable starter."""
+"""Dataset-first introduction page for the reusable starter."""
 
 from __future__ import annotations
 
 import pandas as pd
 import streamlit as st
 
-from config import APP_SUBTITLE, APP_TITLE, DEVELOPMENT_NOTE, PROJECT_LABEL
+from config import (
+    APP_SUBTITLE,
+    APP_TITLE,
+    DATASET_CITATION,
+    DATASET_NAME,
+    DATASET_SCOPE_NOTE,
+    DATASET_SHORT_DESCRIPTION,
+    DATASET_SOURCE_LABEL,
+    DATASET_SOURCE_URL,
+)
 from experiences.catalog import experience_catalog
 
 
@@ -13,21 +22,24 @@ def render(data: pd.DataFrame, open_experience) -> None:
     st.title(APP_TITLE)
     st.markdown(f"### {APP_SUBTITLE}")
 
-    count, columns = st.columns([1, 3])
-    with count:
-        st.metric("Sample records", f"{len(data):,}")
-    with columns:
-        st.write(
-            "This starter is intentionally dataset-neutral. It provides the application shell, "
-            "navigation and reusable learning-experience structure; replace the sample data and "
-            "experience content for a new topic."
-        )
+    with st.container(border=True):
+        st.markdown(f"## {DATASET_NAME}")
+        st.write(DATASET_SHORT_DESCRIPTION)
+        st.caption(f"{len(data):,} rows × {len(data.columns)} columns in this app")
+        st.info(f"**About this dataset:** {DATASET_SCOPE_NOTE}")
 
-    st.markdown(f"**{PROJECT_LABEL}**")
-    st.info(DEVELOPMENT_NOTE)
+        source_bits = []
+        if DATASET_SOURCE_URL:
+            source_bits.append(f"[{DATASET_SOURCE_LABEL}]({DATASET_SOURCE_URL})")
+        elif DATASET_SOURCE_LABEL:
+            source_bits.append(DATASET_SOURCE_LABEL)
+        if DATASET_CITATION:
+            source_bits.append(DATASET_CITATION)
+        if source_bits:
+            st.markdown("**Source:** " + " · ".join(source_bits))
 
     st.markdown("## Choose an experience")
-    st.write("Each experience is a separate route so guided lessons and open exploration do not become coupled.")
+    st.write("Start with the experience that matches how you are using the dataset today.")
 
     experiences = experience_catalog()
     for index in range(0, len(experiences), 2):
@@ -45,11 +57,11 @@ def render(data: pd.DataFrame, open_experience) -> None:
                         args=(name,),
                     )
 
-    with st.expander("How to adapt this starter"):
-        st.markdown(
-            "1. Replace `data/sample_data.csv` with your teaching dataset.\n"
-            "2. Update project names in `config.py`.\n"
-            "3. Build guided teaching content in `experiences/curious.py`.\n"
-            "4. Develop Year 8 and Year 10 independently when ready.\n"
-            "5. Put open-ended multivariate exploration in `experiences/data_playground.py`, not in CURIOUS."
-        )
+    with st.expander("About the data"):
+        st.write(DATASET_SCOPE_NOTE)
+        if DATASET_SOURCE_URL:
+            st.markdown(f"**Dataset source:** [{DATASET_SOURCE_LABEL}]({DATASET_SOURCE_URL})")
+        elif DATASET_SOURCE_LABEL:
+            st.markdown(f"**Dataset source:** {DATASET_SOURCE_LABEL}")
+        if DATASET_CITATION:
+            st.markdown(f"**Citation:** {DATASET_CITATION}")

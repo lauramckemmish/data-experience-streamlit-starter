@@ -1,4 +1,4 @@
-"""Single catalogue of available experiences."""
+"""Single catalogue of the four stable core experiences."""
 
 from config import (
     EXPERIENCE_CURIOUS,
@@ -10,8 +10,20 @@ from config import (
 
 def experience_catalog():
     return [
-        (EXPERIENCE_CURIOUS, "A guided, facilitator-led experience. Replace the neutral steps with the CURIOUS workshop sequence for your dataset."),
-        (EXPERIENCE_YEAR8, "A two-lesson Year 8 classroom pathway. The route and shell exist; add subject-specific pedagogy when ready."),
-        (EXPERIENCE_YEAR10, "A two-lesson Year 10 classroom pathway. The route and shell exist; add subject-specific pedagogy when ready."),
-        (EXPERIENCE_PLAYGROUND, "An open exploration space kept deliberately separate from the guided CURIOUS sequence."),
+        (
+            EXPERIENCE_CURIOUS,
+            "A guided, facilitator-led workshop that introduces the dataset slowly through a small number of purposeful questions.",
+        ),
+        (
+            EXPERIENCE_YEAR8,
+            "A scaffolded two-lesson classroom pathway for building confidence with data, variables, graphs and interpretation.",
+        ),
+        (
+            EXPERIENCE_YEAR10,
+            "A deeper two-lesson classroom pathway with more independent analysis and dataset-appropriate modelling or comparison.",
+        ),
+        (
+            EXPERIENCE_PLAYGROUND,
+            "Open exploration of one, two and three variables, with dataset-specific tools such as filtering or fitting where appropriate.",
+        ),
     ]

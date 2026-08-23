@@ -1,13 +1,25 @@
-# Data Experiences Streamlit Starter
+# Data Experiences Streamlit Starter v4
 
-A neutral, deployable Streamlit starter for educational data experiences. It keeps the application architecture and visual/navigation pattern separate from any one scientific topic or dataset.
+A deployable, dataset-neutral Streamlit master scaffold for CURIOUS-style educational data-science resources.
 
-## Included experiences
+## Stable core experiences
 
-- **CURIOUS** — guided facilitator-led sequence with neutral step placeholders.
-- **Year 8** — routed two-lesson classroom shell, intentionally not designed yet.
-- **Year 10** — routed two-lesson classroom shell, intentionally not designed yet.
-- **Data Playground** — open-ended exploration kept architecturally separate from CURIOUS.
+- **CURIOUS** — guided facilitator-led workshop.
+- **Year 8** — scaffolded two-lesson classroom pathway.
+- **Year 10** — deeper two-lesson classroom pathway.
+- **Data Exploration Playground** — open exploration using a stable one-variable / two-variable / three-variable structure.
+
+## What v4 stabilises
+
+- A **dataset-first introduction page** above the experience catalogue.
+- Dataset name, scope and provenance visible on both Home and the global sidebar.
+- Raw-data viewing and CSV download remain globally accessible.
+- Teacher view stays at the top-right of guided/classroom experiences.
+- The Data Exploration Playground uses **1 / 2 / 3 variables** as its stable conceptual structure.
+- Dataset-specific tools such as filtering, modelling or fitting can be added without changing the master experience architecture.
+- Development should proceed **one experience at a time**.
+
+See `ARCHITECTURE.md` for the design contract.
 
 ## Run locally
 
@@ -16,47 +28,40 @@ python -m pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Put it on GitHub and Streamlit Community Cloud
+## Deploy with GitHub + Streamlit Community Cloud
 
-1. Create a new empty GitHub repository.
-2. Upload or push the contents of this folder to the repository root.
-3. In Streamlit Community Cloud, create a new app from that repository.
-4. Choose the branch containing these files.
-5. Set the main file path to `app.py`.
-6. Deploy.
+1. Create a GitHub repository and put the contents of this folder at the repository root.
+2. Create a Streamlit Community Cloud app from that repository.
+3. Set the main file path to `app.py`.
+4. Deploy.
 
 No secrets are required for the bundled sample dataset.
 
-## Adapt it to a new dataset
+## Adapt to a scientific dataset
 
-1. Replace `data/sample_data.csv` with your dataset (or update `DEFAULT_DATA_PATH` in `data.py`).
-2. Update names and short branding text in `config.py`.
-3. Build the guided workshop in `experiences/curious.py`.
-4. Put reusable plots/analysis in `charts.py`, not in the experience module.
-5. Develop `experiences/year8.py` and `experiences/year10.py` when their pedagogy is ready.
-6. Keep general multivariate / parallel-coordinate exploration in `experiences/data_playground.py`.
+1. Replace `data/sample_data.csv` (or update the path/loading logic in `data.py`).
+2. Update the dataset identity, scope, source and citation fields in `config.py`.
+3. Design the CURIOUS pedagogy before changing `experiences/curious.py`.
+4. Keep reusable data preparation in `data.py` and reusable plots in `charts.py`.
+5. Add `models.py` if the topic has substantial fitting/modelling logic.
+6. Develop Year 8 and Year 10 independently when their pedagogy is ready.
+7. Keep the Data Exploration Playground structurally stable and add only scientifically justified dataset-specific tools.
 
 ## Architecture
 
 ```text
 app.py                      application shell
-config.py                   names and small project configuration
+config.py                   dataset identity + small project configuration
 data.py                     loading and shared data helpers
 charts.py                   plotting / analysis logic
 ui_helpers.py               reusable teaching UI
+ARCHITECTURE.md             master design contract
 experiences/
-  landing.py                experience catalogue
+  landing.py                dataset-first introduction + experience catalogue
   router.py                 routing and navigation state
   curious.py                guided CURIOUS lesson
   classroom_shell.py        common two-lesson shell
   year8.py                  Year 8 route
   year10.py                 Year 10 route
-  data_playground.py        open-ended exploration
+  data_playground.py        Data Exploration Playground
 ```
-
-The intended workflow is to keep this starter stable, then fork/copy it for a topic-specific project and replace the neutral data and content.
-
-
-## Dataset metadata
-
-The sidebar includes a shared dataset section with a raw-data viewer, CSV download, and provenance information. Update `DATASET_NAME`, `DATASET_SOURCE_LABEL`, `DATASET_SOURCE_URL`, and `DATASET_SOURCE_NOTE` in `config.py` whenever you adapt the starter to a new dataset.

@@ -7,6 +7,7 @@ import streamlit as st
 from config import (
     APP_ICON,
     APP_TITLE,
+    DATASET_CITATION,
     DATASET_NAME,
     DATASET_SOURCE_LABEL,
     DATASET_SOURCE_NOTE,
@@ -47,6 +48,8 @@ with st.sidebar:
         st.markdown(f"[{DATASET_SOURCE_LABEL}]({DATASET_SOURCE_URL})")
     else:
         st.write(DATASET_SOURCE_LABEL)
+    if DATASET_CITATION:
+        st.caption(DATASET_CITATION)
     if DATASET_SOURCE_NOTE:
         st.caption(DATASET_SOURCE_NOTE)
 
