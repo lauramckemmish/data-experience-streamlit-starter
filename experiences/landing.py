@@ -41,14 +41,15 @@ def render(data: pd.DataFrame, open_experience) -> None:
     st.markdown("## Choose an experience")
     st.write("Start with the experience that matches how you are using the dataset today.")
 
-    experiences = experience_catalog()
+    experiences = experience_catalog(enabled_only=True)
     for index in range(0, len(experiences), 2):
         columns = st.columns(2)
-        for column, (name, summary) in zip(columns, experiences[index:index + 2]):
+        for column, experience in zip(columns, experiences[index:index + 2]):
+            name = experience["name"]
             with column:
                 with st.container(border=True):
                     st.markdown(f"### {name}")
-                    st.write(summary)
+                    st.write(experience["summary"])
                     st.button(
                         "Open experience →",
                         key=f"open_{name}",
