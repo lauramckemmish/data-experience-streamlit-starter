@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import streamlit as st
 
+import config
 from config import (
     APP_ICON,
     APP_TITLE,
-    DATASET_CITATION,
     DATASET_NAME,
     DATASET_SOURCE_LABEL,
     DATASET_SOURCE_NOTE,
@@ -19,6 +19,8 @@ from config import (
 )
 from data import load_data
 from experiences import curious, data_playground, landing, router, year10, year8
+
+DATASET_CITATION = getattr(config, "DATASET_CITATION", None)
 
 st.set_page_config(page_title=APP_TITLE, page_icon=APP_ICON, layout="wide")
 

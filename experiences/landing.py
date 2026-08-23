@@ -5,10 +5,10 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
+import config
 from config import (
     APP_SUBTITLE,
     APP_TITLE,
-    DATASET_CITATION,
     DATASET_NAME,
     DATASET_SCOPE_NOTE,
     DATASET_SHORT_DESCRIPTION,
@@ -16,6 +16,8 @@ from config import (
     DATASET_SOURCE_URL,
 )
 from experiences.catalog import experience_catalog
+
+DATASET_CITATION = getattr(config, "DATASET_CITATION", None)
 
 
 def render(data: pd.DataFrame, open_experience) -> None:
