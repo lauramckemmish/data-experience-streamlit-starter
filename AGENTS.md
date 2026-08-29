@@ -10,17 +10,22 @@ For learner-facing, visual, or interactive work, develop and review locally befo
 
 **inspect → bounded change → run locally → visually inspect → iterate → inspect diff → commit when coherent**
 
-Run the app with:
+1. Start the app locally with:
 
 ```bash
 python -m streamlit run app.py
 ```
 
-Keep the Streamlit server running during visual iteration when practical. Review the result at the local Streamlit URL, typically `http://localhost:8501`; public deployment is not required for routine development or visual review.
+2. Keep the Streamlit server running during iteration where practical.
+3. Open the localhost URL reported by the running Streamlit process in the Codex in-app browser so the app can be inspected without leaving Codex. The port may vary; use the reported URL rather than assuming a fixed port.
+4. Reuse that browser tab during subsequent iterations where practical.
+5. Let Streamlit auto-reload after edits when possible.
+6. Do not open Chrome or another external browser unless explicitly requested or the in-app browser cannot perform the required check.
+7. Do not deploy publicly merely for visual inspection.
 
 ## Git Checkpoints
 
-Git is the safety net and history, not a required step after every micro-edit. Make multiple local iterations when they belong to the same coherent change, then commit at a useful, inspectable checkpoint. Push when that checkpoint is worth preserving remotely or sharing. Do not commit or push merely to make visual inspection possible. Keep commits bounded enough to remain understandable and reversible, and always inspect the diff before committing.
+Git is the safety net and history, not a required step after every micro-edit or visual iteration. Make multiple local iterations when they belong to the same coherent change, then commit at a useful, inspectable checkpoint. Push when that checkpoint is worth preserving remotely or sharing. Do not commit or push merely to make visual inspection possible. Keep commits bounded enough to remain understandable and reversible, and always inspect the diff before committing.
 
 ## Build and Run Commands
 
@@ -49,7 +54,7 @@ Do not require broad regression testing after every small local iteration.
 
 ## Deployment Verification
 
-Local preview verifies the learning experience and interface. When a resource is intended for public or classroom deployment, do a separate deployment check at an appropriate checkpoint to catch environment, dependency, path, or hosting differences. Do not confuse routine visual verification with deployment verification.
+Local preview in the Codex in-app browser verifies the learning experience and interface. Public deployment is a separate verification step only when a resource is intended for public or classroom deployment; do it at an appropriate checkpoint to catch environment, dependency, path, or hosting differences. Do not confuse routine visual verification with deployment verification.
 
 ## Commit & Pull Request Guidelines
 
