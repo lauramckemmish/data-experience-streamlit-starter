@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from config import EXPERIENCE_CURIOUS
+from config import EXPERIENCE_CURIOUS, EXPERIENCE_PLAYGROUND
 from experiences.catalog import enabled_experience_names
 
 LANDING = "Home"
@@ -57,11 +57,18 @@ def render_sidebar_navigation() -> None:
     elif st.session_state.get("experience_navigation") != current:
         st.session_state["experience_navigation"] = current
 
-    st.markdown("### Experiences")
-    st.radio(
-        "Choose an experience",
-        options,
-        key="experience_navigation",
-        label_visibility="collapsed",
-        on_change=_sync_navigation,
-    )
+    st.button("🏠 Start here", type="primary" if current == LANDING else "secondary",
+              use_container_width=True, disabled=current == LANDING,
+              on_click=go_home)
+    st.markdown("#### Experiences")
+    experience_names = [name for name in options[1:] if name != EXPERIENCE_PLAYGROUND]
+    for name in experience_names:
+        selected = name == current
+        st.button(name, type="primary" if selected else "secondary",
+                  use_container_width=True, disabled=selected,
+                  on_click=open_experience, args=(name,))
+    st.markdown("#### Explore")
+    selected = EXPERIENCE_PLAYGROUND == current
+    st.button(EXPERIENCE_PLAYGROUND, type="primary" if selected else "secondary",
+              use_container_width=True, disabled=selected,
+              on_click=open_experience, args=(EXPERIENCE_PLAYGROUND,))

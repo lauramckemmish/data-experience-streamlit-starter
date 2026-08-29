@@ -22,6 +22,28 @@ A topic-specific project may add an extra experience only when the dataset genui
 - **Top-right of guided/classroom pages:** Teacher view.
 - **Main experience page:** only the teaching or exploration content relevant to that experience.
 
+### Shared content roles
+
+The shell depends on a small semantic contract in `config.py`: `SHORT_NAME` is
+the compact sidebar identity, `DESCRIPTIVE_NAME` is the formal About identity,
+`HERO_HOOK` is the learner-facing landing hook, and `RESOURCE_DESCRIPTION`
+explains the resource in its trust/context section. Dataset/source status and
+landing orientation remain operational/context roles; stewardship and
+positionality express accountability; contributors, development, feedback and
+support express provenance and intellectual context. These roles explain
+placement, not fixed wording or appearance, so derived resources can retain
+their own science, pedagogy and visual character.
+
+This repository is currently a UNSW/CURIOUS work product, not an
+institution-neutral public starter. A derived resource inherits the technical
+shell, semantic design contract, reusable components and authoring guidance,
+but does not inherit UNSW branding permission, scientific or educational
+approval, stewardship, provenance, contributor attribution, partnerships,
+funding, support claims, local pedagogy or scientific framing. Those must be
+established for each resource. A separate institution-neutral derivative may be
+considered only after real-resource testing demonstrates a need for it; that
+future translation is out of scope here.
+
 ## Code ownership
 
 - `data.py` — loading, cleaning, variable metadata, filtering helpers and preparation of usable rows.

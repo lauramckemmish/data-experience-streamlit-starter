@@ -67,3 +67,25 @@ experiences/
   year10.py                 Year 10 route
   data_playground.py        Data Exploration Playground
 ```
+
+When adapting the starter, replace the resource-owned hero, dataset orientation,
+About text, stewardship and relevant positionality, contributors, development
+status, feedback, review, support and partnership content. Stewardship is
+split between UNSW identity/permission stewardship and local scientific or
+educational responsibility; neither is automatically inherited. Keep
+“Choose an investigation” for structured guided experiences and “Explore the
+data” for open-ended exploration. Use the established contribution vocabulary
+and credit distinctive perspectives that materially shaped the resource; see
+[`playbook/decisions/contributor-credit.md`](playbook/decisions/contributor-credit.md).
+
+The Starter is a worked authoring reference, not an empty scaffold. Its
+rendered landing page demonstrates the decisions a future author needs to make;
+replace the guidance with verified scientific, pedagogical and provenance
+content for the derived resource.
+
+The content contract in `config.py` separates `SHORT_NAME` (compact shell
+identity), `DESCRIPTIVE_NAME` (formal About identity), `HERO_HOOK` (learner-facing
+main idea), and `RESOURCE_DESCRIPTION` (what the resource is). Keep dataset
+status, landing orientation, stewardship/positionality, contributor
+perspectives, and development/feedback as separate roles because they serve
+different jobs; their exact wording and visual character remain resource-owned.

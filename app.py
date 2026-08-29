@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 import streamlit as st
 
 import config
 from config import (
     APP_ICON,
-    APP_TITLE,
+    SHORT_NAME,
     DATASET_NAME,
     DATASET_SOURCE_LABEL,
     DATASET_SOURCE_NOTE,
@@ -19,41 +20,22 @@ from config import (
 )
 from data import load_data
 from experiences import curious, data_playground, landing, router, year10, year8
+from visual_system import apply_visual_system, sidebar_data_source, sidebar_identity
 
 DATASET_CITATION = getattr(config, "DATASET_CITATION", None)
 
-st.set_page_config(page_title=APP_TITLE, page_icon=APP_ICON, layout="wide")
+st.set_page_config(page_title=SHORT_NAME, page_icon=APP_ICON, layout="wide")
+apply_visual_system()
 
 data = load_data()
 current = router.current_experience()
 
+UNSW_LOGO_PATH = Path(__file__).resolve().parent / "assets" / "unsw-sydney-logo-landscape.png"
+
 with st.sidebar:
-    st.markdown(f"## {APP_ICON} {APP_TITLE}")
+    sidebar_identity(SHORT_NAME, UNSW_LOGO_PATH)
+    sidebar_data_source(len(data), len(data.columns), DATASET_SOURCE_LABEL)
     router.render_sidebar_navigation()
-
-    st.divider()
-    st.markdown("### Dataset")
-    st.caption(f"**{DATASET_NAME}** · {len(data):,} rows × {len(data.columns)} columns")
-
-    with st.expander("View raw data"):
-        st.dataframe(data, use_container_width=True, height=320)
-        st.download_button(
-            "Download CSV",
-            data=data.to_csv(index=False).encode("utf-8"),
-            file_name="dataset.csv",
-            mime="text/csv",
-            use_container_width=True,
-        )
-
-    st.markdown("**Source**")
-    if DATASET_SOURCE_URL:
-        st.markdown(f"[{DATASET_SOURCE_LABEL}]({DATASET_SOURCE_URL})")
-    else:
-        st.write(DATASET_SOURCE_LABEL)
-    if DATASET_CITATION:
-        st.caption(DATASET_CITATION)
-    if DATASET_SOURCE_NOTE:
-        st.caption(DATASET_SOURCE_NOTE)
 
 if current == router.LANDING:
     landing.render(data, router.open_experience)

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Data Experiences demonstration visual</title>
+  <desc id="desc">An abstract, neutral visual representing a small dataset and three questions.</desc>
+  <rect width="640" height="420" rx="18" fill="#f4f1e8"/>
+  <path d="M80 330H560M80 330V75" fill="none" stroke="#111827" stroke-width="5"/>
+  <path d="M120 278C180 230 190 285 245 190S330 210 370 145s80 10 145-65" fill="none" stroke="#3F61C4" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="175" cy="238" r="14" fill="#FFDC00"/><circle cx="300" cy="202" r="14" fill="#007882"/><circle cx="420" cy="118" r="14" fill="#8A68C8"/>
+  <text x="82" y="58" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#111827">A small dataset</text>
+</svg>

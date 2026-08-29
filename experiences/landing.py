@@ -4,46 +4,34 @@ from __future__ import annotations
 
 import pandas as pd
 import streamlit as st
+from pathlib import Path
 
 import config
 from config import (
-    APP_SUBTITLE,
-    APP_TITLE,
-    DATASET_NAME,
-    DATASET_SCOPE_NOTE,
-    DATASET_SHORT_DESCRIPTION,
-    DATASET_SOURCE_LABEL,
-    DATASET_SOURCE_URL,
+    HERO_HOOK,
+    LANDING_ORIENTATION,
+    SHORT_NAME,
+    EXPERIENCE_PLAYGROUND,
 )
 from experiences.catalog import experience_catalog
-
-DATASET_CITATION = getattr(config, "DATASET_CITATION", None)
-
+from visual_system import render_resource_context
 
 def render(data: pd.DataFrame, open_experience) -> None:
-    st.title(APP_TITLE)
-    st.markdown(f"### {APP_SUBTITLE}")
+    hero_text, hero_visual = st.columns([3, 2], gap="large")
+    with hero_text:
+        st.title(HERO_HOOK)
+        st.markdown(f"### {SHORT_NAME}")
+        st.caption("Use the short name for persistent navigation; use the hook for the learner-facing idea or question.")
+        st.write("This starter shows how an interactive data-science resource can introduce a scientific dataset, guide learners through structured investigations, and provide space for more open exploration.")
+        st.write(LANDING_ORIENTATION)
+        st.caption("Orientation should give enough scientific or data context to begin, without becoming full provenance documentation.")
+    with hero_visual:
+        st.image(Path(__file__).resolve().parent.parent / "assets" / "starter-hero.svg", caption="Replace with a contextual image for your resource.", width="stretch")
 
-    with st.container(border=True):
-        st.markdown(f"## {DATASET_NAME}")
-        st.write(DATASET_SHORT_DESCRIPTION)
-        st.caption(f"{len(data):,} rows × {len(data.columns)} columns in this app")
-        st.info(f"**About this dataset:** {DATASET_SCOPE_NOTE}")
+    st.markdown("## Choose an investigation")
+    st.write("Follow a guided investigation designed for a classroom or workshop.")
 
-        source_bits = []
-        if DATASET_SOURCE_URL:
-            source_bits.append(f"[{DATASET_SOURCE_LABEL}]({DATASET_SOURCE_URL})")
-        elif DATASET_SOURCE_LABEL:
-            source_bits.append(DATASET_SOURCE_LABEL)
-        if DATASET_CITATION:
-            source_bits.append(DATASET_CITATION)
-        if source_bits:
-            st.markdown("**Source:** " + " · ".join(source_bits))
-
-    st.markdown("## Choose an experience")
-    st.write("Start with the experience that matches how you are using the dataset today.")
-
-    experiences = experience_catalog(enabled_only=True)
+    experiences = [item for item in experience_catalog(enabled_only=True) if item["name"] != EXPERIENCE_PLAYGROUND]
     for index in range(0, len(experiences), 2):
         columns = st.columns(2)
         for column, experience in zip(columns, experiences[index:index + 2]):
@@ -55,16 +43,17 @@ def render(data: pd.DataFrame, open_experience) -> None:
                     st.button(
                         "Open experience →",
                         key=f"open_{name}",
-                        use_container_width=True,
+                        width="stretch",
                         on_click=open_experience,
                         args=(name,),
                     )
 
-    with st.expander("About the data"):
-        st.write(DATASET_SCOPE_NOTE)
-        if DATASET_SOURCE_URL:
-            st.markdown(f"**Dataset source:** [{DATASET_SOURCE_LABEL}]({DATASET_SOURCE_URL})")
-        elif DATASET_SOURCE_LABEL:
-            st.markdown(f"**Dataset source:** {DATASET_SOURCE_LABEL}")
-        if DATASET_CITATION:
-            st.markdown(f"**Citation:** {DATASET_CITATION}")
+    st.markdown("## Explore the data")
+    st.write("Follow a question or dataset that interests you.")
+    playground = next(item for item in experience_catalog(enabled_only=True) if item["name"] == EXPERIENCE_PLAYGROUND)
+    with st.container(border=True):
+        st.markdown(f"### {playground['name']}")
+        st.write(playground["summary"])
+        st.button("Open exploration →", key="open_playground", width="stretch", on_click=open_experience, args=(EXPERIENCE_PLAYGROUND,))
+
+    render_resource_context(getattr(config, "RESOURCE_ABOUT", {}), logo_path=Path(__file__).resolve().parent.parent / "assets" / "unsw-sydney-logo-portrait.png")
