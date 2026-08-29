@@ -1,0 +1,116 @@
+"""Focused tests for the shared interaction and progression contracts."""
+
+import unittest
+from unittest.mock import patch
+
+import ui_helpers
+
+
+class _Context:
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        return False
+
+
+class _StreamlitStub:
+    def __init__(self):
+        self.session_state = {}
+        self.buttons = []
+        self.expanders = []
+
+    def columns(self, *_args, **_kwargs):
+        return [_Context(), _Context(), _Context()]
+
+    def container(self, **_kwargs):
+        return _Context()
+
+    def expander(self, label, **_kwargs):
+        self.expanders.append(label)
+        return _Context()
+
+    def button(self, label, **kwargs):
+        self.buttons.append(label)
+        return False
+
+    def info(self, *_args, **_kwargs):
+        pass
+
+    def success(self, *_args, **_kwargs):
+        pass
+
+    def write(self, *_args, **_kwargs):
+        pass
+
+    def markdown(self, *_args, **_kwargs):
+        pass
+
+    def caption(self, *_args, **_kwargs):
+        pass
+
+    def text_area(self, _label, *, key, **_kwargs):
+        return self.session_state.setdefault(key, "")
+
+
+class SharedInteractionTests(unittest.TestCase):
+    def navigation(self, stub, step=0):
+        ui_helpers.step_buttons(["One", "Two"], "tab", "step", "scroll", step, "test")
+        return stub.buttons
+
+    def test_hard_reveal_persists_and_exposes_downstream_state(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            self.assertFalse(ui_helpers.hard_reveal("Predict", "evidence", reveal_label="Reveal"))
+            self.assertNotIn("Continue →", self.navigation(stub))
+            stub.session_state["evidence"] = True
+            self.assertTrue(ui_helpers.hard_reveal("Predict", "evidence", reveal_label="Reveal"))
+            self.assertTrue(ui_helpers.hard_reveal("Predict", "evidence", reveal_label="Reveal"))
+
+    def test_multiple_gates_require_all_requirements(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.completion_gate(False)
+            ui_helpers.completion_gate(False)
+            self.assertNotIn("Continue →", self.navigation(stub))
+            stub.buttons.clear()
+            ui_helpers.completion_gate(True)
+            ui_helpers.completion_gate(False)
+            self.assertNotIn("Continue →", self.navigation(stub))
+            stub.buttons.clear()
+            ui_helpers.completion_gate(True)
+            ui_helpers.completion_gate(True)
+            self.assertIn("Continue →", self.navigation(stub))
+
+    def test_back_remains_available_when_continue_is_blocked(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.completion_gate(False)
+            buttons = self.navigation(stub, step=1)
+            self.assertIn("← Back", buttons)
+            self.assertNotIn("Continue →", buttons)
+
+    def test_gate_is_transient_between_stage_renders(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.completion_gate(False)
+            self.assertNotIn("Continue →", self.navigation(stub))
+            stub.buttons.clear()
+            self.assertIn("Continue →", self.navigation(stub, step=0))
+
+    def test_response_persists_and_teacher_guidance_is_visibility_only(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            self.assertEqual(ui_helpers.response_box("Respond", "stage_response"), "")
+            stub.session_state["stage_response"] = "An observation"
+            self.assertEqual(ui_helpers.response_box("Respond", "stage_response"), "An observation")
+            ui_helpers.teacher_guidance("Stage", "Listen for evidence")
+            self.assertEqual(stub.expanders, [])
+            stub.session_state["teacher_view"] = True
+            ui_helpers.teacher_guidance("Stage", "Listen for evidence")
+            self.assertEqual(stub.expanders, ["Teacher guidance: Stage"])
+            self.assertEqual(stub.session_state["stage_response"], "An observation")
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -52,6 +52,21 @@ future translation is out of scope here.
 - `ui_helpers.py` — reusable interface components.
 - `experiences/*.py` — Streamlit controls, learning sequence and interface for one experience only.
 
+## Shared authoring boundary
+
+The shared layer owns semantic interaction machinery, reusable state and
+progression behaviour, canonical visual treatment, generic data-literacy
+presentation, and Teacher-view visibility. Experience modules own the
+scientific question, learner wording, sequence, explanations, facilitation
+advice, and dataset-specific interpretation. The data layer owns calculations,
+filtering, usable-row counts, missing-data logic, and transformations.
+
+Shared semantic meaning should have shared visual meaning, while native
+Streamlit primitives remain preferred where they already work well. Visual
+hierarchy should keep optional, data-literacy, and teacher support quieter than
+the main learner evidence and tasks. Yellow is institutional/brand emphasis,
+not generic interaction decoration.
+
 ## Data-science progression
 
 The reusable toolkit may include:

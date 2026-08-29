@@ -9,7 +9,19 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from ui_helpers import page_header, placeholder_callout, scroll_to_top_if_requested, step_buttons, step_tabs, teacher_note
+from ui_helpers import (
+    completion_gate,
+    hard_reveal,
+    page_header,
+    placeholder_callout,
+    response_box,
+    scroll_to_top_if_requested,
+    soft_reveal,
+    step_buttons,
+    step_tabs,
+    teacher_guidance,
+    think_prompt,
+)
 
 STEP_LABELS = [
     "Welcome",
@@ -33,19 +45,33 @@ def render(data: pd.DataFrame) -> None:
         st.session_state["curious_scroll_to_top"] = True
     scroll_to_top_if_requested("curious_scroll_to_top")
 
-    teacher_note(
+    teacher_guidance(
         STEP_LABELS[part],
-        "Replace this with the learning intention for the step.",
-        "Replace this with concise facilitator guidance.",
+        "Let learners make a quick prediction before revealing evidence. Listen for a specific observation or question, then let them compare it with what the data show.",
     )
 
     st.header(STEP_LABELS[part])
     if part == 0:
         st.write("Introduce the topic, the investigation question and why this dataset is interesting.")
         placeholder_callout("Today's challenge", "Replace this with the central question for the guided experience.")
+        think_prompt("What would you like to find out?")
     elif part == 1:
         st.write("Establish the real-world or scientific context students need before seeing the data.")
-        placeholder_callout("Add here", "A hook, image, demonstration, prediction or short discussion.")
+        evidence_revealed = hard_reveal(
+            "Predict first, then check the evidence.",
+            "curious_context_evidence",
+            reveal_label="Reveal the evidence",
+            revealed_content="Now compare your prediction with the dataset.",
+        )
+        if evidence_revealed:
+            response = response_box(
+                "Record one observation or question.",
+                "curious_context_response",
+                sentence_starters="I notice… / I wonder…",
+            )
+            completion_gate(bool(response.strip()))
+            with soft_reveal("What makes an observation useful"):
+                st.write("Make it specific enough that someone else could find it too.")
     elif part == 2:
         st.write("Help students understand what one row represents and what the important variables mean.")
         st.dataframe(data.head(6), use_container_width=True, hide_index=True)

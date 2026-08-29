@@ -9,14 +9,16 @@ from __future__ import annotations
 
 import pandas as pd
 import streamlit as st
+import config
 
 from charts import histogram, scatter
-from data import column_profile
-from ui_helpers import page_header
+from data import column_profile, field_profile, usable_sample
+from ui_helpers import graph_support, page_header, sample_note, variable_card
 
 
 def render(data: pd.DataFrame) -> None:
     page_header("Data Exploration Playground", teacher_control=False)
+    st.warning(config.DATASET_SOURCE_NOTE)
     st.write(
         "Explore the dataset by changing how many variables you are looking at. "
         "Use dataset-specific filters or modelling tools only when they help answer a scientific question."
@@ -39,6 +41,14 @@ def render(data: pd.DataFrame) -> None:
 
     if mode == "1 variable":
         field = st.selectbox("Variable", numeric)
+        details = field_profile(data, field)
+        variable_card(
+            field,
+            f"A numeric field in this example dataset. Use its values to compare records and look for spread or unusual values.",
+            scale_note=f"{details['missing']:,} of {len(data):,} records have no value for this field.",
+        )
+        complete, _ = usable_sample(data, [field])
+        sample_note(complete, len(data), label="records")
         st.plotly_chart(histogram(data, field), use_container_width=True)
         st.caption("Look at the distribution, spread, unusual values and missing data for one variable.")
 
@@ -48,8 +58,13 @@ def render(data: pd.DataFrame) -> None:
             return
         x = st.selectbox("Horizontal axis", numeric, index=0)
         y = st.selectbox("Vertical axis", numeric, index=1)
+        complete, _ = usable_sample(data, [x, y])
+        sample_note(complete, len(data), label="records")
         st.plotly_chart(scatter(data, x, y), use_container_width=True)
-        st.caption("Look for a relationship, clusters, outliers and places where data are missing.")
+        graph_support(
+            f"The horizontal axis shows {x}; the vertical axis shows {y}.",
+            "Look for a relationship, clusters, outliers and places where data are missing.",
+        )
         with st.expander("Dataset-specific analysis tools"):
             st.write(
                 "A topic-specific app may add constrained filters, fitted models, scale controls or other tools here. "

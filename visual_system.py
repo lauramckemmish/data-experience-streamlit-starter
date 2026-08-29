@@ -22,6 +22,8 @@ def apply_visual_system() -> None:
     [data-testid="stSidebar"] {{ border-right:1px solid rgba(255,220,0,.35); }}
     [data-testid="stSidebar"] .st-key-sidebar_brand {{ background:var(--unsw-brand); color:#000; padding:.65rem .7rem .6rem; margin:-.15rem -.35rem .6rem; border-radius:0 0 .3rem .3rem; }}
     [data-testid="stSidebar"] .st-key-sidebar_brand h3 {{ color:#000 !important; }}
+    [data-testid="stSidebar"] .st-key-sidebar_brand .unsw-logo-plate {{ background:transparent !important; padding:0 !important; max-width:125px; }}
+    [data-testid="stSidebar"] .st-key-sidebar_brand .unsw-logo-plate img {{ display:block; width:125px; max-width:100%; height:auto; }}
     [data-testid="stSidebar"] .st-key-sidebar_data_source {{ background:#111827; color:#fff; border:1px solid rgba(255,255,255,.18); border-radius:.3rem; padding:.55rem .65rem .5rem; margin:0 0 .55rem; }}
     [data-testid="stSidebar"] .st-key-sidebar_data_source [data-testid="stVerticalBlock"] {{ gap:.12rem; }}
     [data-testid="stSidebar"] .st-key-sidebar_data_source p, [data-testid="stSidebar"] .st-key-sidebar_data_source [data-testid="stCaptionContainer"] {{ color:#fff !important; }}
@@ -30,6 +32,14 @@ def apply_visual_system() -> None:
     [data-testid="stButton"] > button:focus-visible, [data-testid="stTabs"] [role="tab"]:focus-visible {{ outline:3px solid currentColor; outline-offset:2px; box-shadow:0 0 0 5px var(--unsw-brand); }}
     [data-testid="stAlert"] {{ border-left:3px solid var(--unsw-information); background:rgba(63,97,196,.08); }}
     [data-testid="stExpander"] {{ border-left:3px solid var(--unsw-exploration); }}
+    .st-key-graph_reading_support {{ border-left:2px solid var(--unsw-secondary-accent, #007882); background:rgba(0,120,130,.06); padding:.45rem .65rem; margin:.35rem 0 .55rem; }}
+    .st-key-graph_reading_support p {{ margin-bottom:.2rem; }}
+    .st-key-variable_card {{ border-left:2px solid var(--unsw-secondary-accent, #007882); }}
+    .st-key-sample_note {{ margin:.15rem 0; }}
+    .st-key-response_box {{ border-left:2px solid var(--unsw-secondary-accent, #007882); padding-left:.65rem; }}
+    .st-key-teacher_guidance {{ opacity:.86; }}
+    [data-testid="stButton"] > button[kind="primary"] {{ background:transparent; border:2px solid var(--unsw-active-emphasis); color:inherit; font-weight:650; }}
+    [data-testid="stButton"] > button[kind="primary"]:hover {{ background:rgba(255,220,0,.10); border-color:var(--unsw-active-emphasis); color:inherit; }}
     .type-major-section {{ font-size:clamp(1.35rem, 2.2vw, 1.65rem); line-height:1.2; }}
     .type-subsection {{ font-size:1.25rem; line-height:1.25; }}
     .type-resource-identity {{ font-size:clamp(1rem, 1.5vw, 1.2rem); line-height:1.25; }}

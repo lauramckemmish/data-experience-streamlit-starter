@@ -35,11 +35,11 @@ streamlit run app.py
 3. Set the main file path to `app.py`.
 4. Deploy.
 
-No secrets are required for the bundled sample dataset.
+No secrets are required for the bundled demo dataset.
 
 ## Adapt to a scientific dataset
 
-1. Replace `data/sample_data.csv` (or update the path/loading logic in `data.py`).
+1. Replace `data/taylor_swift_demo_dataset.csv` (or update the path/loading logic in `data.py`).
 2. Update the dataset identity, scope, source and citation fields in `config.py`.
 3. Design the CURIOUS pedagogy before changing `experiences/curious.py`.
 4. Keep reusable data preparation in `data.py` and reusable plots in `charts.py`.
@@ -82,6 +82,25 @@ The Starter is a worked authoring reference, not an empty scaffold. Its
 rendered landing page demonstrates the decisions a future author needs to make;
 replace the guidance with verified scientific, pedagogical and provenance
 content for the derived resource.
+
+### Shared pattern map
+
+Use these worked examples when authoring a new experience. Shared structure and
+presentation live in `ui_helpers.py`; data counts and field profiles live in
+`data.py`; wording and sequence remain in the experience module.
+
+| Pattern | Purpose and important distinction | Worked example |
+| --- | --- | --- |
+| Think prompt | Non-blocking cue for prediction, noticing or reasoning. | `experiences/curious.py`, CURIOUS → Welcome |
+| Hard reveal | Withholds meaningful downstream evidence; render that content only when the helper returns `True`. | `experiences/curious.py`, CURIOUS → 1 · Context |
+| Learner response | Persistent writable response, but not a gate by itself. | `experiences/curious.py`, CURIOUS → 1 · Context |
+| Completion gate | Controls progression separately from reveal semantics. | `experiences/curious.py`, CURIOUS → 1 · Context |
+| Soft reveal | Optional, non-blocking supporting content. | `experiences/curious.py`, CURIOUS → 1 · Context |
+| Choice reveal | Optional learner-selected exploration; no natural Starter exemplar yet. | Shared helper only: `ui_helpers.py` |
+| Graph support | Quiet guidance placed beside a real graph-reading task. | `experiences/data_playground.py`, 2 variables |
+| Variable card | Explains a selected field’s meaning, units or interpretation. | `experiences/data_playground.py`, 1 variable |
+| Sample note | Reports usable rows for the displayed analysis; calculations stay in the data layer. | `experiences/data_playground.py`, 1 and 2 variables |
+| Teacher guidance | Shared visibility/presentation; the experience owns the facilitator content. | `experiences/curious.py`, CURIOUS → 1 · Context |
 
 The content contract in `config.py` separates `SHORT_NAME` (compact shell
 identity), `DESCRIPTIVE_NAME` (formal About identity), `HERO_HOOK` (learner-facing

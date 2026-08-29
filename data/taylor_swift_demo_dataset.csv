@@ -1,0 +1,68 @@
+song_title,album,release_year,title_words,title_characters,demo_duration_min,demo_energy_score,demo_danceability_score,demo_streams_millions,demo_mood,data_note
+Tim McGraw,Taylor Swift,2006,2,10,3.04,0.91,0.36,431.1,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+Picture to Burn,Taylor Swift,2006,3,15,4.94,0.65,0.36,59.8,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+Teardrops on My Guitar,Taylor Swift,2006,4,22,2.99,0.79,0.68,457.8,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+A Place in This World,Taylor Swift,2006,5,21,4.52,0.74,0.51,67.6,defiant,DEMO/SYNTHETIC metrics — not real song analytics
+Cold as You,Taylor Swift,2006,3,11,2.77,0.85,0.29,46.7,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+The Outside,Taylor Swift,2006,2,11,3.82,0.55,0.81,334.9,dramatic,DEMO/SYNTHETIC metrics — not real song analytics
+Should've Said No,Taylor Swift,2006,3,17,5.11,0.62,0.65,202.0,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+Our Song,Taylor Swift,2006,2,8,4.03,0.41,0.55,35.2,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+Fearless,Fearless,2008,1,8,4.78,0.35,0.34,202.5,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+Fifteen,Fearless,2008,1,7,3.23,0.94,0.9,131.4,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+Love Story,Fearless,2008,2,10,4.43,0.77,0.56,202.9,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+Hey Stephen,Fearless,2008,2,11,4.01,0.29,0.85,150.3,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+White Horse,Fearless,2008,2,11,4.26,0.57,0.87,216.2,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+You Belong with Me,Fearless,2008,4,18,4.1,0.73,0.83,,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+Breathe,Fearless,2008,1,7,2.93,0.71,0.28,676.4,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+The Way I Loved You,Fearless,2008,5,19,4.79,0.6,0.29,127.7,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+Mine,Speak Now,2010,1,4,4.28,0.88,0.7,62.5,dramatic,DEMO/SYNTHETIC metrics — not real song analytics
+Sparks Fly,Speak Now,2010,2,10,5.37,0.68,0.66,170.8,dramatic,DEMO/SYNTHETIC metrics — not real song analytics
+Back to December,Speak Now,2010,3,16,3.91,0.3,0.83,206.2,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+Speak Now,Speak Now,2010,2,9,4.87,0.41,0.4,180.1,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+Dear John,Speak Now,2010,2,9,3.66,,0.46,378.9,dramatic,DEMO/SYNTHETIC metrics — not real song analytics
+Mean,Speak Now,2010,1,4,3.58,0.86,0.74,278.8,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+The Story of Us,Speak Now,2010,4,15,4.63,0.37,0.79,160.8,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+Enchanted,Speak Now,2010,1,9,3.26,0.34,0.63,,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+State of Grace,Red,2012,3,14,3.08,,0.85,350.7,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+Red,Red,2012,1,3,3.69,0.43,0.68,149.6,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+Treacherous,Red,2012,1,11,4.83,0.85,0.54,593.0,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+I Knew You Were Trouble,Red,2012,5,23,4.43,0.3,0.54,299.4,dramatic,DEMO/SYNTHETIC metrics — not real song analytics
+All Too Well,Red,2012,3,12,3.86,0.29,0.57,322.4,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+22,Red,2012,1,2,4.8,0.65,0.7,260.8,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+We Are Never Ever Getting Back Together,Red,2012,7,39,5.22,0.91,0.4,291.3,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+Begin Again,Red,2012,2,11,2.85,0.2,0.54,449.7,dramatic,DEMO/SYNTHETIC metrics — not real song analytics
+Welcome to New York,1989,2014,4,19,3.85,0.76,0.47,506.5,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+Blank Space,1989,2014,2,11,3.85,0.83,0.24,159.8,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+Style,1989,2014,1,5,3.64,0.36,0.35,260.3,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+Out of the Woods,1989,2014,4,16,5.19,0.8,0.46,74.7,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+All You Had to Do Was Stay,1989,2014,7,26,2.73,,0.4,120.5,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+Shake It Off,1989,2014,3,12,4.0,0.22,0.78,96.5,dramatic,DEMO/SYNTHETIC metrics — not real song analytics
+Wildest Dreams,1989,2014,2,14,5.15,0.45,0.37,161.9,dramatic,DEMO/SYNTHETIC metrics — not real song analytics
+Clean,1989,2014,1,5,3.98,0.9,0.92,,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+...Ready for It?,reputation,2017,3,16,3.25,0.68,0.67,218.4,defiant,DEMO/SYNTHETIC metrics — not real song analytics
+End Game,reputation,2017,2,8,4.63,,0.76,180.6,defiant,DEMO/SYNTHETIC metrics — not real song analytics
+Delicate,reputation,2017,1,8,4.27,0.21,0.8,,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+Look What You Made Me Do,reputation,2017,6,24,3.74,,0.53,517.4,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+Getaway Car,reputation,2017,2,11,3.71,0.89,0.58,125.1,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+King of My Heart,reputation,2017,4,16,4.55,0.91,0.46,93.9,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+Lover,Lover,2019,1,5,3.86,0.88,0.69,225.4,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+The Man,Lover,2019,2,7,2.72,0.2,0.38,260.0,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+The Archer,Lover,2019,2,10,3.5,0.37,0.54,88.9,defiant,DEMO/SYNTHETIC metrics — not real song analytics
+Cruel Summer,Lover,2019,2,12,4.09,0.56,0.7,209.5,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+Cornelia Street,Lover,2019,2,15,5.2,0.61,0.77,228.8,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+Daylight,Lover,2019,1,8,4.54,0.87,0.61,120.4,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+the 1,folklore,2020,2,5,2.7,0.32,0.85,146.5,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+cardigan,folklore,2020,1,8,5.02,0.54,0.28,450.8,sparkly,DEMO/SYNTHETIC metrics — not real song analytics
+exile,folklore,2020,1,5,4.63,0.64,0.37,742.2,dramatic,DEMO/SYNTHETIC metrics — not real song analytics
+august,folklore,2020,1,6,2.91,0.58,0.83,183.9,defiant,DEMO/SYNTHETIC metrics — not real song analytics
+betty,folklore,2020,1,5,3.85,0.53,0.57,,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+willow,evermore,2020,1,6,5.0,0.82,0.48,943.6,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+champagne problems,evermore,2020,2,18,3.46,0.77,0.72,818.0,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+gold rush,evermore,2020,2,9,3.9,,0.8,635.5,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+Anti-Hero,Midnights,2022,1,9,3.85,0.18,0.88,80.7,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+Lavender Haze,Midnights,2022,2,13,3.79,0.4,0.4,500.5,chaotic,DEMO/SYNTHETIC metrics — not real song analytics
+Maroon,Midnights,2022,1,6,3.11,0.21,0.6,272.7,dreamy,DEMO/SYNTHETIC metrics — not real song analytics
+Snow on the Beach,Midnights,2022,4,17,3.25,0.47,0.56,323.5,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+"You're on Your Own, Kid",Midnights,2022,5,23,4.6,0.91,0.62,278.3,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+Bejeweled,Midnights,2022,1,9,3.16,0.66,0.88,296.6,wistful,DEMO/SYNTHETIC metrics — not real song analytics
+Karma,Midnights,2022,1,5,3.81,0.7,0.64,289.3,sparkly,DEMO/SYNTHETIC metrics — not real song analytics

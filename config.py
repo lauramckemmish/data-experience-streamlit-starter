@@ -34,21 +34,22 @@ EXPERIENCE_PLAYGROUND = "Data Exploration Playground"
 
 # Dataset metadata shown prominently on the introduction page and in the sidebar.
 # Update these when adapting the starter to a real dataset.
-DATASET_NAME = "Sample scientific dataset"
+DATASET_NAME = "Taylor Swift demo dataset"
 DATASET_SHORT_DESCRIPTION = (
-    "A small example dataset included only to demonstrate the app structure. "
-    "Replace it with the scientific dataset for your project."
+    "A deliberately playful, non-scientific dataset using familiar song and album labels "
+    "to demonstrate Starter functionality."
 )
 DATASET_SCOPE_NOTE = (
-    "Every scientific dataset has a scope. Replace this sentence with a short, "
-    "student-friendly explanation of what this dataset includes and excludes."
+    "The song and album fields are ordinary labels. Every demo_* metric is synthetic "
+    "demonstration data, not real Taylor Swift analytics or scientific evidence."
 )
-DATASET_SOURCE_LABEL = "Starter-generated example data"
+DATASET_SOURCE_LABEL = "Starter playful demo data"
 DATASET_SOURCE_URL = None
 DATASET_CITATION = None
 DATASET_SOURCE_NOTE = (
-    "Replace this note with the original dataset provider, publication, repository, "
-    "DOI, licence, or other provenance information."
+    "This deliberately synthetic dataset exists to exercise Starter exploration, "
+    "variable, graph and missing-data patterns. Identifying labels are used for familiarity; "
+    "demo_* duration, energy, danceability, streams and mood values must not be read as real analytics."
 )
 # Resource-context authoring guidance: replace the hero/orientation and About
 # content with claims verified for each derived resource. Stewardship names the
