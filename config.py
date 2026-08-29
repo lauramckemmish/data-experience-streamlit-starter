@@ -4,6 +4,15 @@ Change this file when adapting the starter to a new dataset or topic.
 Lesson wording belongs in the relevant module under ``experiences/``.
 """
 
+from pathlib import Path
+
+ASSETS_DIR = Path(__file__).resolve().parent / "assets"
+# Shared-shell local dependencies. Copy only assets required by adopted helpers.
+SIDEBAR_INSTITUTIONAL_LOGO = ASSETS_DIR / "unsw-sydney-logo-portrait.png"
+# Landscape is the robust horizontal identity treatment for long About names.
+ABOUT_INSTITUTIONAL_LOGO = ASSETS_DIR / "unsw-sydney-logo-landscape.png"
+SIDEBAR_LANDSCAPE_LOGO = ASSETS_DIR / "unsw-sydney-logo-landscape.png"
+
 # Resource content contract: these roles have different information jobs.
 # short_name is the compact persistent identity used in the shell; keep it brief.
 SHORT_NAME = "Data Experiences"

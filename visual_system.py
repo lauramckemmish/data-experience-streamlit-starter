@@ -33,13 +33,22 @@ def apply_visual_system() -> None:
     .type-major-section {{ font-size:clamp(1.35rem, 2.2vw, 1.65rem); line-height:1.2; }}
     .type-subsection {{ font-size:1.25rem; line-height:1.25; }}
     .type-resource-identity {{ font-size:clamp(1rem, 1.5vw, 1.2rem); line-height:1.25; }}
-    .st-key-unsw_identity_row .unsw-logo-plate {{ box-sizing:content-box; min-width:60px; }}
-    .st-key-unsw_identity_row [data-testid="column"]:has(.unsw-logo-plate) {{ min-width:72px; flex-shrink:0; }}
+    .st-key-unsw_identity_row [data-testid="stHorizontalBlock"] {{ align-items:center; }}
+    .st-key-unsw_identity_row .unsw-logo-plate {{ box-sizing:border-box; width:min(125px,100%); max-width:125px; }}
+    .st-key-unsw_identity_row .unsw-logo-plate img {{ display:block; max-width:100%; height:auto; }}
+    .st-key-unsw_identity_row [data-testid="column"]:has(.unsw-logo-plate) {{ flex:0 1 137px; min-width:0; }}
+    .st-key-unsw_identity_row [data-testid="column"]:not(:has(.unsw-logo-plate)) {{ flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }}
+    .st-key-unsw_identity_row .type-resource-identity {{ overflow-wrap:anywhere; }}
     @media (max-width:700px) {{ .st-key-unsw_identity_row [data-testid="stHorizontalBlock"] {{ flex-direction:column; gap:.65rem; }} .st-key-unsw_identity_row [data-testid="column"] {{ width:100% !important; flex:1 1 100% !important; }} }}
     .st-key-landing_about_label {{ display:flex; align-items:center; min-height:2.1rem; background:#111827; color:#fff; padding:.35rem .65rem; margin:.15rem 0 .7rem; border-radius:.25rem; }}
     .st-key-landing_about_label p {{ color:#fff !important; font-weight:650; margin:0; }}
     .st-key-landing_stewardship, .st-key-unsw_identity_stewardship, .st-key-resource_stewardship {{ border-left:3px solid var(--unsw-active-emphasis); background:rgba(63,97,196,.06); padding:.55rem .65rem .75rem; }}
     </style>""", unsafe_allow_html=True)
+
+def validate_shared_assets(*paths: Path) -> None:
+    missing = [str(path) for path in paths if not path.is_file()]
+    if missing:
+        raise FileNotFoundError("Missing required shared-shell asset(s): " + ", ".join(missing))
 
 def logo_plate(image_path: Path, *, width: int = 125, alt: str = "UNSW Sydney", plate_background: str = "#FFFFFF") -> None:
     encoded = base64.b64encode(image_path.read_bytes()).decode("ascii")
@@ -71,7 +80,7 @@ def render_about_sections(content: Mapping[str, Any]) -> None:
         if content.get(key):
             with st.expander(label): st.write(content[key])
 
-def render_resource_context(content: Mapping[str, Any], *, logo_path: Path | None = None) -> None:
+def render_resource_context(content: Mapping[str, Any], *, logo_path: Path | None = None, logo_width: int = 125) -> None:
     if not content:
         return
     st.divider()
@@ -82,7 +91,7 @@ def render_resource_context(content: Mapping[str, Any], *, logo_path: Path | Non
             logo_column, title_column = st.columns([0.5, 4.5], gap="small")
             if logo_path:
                 with logo_column:
-                    logo_plate(logo_path, width=60)
+                    logo_plate(logo_path, width=logo_width)
             with title_column:
                 if content.get("title"):
                     semantic_heading(content["title"], "resource-identity")

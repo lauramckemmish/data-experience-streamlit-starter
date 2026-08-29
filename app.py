@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 import streamlit as st
 
 import config
@@ -20,17 +19,18 @@ from config import (
 )
 from data import load_data
 from experiences import curious, data_playground, landing, router, year10, year8
-from visual_system import apply_visual_system, sidebar_data_source, sidebar_identity
+from visual_system import apply_visual_system, sidebar_data_source, sidebar_identity, validate_shared_assets
 
 DATASET_CITATION = getattr(config, "DATASET_CITATION", None)
 
 st.set_page_config(page_title=SHORT_NAME, page_icon=APP_ICON, layout="wide")
 apply_visual_system()
+validate_shared_assets(config.SIDEBAR_INSTITUTIONAL_LOGO, config.ABOUT_INSTITUTIONAL_LOGO)
 
 data = load_data()
 current = router.current_experience()
 
-UNSW_LOGO_PATH = Path(__file__).resolve().parent / "assets" / "unsw-sydney-logo-portrait.png"
+UNSW_LOGO_PATH = config.SIDEBAR_INSTITUTIONAL_LOGO
 
 with st.sidebar:
     sidebar_identity(SHORT_NAME, UNSW_LOGO_PATH)

@@ -89,3 +89,23 @@ main idea), and `RESOURCE_DESCRIPTION` (what the resource is). Keep dataset
 status, landing orientation, stewardship/positionality, contributor
 perspectives, and development/feedback as separate roles because they serve
 different jobs; their exact wording and visual character remain resource-owned.
+
+### Propagating shared-shell changes
+
+When adopting the shell, transfer the complete dependency set: shared code and
+helpers, theme/configuration, required local assets, and local relative asset
+references. The current shell asset dependencies are declared in `config.py`;
+copy only the assets required by the adopted components. The downstream app
+must remain self-contained and must not depend on this Starter at runtime.
+
+Before committing a downstream adoption:
+
+1. Identify adopted components/helpers and their assets/configuration.
+2. Copy required assets and update references to local paths.
+3. Check for runtime paths back to the Starter.
+4. Run syntax and asset-path checks, then visually inspect the app.
+5. Commit and push only after those checks pass.
+
+If a real resource exposes a generally useful shell improvement, generalise and
+stabilise it in the Starter first, then propagate the canonical version back
+downstream. Do not copy shared machinery directly between resource repositories.

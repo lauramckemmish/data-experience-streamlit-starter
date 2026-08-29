@@ -56,4 +56,4 @@ def render(data: pd.DataFrame, open_experience) -> None:
         st.write(playground["summary"])
         st.button("Open exploration →", key="open_playground", width="stretch", on_click=open_experience, args=(EXPERIENCE_PLAYGROUND,))
 
-    render_resource_context(getattr(config, "RESOURCE_ABOUT", {}), logo_path=Path(__file__).resolve().parent.parent / "assets" / "unsw-sydney-logo-portrait.png")
+    render_resource_context(getattr(config, "RESOURCE_ABOUT", {}), logo_path=config.ABOUT_INSTITUTIONAL_LOGO, logo_width=125)
