@@ -2,6 +2,8 @@
 
 This repository is a reusable master scaffold for educational data-science experiences.
 
+This document governs reusable application and software architecture. Cross-resource design knowledge belongs in `playbook/`; individual resources retain local pedagogy and may deliberately deviate where their audience, science, data or delivery context warrants it.
+
 ## Stable core experience structure
 
 The four core routes are deliberately stable:

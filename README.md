@@ -2,6 +2,8 @@
 
 A deployable, dataset-neutral Streamlit master scaffold for CURIOUS-style educational data-science resources.
 
+This repository contains both reusable technical architecture and a shared design playbook for educational data-science experiences. See [ARCHITECTURE.md](ARCHITECTURE.md) for the application design contract and [playbook/README.md](playbook/README.md) for reusable cross-resource design knowledge.
+
 ## Stable core experiences
 
 - **CURIOUS** — guided facilitator-led workshop.
@@ -18,8 +20,6 @@ A deployable, dataset-neutral Streamlit master scaffold for CURIOUS-style educat
 - The Data Exploration Playground uses **1 / 2 / 3 variables** as its stable conceptual structure.
 - Dataset-specific tools such as filtering, modelling or fitting can be added without changing the master experience architecture.
 - Development should proceed **one experience at a time**.
-
-See `ARCHITECTURE.md` for the design contract.
 
 ## Run locally
 
@@ -56,6 +56,8 @@ data.py                     loading and shared data helpers
 charts.py                   plotting / analysis logic
 ui_helpers.py               reusable teaching UI
 ARCHITECTURE.md             master design contract
+playbook/                   reusable cross-resource design decisions
+templates/                  short workflows for applying playbook decisions
 experiences/
   landing.py                dataset-first introduction + experience catalogue
   router.py                 routing and navigation state
