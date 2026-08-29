@@ -41,10 +41,10 @@ def apply_visual_system() -> None:
     .st-key-landing_stewardship, .st-key-unsw_identity_stewardship, .st-key-resource_stewardship {{ border-left:3px solid var(--unsw-active-emphasis); background:rgba(63,97,196,.06); padding:.55rem .65rem .75rem; }}
     </style>""", unsafe_allow_html=True)
 
-def logo_plate(image_path: Path, *, width: int = 125, alt: str = "UNSW Sydney") -> None:
+def logo_plate(image_path: Path, *, width: int = 125, alt: str = "UNSW Sydney", plate_background: str = "#FFFFFF") -> None:
     encoded = base64.b64encode(image_path.read_bytes()).decode("ascii")
     st.markdown(
-        f"<div class='unsw-logo-plate' style='display:inline-block;background:white;padding:6px;border-radius:2px;line-height:0'>"
+        f"<div class='unsw-logo-plate' style='display:inline-block;background:{plate_background};padding:6px;border-radius:2px;line-height:0'>"
         f"<img src='data:image/png;base64,{encoded}' alt='{alt}' style='display:block;width:{width}px;height:auto'></div>",
         unsafe_allow_html=True,
     )
@@ -53,7 +53,7 @@ def logo_plate(image_path: Path, *, width: int = 125, alt: str = "UNSW Sydney") 
 def sidebar_identity(title: str, logo_path: Path | None = None) -> None:
     with st.container(key="sidebar_brand"):
         if logo_path:
-            logo_plate(logo_path)
+            logo_plate(logo_path, plate_background=SEMANTIC_TOKENS["brand"])
         st.markdown(f"### {title}")
 
 def sidebar_data_source(row_count: int, column_count: int, source_label: str) -> None:

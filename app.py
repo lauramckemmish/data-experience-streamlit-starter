@@ -30,7 +30,7 @@ apply_visual_system()
 data = load_data()
 current = router.current_experience()
 
-UNSW_LOGO_PATH = Path(__file__).resolve().parent / "assets" / "unsw-sydney-logo-landscape.png"
+UNSW_LOGO_PATH = Path(__file__).resolve().parent / "assets" / "unsw-sydney-logo-portrait.png"
 
 with st.sidebar:
     sidebar_identity(SHORT_NAME, UNSW_LOGO_PATH)

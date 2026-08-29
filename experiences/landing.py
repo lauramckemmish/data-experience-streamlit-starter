@@ -17,9 +17,9 @@ from experiences.catalog import experience_catalog
 from visual_system import render_resource_context
 
 def render(data: pd.DataFrame, open_experience) -> None:
+    st.title(HERO_HOOK)
     hero_text, hero_visual = st.columns([3, 2], gap="large")
     with hero_text:
-        st.title(HERO_HOOK)
         st.markdown(f"### {SHORT_NAME}")
         st.caption("Use the short name for persistent navigation; use the hook for the learner-facing idea or question.")
         st.write("This starter shows how an interactive data-science resource can introduce a scientific dataset, guide learners through structured investigations, and provide space for more open exploration.")
