@@ -1,6 +1,7 @@
 """Focused tests for the shared interaction and progression contracts."""
 
 import unittest
+import inspect
 from unittest.mock import patch
 
 import ui_helpers
@@ -19,6 +20,7 @@ class _StreamlitStub:
         self.session_state = {}
         self.buttons = []
         self.expanders = []
+        self.html_fragments = []
 
     def columns(self, *_args, **_kwargs):
         return [_Context(), _Context(), _Context()]
@@ -48,6 +50,9 @@ class _StreamlitStub:
 
     def caption(self, *_args, **_kwargs):
         pass
+
+    def html(self, body, **_kwargs):
+        self.html_fragments.append(body)
 
     def text_area(self, _label, *, key, **_kwargs):
         return self.session_state.setdefault(key, "")
@@ -110,6 +115,30 @@ class SharedInteractionTests(unittest.TestCase):
             ui_helpers.teacher_guidance("Stage", "Listen for evidence")
             self.assertEqual(stub.expanders, ["Teacher guidance: Stage"])
             self.assertEqual(stub.session_state["stage_response"], "An observation")
+
+    def test_resource_identity_uses_one_safe_grid_component(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            # The helper lives in visual_system because it is part of the visual shell;
+            # this test guards the rendered contract without starting Streamlit.
+            import visual_system
+
+            with patch.object(visual_system, "st", stub):
+                visual_system.resource_identity(
+                    "Animal Traits <teaching> dataset",
+                    logo_path=None,
+                )
+
+        self.assertEqual(len(stub.html_fragments), 1)
+        fragment = stub.html_fragments[0]
+        self.assertIn("grid-template-columns: max-content minmax(0, 1fr)", fragment)
+        self.assertIn("grid-template-columns: minmax(0, 1fr)", fragment)
+        self.assertIn("Animal Traits &lt;teaching&gt; dataset", fragment)
+        self.assertNotIn("stHorizontalBlock", fragment)
+        self.assertNotIn("data-testid=\"column\"", fragment)
+        about_source = inspect.getsource(visual_system.render_resource_context)
+        self.assertNotIn("st.columns", about_source)
+        self.assertNotIn("data-testid", about_source)
 
 
 if __name__ == "__main__":
