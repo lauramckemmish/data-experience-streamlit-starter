@@ -22,6 +22,7 @@ def apply_visual_system() -> None:
     [data-testid="stSidebar"] {{ border-right:1px solid rgba(255,220,0,.35); }}
     [data-testid="stSidebar"] .st-key-sidebar_brand {{ background:var(--unsw-brand); color:#000; padding:.65rem .7rem .6rem; margin:-.15rem -.35rem .6rem; border-radius:0 0 .3rem .3rem; }}
     [data-testid="stSidebar"] .st-key-sidebar_brand h3 {{ color:#000 !important; }}
+    /* The sidebar identity plate is intentionally compact; config supplies the landscape mark. */
     [data-testid="stSidebar"] .st-key-sidebar_brand .unsw-logo-plate {{ background:transparent !important; padding:0 !important; max-width:125px; }}
     [data-testid="stSidebar"] .st-key-sidebar_brand .unsw-logo-plate img {{ display:block; width:125px; max-width:100%; height:auto; }}
     [data-testid="stSidebar"] .st-key-sidebar_data_source {{ background:#111827; color:#fff; border:1px solid rgba(255,255,255,.18); border-radius:.3rem; padding:.55rem .65rem .5rem; margin:0 0 .55rem; }}
@@ -44,12 +45,13 @@ def apply_visual_system() -> None:
     .type-subsection {{ font-size:1.25rem; line-height:1.25; }}
     .type-resource-identity {{ font-size:clamp(1rem, 1.5vw, 1.2rem); line-height:1.25; }}
     .st-key-unsw_identity_row [data-testid="stHorizontalBlock"] {{ align-items:center; }}
-    .st-key-unsw_identity_row .unsw-logo-plate {{ box-sizing:border-box; width:min(125px,100%); max-width:125px; }}
+    .st-key-unsw_identity_row .unsw-logo-plate {{ box-sizing:content-box; width:125px; max-width:125px; }}
     .st-key-unsw_identity_row .unsw-logo-plate img {{ display:block; max-width:100%; height:auto; }}
-    .st-key-unsw_identity_row [data-testid="column"]:has(.unsw-logo-plate) {{ flex:0 1 137px; min-width:0; }}
+    .st-key-unsw_identity_row [data-testid="column"]:has(.unsw-logo-plate) {{ flex:0 0 145px; min-width:145px; }}
     .st-key-unsw_identity_row [data-testid="column"]:not(:has(.unsw-logo-plate)) {{ flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }}
     .st-key-unsw_identity_row .type-resource-identity {{ overflow-wrap:anywhere; }}
-    @media (max-width:700px) {{ .st-key-unsw_identity_row [data-testid="stHorizontalBlock"] {{ flex-direction:column; gap:.65rem; }} .st-key-unsw_identity_row [data-testid="column"] {{ width:100% !important; flex:1 1 100% !important; }} }}
+    /* 145px identity + gap + a comfortable title width needs about 800px. */
+    @media (max-width:800px) {{ .st-key-unsw_identity_row [data-testid="stHorizontalBlock"] {{ flex-direction:column; align-items:stretch; gap:0 !important; }} .st-key-unsw_identity_row [data-testid="column"] {{ width:100% !important; flex:1 1 100% !important; padding:0 !important; }} .st-key-unsw_identity_row .unsw-logo-plate {{ margin-bottom:.3rem; }} .st-key-unsw_identity_row .type-resource-identity {{ margin-top:0; }} }}
     .st-key-landing_about_label {{ display:flex; align-items:center; min-height:2.1rem; background:#111827; color:#fff; padding:.35rem .65rem; margin:.15rem 0 .7rem; border-radius:.25rem; }}
     .st-key-landing_about_label p {{ color:#fff !important; font-weight:650; margin:0; }}
     .st-key-landing_stewardship, .st-key-unsw_identity_stewardship, .st-key-resource_stewardship {{ border-left:3px solid var(--unsw-active-emphasis); background:rgba(63,97,196,.06); padding:.55rem .65rem .75rem; }}
@@ -98,7 +100,7 @@ def render_resource_context(content: Mapping[str, Any], *, logo_path: Path | Non
         with st.container(key="landing_about_label"):
             st.markdown("About this resource")
         with st.container(key="unsw_identity_row"):
-            logo_column, title_column = st.columns([0.5, 4.5], gap="small")
+            logo_column, title_column = st.columns([0.7, 4.3], gap="small")
             if logo_path:
                 with logo_column:
                     logo_plate(logo_path, width=logo_width)

@@ -83,6 +83,14 @@ rendered landing page demonstrates the decisions a future author needs to make;
 replace the guidance with verified scientific, pedagogical and provenance
 content for the derived resource.
 
+The default resource steward is Dr Laura McKemmish, UNSW Chemistry, with the
+descriptor “Computational astrochemist · 10+ years creating research-connected
+science experiences and data-rich investigations for school students”. This
+establishes resource stewardship only: scientific/domain review is an additional
+local claim, and “Resource stewardship and scientific review” should be used
+only when relevant disciplinary expertise is established. Stewardship is also
+separate from contributor credit.
+
 ### Shared pattern map
 
 Use these worked examples when authoring a new experience. Shared structure and

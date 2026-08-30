@@ -10,6 +10,14 @@ Contributor credits should show the distinctive perspectives and intellectual co
 
 They are not intended to record all labour, participation, delivery, job titles, seniority or professional status.
 
+Resource stewardship is a separate accountability role, not a contributor-credit label. A person may steward a resource without needing a contributor credit, and a contributor credit must still describe a distinctive perspective or intellectual contribution.
+
+## Stewardship and scientific/domain review
+
+Resource stewardship means who owns or stewards the resource's coherence, development and maintenance. Scientific/domain review means who has relevant disciplinary expertise to stand behind the scientific content. Scientific/domain review is an additional local claim, not something inherited from stewardship, institutional affiliation, professional title, ownership or computational/data-science expertise.
+
+When the evidence supports both claims, a resource may use the local label **Resource stewardship and scientific review**. Otherwise, use **Resource stewardship** and establish scientific/domain review separately where appropriate.
+
 ## Decision
 
 Credit people for:

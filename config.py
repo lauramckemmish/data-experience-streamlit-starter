@@ -8,8 +8,8 @@ from pathlib import Path
 
 ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 # Shared-shell local dependencies. Copy only assets required by adopted helpers.
-SIDEBAR_INSTITUTIONAL_LOGO = ASSETS_DIR / "unsw-sydney-logo-portrait.png"
-# Landscape is the robust horizontal identity treatment for long About names.
+SIDEBAR_INSTITUTIONAL_LOGO = ASSETS_DIR / "unsw-sydney-logo-landscape.png"
+# Landscape is the compact horizontal identity treatment for both identity rows.
 ABOUT_INSTITUTIONAL_LOGO = ASSETS_DIR / "unsw-sydney-logo-landscape.png"
 SIDEBAR_LANDSCAPE_LOGO = ASSETS_DIR / "unsw-sydney-logo-landscape.png"
 
@@ -52,12 +52,19 @@ DATASET_SOURCE_NOTE = (
     "demo_* duration, energy, danceability, streams and mood values must not be read as real analytics."
 )
 # Resource-context authoring guidance: replace the hero/orientation and About
-# content with claims verified for each derived resource. Stewardship names the
-# UNSW identity permission is separate from resource scientific/educational
-# stewardship; both must be reviewed locally. Credit distinctive perspectives
-# that materially shaped the resource; use the vocabulary in
+# content with claims verified for each derived resource. Institutional identity
+# permission and resource stewardship are separate claims, and neither implies
+# scientific/domain review. Credit distinctive perspectives that materially
+# shaped the resource; use the vocabulary in
 # playbook/decisions/contributor-credit.md. Keep review, feedback, support and
 # partnership fields optional and resource-specific.
+RESOURCE_STEWARD = {
+    "name": "Dr Laura McKemmish",
+    "affiliation": "UNSW Chemistry",
+    "role": "Computational astrochemist",
+    "descriptor": "10+ years creating research-connected science experiences and data-rich investigations for school students",
+}
+
 RESOURCE_ABOUT = {
     "title": DESCRIPTIVE_NAME,
     "description": RESOURCE_DESCRIPTION,
@@ -68,15 +75,17 @@ RESOURCE_ABOUT = {
         "If you are adapting this Starter for a new resource, confirm the appropriate UNSW ownership, approval and branding arrangements with Laura before retaining the UNSW identity."
     ),
     "stewardship": (
-        "**Resource-specific scientific and educational stewardship**  \n"
-        "Identify the person or people who take appropriate intellectual responsibility for the scientific and/or educational content of this resource. "
-        "State the relevant expertise or role that makes that stewardship meaningful. Replace this guidance with the actual arrangement for your resource."
+        f"**Resource stewardship · {RESOURCE_STEWARD['name']}, {RESOURCE_STEWARD['affiliation']}**  \n"
+        f"*{RESOURCE_STEWARD['role']} · {RESOURCE_STEWARD['descriptor']}*  \n\n"
+        "Resource stewardship means owning the resource's coherence, development and maintenance. "
+        "Scientific/domain review is an additional local claim: add it only when the named reviewer has relevant disciplinary expertise to stand behind this resource's scientific content. "
+        "Do not infer it from institutional affiliation, professional title, ownership or computational/data-science expertise."
     ),
     "why": "The shared shell helps new resources present their purpose, context and accountability clearly while keeping local teaching content in its own experience modules. For your resource, use this section to explain the development choices and context that matter to trust and future improvement.",
     "development": "This Starter is intended to improve through use, testing and feedback. For your resource, describe the important development or iteration context, then replace this guidance with the status and evidence that readers should understand.",
     "feedback": "State how feedback can improve the resource and provide an appropriate route where one exists. Replace this guidance with your resource-specific feedback mechanism; do not imply that a feedback route exists if it does not.",
-    "contributors": {"Laura McKemmish": "Pedagogical expertise"},
-    "contributors_intro": "For your resource, identify people whose distinctive perspectives or intellectual contributions materially shaped the resource or the approach behind it. Credit the contribution rather than job title, seniority, amount of labour, attendance or delivery alone. Replace this guidance and the worked attribution below with resource-specific provenance.",
+    "contributors": {},
+    "contributors_intro": "Contributor credits are separate from resource stewardship. Identify people whose distinctive perspectives or intellectual contributions materially shaped the resource or the approach behind it. Credit the contribution rather than job title, seniority, amount of labour, attendance or delivery alone. Replace this guidance with resource-specific provenance.",
     "contribution_vocabulary": {
         "Research translation": "Turning authentic research practices, questions, data, computational methods or ways of reasoning into learning experiences.",
         "Data-science perspective": "A specifically data-science way of understanding, structuring or reasoning with data.",
