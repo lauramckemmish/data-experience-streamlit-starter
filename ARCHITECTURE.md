@@ -67,6 +67,13 @@ hierarchy should keep optional, data-literacy, and teacher support quieter than
 the main learner evidence and tasks. Yellow is institutional/brand emphasis,
 not generic interaction decoration.
 
+### Shared interaction distinctions
+
+- **Think** is a non-blocking reasoning cue; it does not imply Respond or hidden evidence.
+- **Hard Reveal** protects consequential evidence when seeing it early would undermine prior reasoning or action. It does not imply prediction specifically.
+- **Information / support** gives learners what they need to know without manufacturing inquiry.
+- Experience modules own the particular cognitive job and learner wording; completion gating remains separate from these roles.
+
 ## Data-science progression
 
 The reusable toolkit may include:

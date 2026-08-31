@@ -62,6 +62,8 @@ def render(data: pd.DataFrame) -> None:
             "curious_context_evidence",
             reveal_label="Reveal the evidence",
             revealed_content="Evidence revealed: the scatter plot shows a broad positive pattern, with substantial variation between songs.",
+            pre_reveal_label="Think first",
+            pre_reveal_guidance="Discuss or note your prediction, then reveal the evidence.",
         )
         if evidence_revealed:
             response_box(

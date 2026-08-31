@@ -128,10 +128,10 @@ def placeholder_callout(label: str, guidance: str) -> None:
     st.info(f"**{label}**  \n{guidance}")
 
 
-def think_prompt(prompt: str, *, title: str = "Think") -> None:
-    """Show a visible, optional cue for prediction, noticing or reasoning."""
+def think_prompt(prompt: str) -> None:
+    """Show a visible, non-blocking reasoning cue."""
     with st.container(key="think_prompt"):
-        st.markdown(f'<span class="think-prompt__label">{escape(title)}</span>', unsafe_allow_html=True)
+        st.markdown('<span class="think-prompt__label">Think</span>', unsafe_allow_html=True)
         st.write(prompt)
 
 
@@ -149,20 +149,29 @@ def hard_reveal(
     reveal_label: str,
     revealed_content: str | None = None,
     explanation: str | None = None,
+    pre_reveal_label: str | None = None,
+    pre_reveal_guidance: str | None = None,
 ) -> bool:
     """Persist an essential reveal and return whether downstream content may render.
 
     Callers should place meaningful evidence/content in ``if hard_reveal(...):``.
-    The helper also blocks Continue while unrevealed; callers may add separate
-    completion requirements with :func:`completion_gate`.
+    Optional pre-reveal wording belongs to the local experience because the
+    prerequisite may be prediction, comparison, inspection, reasoning or a
+    choice. The helper blocks Continue while unrevealed; callers may add
+    separate completion requirements with :func:`completion_gate`.
     """
     st.session_state.setdefault(key, False)
     with st.container(key=f"hard_reveal_{key}"):
-        st.markdown('<span class="hard-reveal__label">Think first</span>', unsafe_allow_html=True)
+        if pre_reveal_label:
+            st.markdown(
+                f'<span class="hard-reveal__label">{escape(pre_reveal_label)}</span>',
+                unsafe_allow_html=True,
+            )
         st.write(prompt)
         if not st.session_state[key]:
             _block_continue()
-            st.caption("Discuss or note your prediction, then reveal the evidence.")
+            if pre_reveal_guidance:
+                st.caption(pre_reveal_guidance)
             st.button(
                 reveal_label,
                 type="primary",

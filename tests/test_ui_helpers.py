@@ -21,6 +21,8 @@ class _StreamlitStub:
         self.buttons = []
         self.expanders = []
         self.html_fragments = []
+        self.markdowns = []
+        self.captions = []
 
     def columns(self, *_args, **_kwargs):
         return [_Context(), _Context(), _Context()]
@@ -45,11 +47,11 @@ class _StreamlitStub:
     def write(self, *_args, **_kwargs):
         pass
 
-    def markdown(self, *_args, **_kwargs):
-        pass
+    def markdown(self, body, **_kwargs):
+        self.markdowns.append(body)
 
-    def caption(self, *_args, **_kwargs):
-        pass
+    def caption(self, body, **_kwargs):
+        self.captions.append(body)
 
     def html(self, body, **_kwargs):
         self.html_fragments.append(body)
@@ -71,6 +73,23 @@ class SharedInteractionTests(unittest.TestCase):
             stub.session_state["evidence"] = True
             self.assertTrue(ui_helpers.hard_reveal("Predict", "evidence", reveal_label="Reveal"))
             self.assertTrue(ui_helpers.hard_reveal("Predict", "evidence", reveal_label="Reveal"))
+
+    def test_hard_reveal_leaves_cognitive_choreography_to_the_experience(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.hard_reveal("Compare the two groups.", "evidence", reveal_label="Reveal")
+            self.assertEqual(stub.markdowns, [])
+            self.assertEqual(stub.captions, [])
+
+            ui_helpers.hard_reveal(
+                "Compare the two groups.",
+                "labelled_evidence",
+                reveal_label="Reveal",
+                pre_reveal_label="Compare first",
+                pre_reveal_guidance="Agree on a comparison before revealing the evidence.",
+            )
+            self.assertIn("Compare first", stub.markdowns[0])
+            self.assertEqual(stub.captions, ["Agree on a comparison before revealing the evidence."])
 
     def test_multiple_gates_require_all_requirements(self):
         stub = _StreamlitStub()
