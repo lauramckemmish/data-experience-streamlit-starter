@@ -38,6 +38,11 @@ def apply_visual_system() -> None:
     .st-key-variable_card {{ border-left:2px solid var(--unsw-secondary-accent, #007882); }}
     .st-key-sample_note {{ margin:.15rem 0; }}
     .st-key-response_box {{ border-left:2px solid var(--unsw-secondary-accent, #007882); padding-left:.65rem; }}
+    .st-key-think_prompt {{ border-left:2px solid #111827; padding:.1rem 0 .1rem .65rem; margin:.5rem 0 .7rem; }}
+    .st-key-think_prompt .think-prompt__label, [class*="st-key-hard_reveal_"] .hard-reveal__label {{ display:block; font-size:.72rem; font-weight:700; letter-spacing:.08em; line-height:1.2; text-transform:uppercase; }}
+    .st-key-think_prompt [data-testid="stMarkdownContainer"] p, [class*="st-key-hard_reveal_"] [data-testid="stMarkdownContainer"] p {{ margin-bottom:.2rem; }}
+    [class*="st-key-hard_reveal_"] {{ border-left:2px solid var(--unsw-information); padding:.1rem 0 .1rem .65rem; margin:.65rem 0 .8rem; }}
+    [class*="st-key-hard_reveal_"] .hard-reveal__label {{ color:var(--unsw-information); }}
     .st-key-teacher_guidance {{ opacity:.86; }}
     [data-testid="stButton"] > button[kind="primary"] {{ background:transparent; border:2px solid var(--unsw-active-emphasis); color:inherit; font-weight:650; }}
     [data-testid="stButton"] > button[kind="primary"]:hover {{ background:rgba(255,220,0,.10); border-color:var(--unsw-active-emphasis); color:inherit; }}

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from html import escape
+
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -126,10 +128,11 @@ def placeholder_callout(label: str, guidance: str) -> None:
     st.info(f"**{label}**  \n{guidance}")
 
 
-def think_prompt(prompt: str, *, title: str = "Pause and discuss") -> None:
+def think_prompt(prompt: str, *, title: str = "Think") -> None:
     """Show a visible, optional cue for prediction, noticing or reasoning."""
-    del title  # The caller's prompt carries the learner-facing meaning.
-    st.info(prompt)
+    with st.container(key="think_prompt"):
+        st.markdown(f'<span class="think-prompt__label">{escape(title)}</span>', unsafe_allow_html=True)
+        st.write(prompt)
 
 
 def completion_gate(is_complete: bool) -> bool:
@@ -155,9 +158,11 @@ def hard_reveal(
     """
     st.session_state.setdefault(key, False)
     with st.container(key=f"hard_reveal_{key}"):
-        st.info(prompt)
+        st.markdown('<span class="hard-reveal__label">Think first</span>', unsafe_allow_html=True)
+        st.write(prompt)
         if not st.session_state[key]:
             _block_continue()
+            st.caption("Discuss or note your prediction, then reveal the evidence.")
             st.button(
                 reveal_label,
                 type="primary",

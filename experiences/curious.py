@@ -10,7 +10,6 @@ import pandas as pd
 import streamlit as st
 
 from ui_helpers import (
-    completion_gate,
     hard_reveal,
     page_header,
     placeholder_callout,
@@ -52,26 +51,29 @@ def render(data: pd.DataFrame) -> None:
 
     st.header(STEP_LABELS[part])
     if part == 0:
-        st.write("Introduce the topic, the investigation question and why this dataset is interesting.")
-        placeholder_callout("Today's challenge", "Replace this with the central question for the guided experience.")
-        think_prompt("What would you like to find out?")
-    elif part == 1:
-        st.write("Establish the real-world or scientific context students need before seeing the data.")
+        st.write("A compact reference area for comparing explanation, reasoning and protected evidence.")
+        placeholder_callout(
+            "Information",
+            "This demonstration dataset is synthetic, so its values are useful for practising data questions rather than making claims about real songs.",
+        )
+        think_prompt("Before looking at the chart, what pattern would you expect between energy and danceability?")
         evidence_revealed = hard_reveal(
-            "Predict first, then check the evidence.",
+            "What relationship do you predict, and what feature of a scatter plot would support that prediction?",
             "curious_context_evidence",
             reveal_label="Reveal the evidence",
-            revealed_content="Now compare your prediction with the dataset.",
+            revealed_content="Evidence revealed: the scatter plot shows a broad positive pattern, with substantial variation between songs.",
         )
         if evidence_revealed:
-            response = response_box(
-                "Record one observation or question.",
+            response_box(
+                "Optional: record one observation you would want to check against the chart.",
                 "curious_context_response",
-                sentence_starters="I notice… / I wonder…",
+                sentence_starters="I predict… because… / I would look for…",
             )
-            completion_gate(bool(response.strip()))
-            with soft_reveal("What makes an observation useful"):
-                st.write("Make it specific enough that someone else could find it too.")
+    elif part == 1:
+        st.write("Establish the real-world or scientific context students need before seeing the data.")
+        placeholder_callout("Context", "Explain only the background learners need to make sense of the investigation.")
+        with soft_reveal("What makes an observation useful"):
+            st.write("Make it specific enough that someone else could find it too.")
     elif part == 2:
         st.write("Help students understand what one row represents and what the important variables mean.")
         st.dataframe(data.head(6), use_container_width=True, hide_index=True)
