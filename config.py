@@ -19,13 +19,13 @@ SHORT_NAME = "Data Experiences"
 # descriptive_name is the formal identity shown in About; it may be longer.
 DESCRIPTIVE_NAME = "Data Experiences: a starter for scientific data learning"
 # hero_hook is the learner-facing main idea, not a navigation or formal title.
-HERO_HOOK = "Turn data into questions, investigations and discoveries"
+HERO_HOOK = "Start with a question. Use data to investigate it."
 RESOURCE_DESCRIPTION = "A reusable educational resource for exploring real datasets through guided and open-ended data experiences."
 # Kept as a compatibility alias for existing Streamlit page configuration.
 APP_TITLE = SHORT_NAME
 APP_ICON = "📊"
-APP_SUBTITLE = "Explore a real scientific dataset through guided and open-ended experiences"
-LANDING_ORIENTATION = "This example uses a small demonstration dataset. Replace this sentence with the scientific question, dataset and context for your resource."
+APP_SUBTITLE = "Use data in guided and open-ended investigations"
+LANDING_ORIENTATION = "This starter uses a small demonstration dataset. Adapt this context to name the question, dataset and evidence learners will investigate."
 
 EXPERIENCE_CURIOUS = "CURIOUS"
 EXPERIENCE_YEAR8 = "Year 8"

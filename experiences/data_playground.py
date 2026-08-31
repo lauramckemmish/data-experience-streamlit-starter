@@ -20,8 +20,8 @@ def render(data: pd.DataFrame) -> None:
     page_header("Data Exploration Playground", teacher_control=False)
     st.warning(config.DATASET_SOURCE_NOTE)
     st.write(
-        "Explore the dataset by changing how many variables you are looking at. "
-        "Use dataset-specific filters or modelling tools only when they help answer a scientific question."
+        "Choose one, two or three variables. Inspect the evidence, then decide what it supports. "
+        "Use filters or models only when they help answer a question."
     )
 
     profile = column_profile(data)
@@ -40,6 +40,7 @@ def render(data: pd.DataFrame) -> None:
     )
 
     if mode == "1 variable":
+        st.caption("Choose a variable, then look for its shape, spread, unusual values and missing data.")
         field = st.selectbox("Variable", numeric)
         details = field_profile(data, field)
         variable_card(
@@ -50,7 +51,7 @@ def render(data: pd.DataFrame) -> None:
         complete, _ = usable_sample(data, [field])
         sample_note(complete, len(data), label="records")
         st.plotly_chart(histogram(data, field), use_container_width=True)
-        st.caption("Look at the distribution, spread, unusual values and missing data for one variable.")
+        st.caption("What does this distribution show? What cannot it tell you on its own?")
 
     elif mode == "2 variables":
         if len(numeric) < 2:
@@ -67,8 +68,8 @@ def render(data: pd.DataFrame) -> None:
         )
         with st.expander("Dataset-specific analysis tools"):
             st.write(
-                "A topic-specific app may add constrained filters, fitted models, scale controls or other tools here. "
-                "Keep the underlying calculations outside this experience module."
+                "A topic-specific app may add constrained filters, fitted models, scale controls or other tools here when they help answer a question. "
+                "Keep the calculations outside this experience module."
             )
 
     else:
@@ -83,7 +84,7 @@ def render(data: pd.DataFrame) -> None:
             return
         colour = st.selectbox("Third variable — colour by", colour_options)
         st.plotly_chart(scatter(data, x, y, colour), use_container_width=True)
-        st.caption("Use colour to ask whether a third variable helps explain the pattern between the first two.")
+        st.caption("Does colour reveal a pattern, or does it mostly add noise? Check before inferring an explanation.")
 
     with st.expander("Dataset preview"):
         st.dataframe(data, use_container_width=True, hide_index=True)

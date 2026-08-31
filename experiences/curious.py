@@ -51,46 +51,46 @@ def render(data: pd.DataFrame) -> None:
 
     st.header(STEP_LABELS[part])
     if part == 0:
-        st.write("A compact reference area for comparing explanation, reasoning and protected evidence.")
+        st.write("A compact reference sequence for separating reasoning from evidence.")
         placeholder_callout(
             "Information",
-            "This demonstration dataset is synthetic, so its values are useful for practising data questions rather than making claims about real songs.",
+            "This demonstration dataset is synthetic. Use it to practise data questions, not to make claims about the named artists.",
         )
-        think_prompt("Before looking at the chart, what pattern would you expect between energy and danceability?")
+        think_prompt("Before looking at evidence, what pattern would you expect between two variables? What would count as evidence for it?")
         evidence_revealed = hard_reveal(
-            "What relationship do you predict, and what feature of a scatter plot would support that prediction?",
+            "State a prediction, then identify the pattern you would look for in a scatter plot.",
             "curious_context_evidence",
-            reveal_label="Reveal the evidence",
-            revealed_content="Evidence revealed: the scatter plot shows a broad positive pattern, with substantial variation between songs.",
+            reveal_label="Reveal an evidence example",
+            revealed_content="Example evidence statement: the points trend upward overall, but the spread shows that the relationship is not exact.",
             pre_reveal_label="Think first",
-            pre_reveal_guidance="Discuss or note your prediction, then reveal the evidence.",
+            pre_reveal_guidance="Discuss or note your prediction before revealing the example.",
         )
         if evidence_revealed:
             response_box(
-                "Optional: record one observation you would want to check against the chart.",
+                "Optional: record one observation you would check against a chart.",
                 "curious_context_response",
                 sentence_starters="I predict… because… / I would look for…",
             )
     elif part == 1:
-        st.write("Establish the real-world or scientific context students need before seeing the data.")
-        placeholder_callout("Context", "Explain only the background learners need to make sense of the investigation.")
+        st.write("Give learners the context they need to make sense of the investigation.")
+        placeholder_callout("Context", "Keep only the background needed for the question and evidence ahead.")
         with soft_reveal("What makes an observation useful"):
             st.write("Make it specific enough that someone else could find it too.")
     elif part == 2:
-        st.write("Help students understand what one row represents and what the important variables mean.")
+        st.write("Inspect what one row represents and what the key variables measure.")
         st.dataframe(data.head(6), use_container_width=True, hide_index=True)
     elif part == 3:
-        st.write("Introduce the first purposeful visualisation or pattern.")
-        placeholder_callout("Add here", "One graph, one question and one key idea. Keep the chart logic in charts.py.")
+        st.write("Use the first graph to investigate one purposeful question.")
+        placeholder_callout("Reference pattern", "One graph, one question and one key idea. Keep chart logic in charts.py.")
     elif part == 4:
-        st.write("Give students a comparison that advances the investigation rather than simply adding another chart.")
-        placeholder_callout("Add here", "A comparison between groups, conditions, scales or representations.")
+        st.write("Make a comparison that advances the investigation.")
+        placeholder_callout("Reference pattern", "Compare groups, conditions, scales or representations only when the comparison helps answer the question.")
     elif part == 5:
-        st.write("Use the strongest interactive investigation here.")
-        placeholder_callout("Boundary", "Keep open-ended multivariate exploration in the separate Data Playground experience.")
+        st.write("Use the most useful interactive investigation here.")
+        placeholder_callout("Boundary", "Keep open-ended exploration across several variables in the separate Data Playground.")
     else:
-        st.write("Return to the central question and make the evidence-based conclusion explicit.")
-        placeholder_callout("Take-away", "Replace this with the 2–3 ideas students should leave with.")
+        st.write("Return to the central question and state what the evidence supports.")
+        placeholder_callout("Take-away", "Name the two or three evidence-based ideas learners should leave with.")
 
     step_buttons(
         STEP_LABELS,

@@ -21,15 +21,13 @@ def render(data: pd.DataFrame, open_experience) -> None:
     hero_text, hero_visual = st.columns([3, 2], gap="large")
     with hero_text:
         st.markdown(f"### {SHORT_NAME}")
-        st.caption("Use the short name for persistent navigation; use the hook for the learner-facing idea or question.")
-        st.write("This starter shows how an interactive data-science resource can introduce a scientific dataset, guide learners through structured investigations, and provide space for more open exploration.")
+        st.write("A reusable reference for introducing a dataset, guiding an investigation and making room for open exploration.")
         st.write(LANDING_ORIENTATION)
-        st.caption("Orientation should give enough scientific or data context to begin, without becoming full provenance documentation.")
     with hero_visual:
         st.image(Path(__file__).resolve().parent.parent / "assets" / "starter-hero.svg", caption="Replace with a contextual image for your resource.", width="stretch")
 
     st.markdown("## Choose an investigation")
-    st.write("Follow a guided investigation designed for a classroom or workshop.")
+    st.write("Choose a guided route for a classroom or workshop.")
 
     experiences = [item for item in experience_catalog(enabled_only=True) if item["name"] != EXPERIENCE_PLAYGROUND]
     for index in range(0, len(experiences), 2):
@@ -49,7 +47,7 @@ def render(data: pd.DataFrame, open_experience) -> None:
                     )
 
     st.markdown("## Explore the data")
-    st.write("Follow a question or dataset that interests you.")
+    st.write("Choose variables, inspect the evidence and follow a question that interests you.")
     playground = next(item for item in experience_catalog(enabled_only=True) if item["name"] == EXPERIENCE_PLAYGROUND)
     with st.container(border=True):
         st.markdown(f"### {playground['name']}")
