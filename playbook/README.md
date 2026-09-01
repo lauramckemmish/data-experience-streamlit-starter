@@ -31,6 +31,8 @@ A decision record should normally explain:
 
 Decisions may be revised when evidence from new resources, learners, facilitators or teachers shows that the current approach is inadequate.
 
+Current operational decisions include [classroom concurrency release readiness](decisions/classroom-concurrency.md): a deliberately small browser smoke check for synchronized whole-class use.
+
 ## Templates
 
 `../templates/` contains short reusable workflows for applying playbook decisions.

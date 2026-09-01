@@ -28,6 +28,44 @@ python -m pip install -r requirements.txt
 streamlit run app.py
 ```
 
+## Classroom concurrency release check
+
+Before releasing a facilitated classroom app, run a small browser-based smoke
+test to check that the app remains usable when learners act together. This is a
+release-readiness gate, not a performance-engineering framework: if it passes
+comfortably, stop. Investigate only a failure or marginal result.
+
+Install the one browser runtime once, then run the check:
+
+```bash
+python -m playwright install chromium
+python tools/classroom_concurrency.py
+```
+
+The default levels are **1 → 20 → 30** independent sessions: one session,
+the expected class size, and a small safety margin. The test starts and stops
+its own local Streamlit server, gives the initial class arrival a bounded
+startup allowance, then sends three synchronized interactions per level. It
+fails on failed sessions, browser/page errors, interaction timeouts or a server
+exit. It intentionally does not profile or diagnose allocator high-water use.
+
+`tools/classroom_concurrency.py` is the generic mechanism. A derived
+repository supplies `classroom_smoke_adapter.py`, whose small contract defines
+the Streamlit launch command, representative route, synchronized interaction
+and usable-page assertion. Override levels when needed, for example:
+
+```bash
+python tools/classroom_concurrency.py --sessions 1 --sessions 20 --sessions 30
+```
+
+The Starter adapter uses the existing Data Exploration Playground's dataset-preview
+disclosure, because this dataset-neutral reference has no more
+meaningful subject-specific class stage. For Exoplanets, the adapter should
+navigate to **Planet Shopping → Combine** and perform its representative
+Combine interaction. Another resource should similarly supply one stable,
+real learner route and interaction rather than add testing UI or invent
+pedagogy.
+
 ## Deploy with GitHub + Streamlit Community Cloud
 
 1. Create a GitHub repository and put the contents of this folder at the repository root.
