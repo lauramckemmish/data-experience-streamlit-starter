@@ -31,7 +31,7 @@ A decision record should normally explain:
 
 Decisions may be revised when evidence from new resources, learners, facilitators or teachers shows that the current approach is inadequate.
 
-Current operational decisions include [classroom concurrency release readiness](decisions/classroom-concurrency.md): a deliberately small browser smoke check for synchronized whole-class use.
+Current operational decisions include [classroom concurrency release readiness](decisions/classroom-concurrency.md): a deliberately small browser smoke check for synchronized whole-class use; and [learner-facing UI grammar](decisions/learner-ui-grammar.md): shared interaction meaning without mechanically standardising local pedagogy.
 
 ## Templates
 
