@@ -106,7 +106,7 @@ def scroll_to_top_if_requested(key: str) -> None:
 
 
 def key_idea(text: str, prompt: str | None = None) -> None:
-    st.success(f"**Key idea:** {text}")
+    st.info(f"**Key idea:** {text}")
     if prompt:
         st.caption(prompt)
 
