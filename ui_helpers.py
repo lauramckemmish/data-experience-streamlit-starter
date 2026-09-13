@@ -182,14 +182,34 @@ def variable_card(field: str, meaning: str, *, unit: str | None = None, scale_no
             st.caption(scale_note)
 
 
-def sample_note(complete: int, total: int, *, label: str = "records") -> None:
-    """Explain how many rows are usable for a displayed analysis."""
-    excluded = total - complete
-    with st.container(key="sample_note"):
-        st.caption(
-            f"**Data used:** {complete:,} of {total:,} {label}. "
-            f"{excluded:,} omitted because a required value is missing."
+def sample_note(
+    complete: int,
+    total: int,
+    *,
+    label: str = "records",
+    missing: int | None = None,
+    log_x_excluded: int = 0,
+    log_y_excluded: int = 0,
+    log_excluded: int = 0,
+    x_label: str = "horizontal-axis",
+    y_label: str = "vertical-axis",
+) -> None:
+    """Explain usable rows without conflating missing and log-invalid values."""
+    missing = total - complete if missing is None else missing
+    messages = [
+        f"**Data used:** {complete:,} of {total:,} {label}.",
+        f"{missing:,} omitted because a required value is missing.",
+    ]
+    if log_excluded:
+        messages.append(
+            f"{log_excluded:,} additional records excluded because a logarithmic axis requires positive values."
         )
+        if log_x_excluded:
+            messages.append(f"{log_x_excluded:,} have a zero or negative {x_label} value.")
+        if log_y_excluded:
+            messages.append(f"{log_y_excluded:,} have a zero or negative {y_label} value.")
+    with st.container(key="sample_note"):
+        st.caption(" ".join(messages))
 
 
 def teacher_guidance(title: str, content: str, *, expanded: bool = False) -> None:

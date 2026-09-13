@@ -12,7 +12,7 @@ import streamlit as st
 import config
 
 from charts import histogram, scatter
-from data import column_profile, field_profile, usable_sample
+from data import column_profile, field_profile, scale_sample
 from experiences import router
 from ui_helpers import (
     graph_support,
@@ -31,6 +31,17 @@ PLAYGROUND_LABELS = [
     "Three variables",
     "Dataset preview",
 ]
+
+
+def _axis_scale_control(label: str, key: str) -> bool:
+    """Return whether an axis should use logarithmic spacing."""
+    return st.segmented_control(
+        label,
+        ["Linear", "Log"],
+        default="Linear",
+        key=key,
+        required=True,
+    ) == "Log"
 
 
 def render(data: pd.DataFrame) -> None:
@@ -67,9 +78,18 @@ def render(data: pd.DataFrame) -> None:
             f"A numeric field in this example dataset. Use its values to compare records and look for spread or unusual values.",
             scale_note=f"{details['missing']:,} of {len(data):,} records have no value for this field.",
         )
-        complete, _ = usable_sample(data, [field])
-        sample_note(complete, len(data), label="records")
-        st.plotly_chart(histogram(data, field), use_container_width=True)
+        log_x = _axis_scale_control("Horizontal axis scale", "playground_one_log_x")
+        sample = scale_sample(data, [field], log_x_field=field if log_x else None)
+        sample_note(
+            len(sample.data),
+            sample.total,
+            label="records",
+            missing=sample.missing,
+            log_x_excluded=sample.log_x_excluded,
+            log_excluded=sample.log_excluded,
+            x_label=field,
+        )
+        st.plotly_chart(histogram(sample.data, field, log_x=log_x), width="stretch")
         st.caption("What does this distribution show? What cannot it tell you on its own?")
 
     elif part == 1:
@@ -78,9 +98,29 @@ def render(data: pd.DataFrame) -> None:
         else:
             x = st.selectbox("Horizontal axis", numeric, index=0)
             y = st.selectbox("Vertical axis", numeric, index=1)
-            complete, _ = usable_sample(data, [x, y])
-            sample_note(complete, len(data), label="records")
-            st.plotly_chart(scatter(data, x, y), use_container_width=True)
+            scale_x, scale_y = st.columns(2)
+            with scale_x:
+                log_x = _axis_scale_control("Horizontal axis scale", "playground_two_log_x")
+            with scale_y:
+                log_y = _axis_scale_control("Vertical axis scale", "playground_two_log_y")
+            sample = scale_sample(
+                data,
+                [x, y],
+                log_x_field=x if log_x else None,
+                log_y_field=y if log_y else None,
+            )
+            sample_note(
+                len(sample.data),
+                sample.total,
+                label="records",
+                missing=sample.missing,
+                log_x_excluded=sample.log_x_excluded,
+                log_y_excluded=sample.log_y_excluded,
+                log_excluded=sample.log_excluded,
+                x_label=x,
+                y_label=y,
+            )
+            st.plotly_chart(scatter(sample.data, x, y, log_x=log_x, log_y=log_y), width="stretch")
             graph_support(
                 f"The horizontal axis shows {x}; the vertical axis shows {y}.",
                 "Look for a relationship, clusters, outliers and places where data are missing.",
@@ -96,9 +136,32 @@ def render(data: pd.DataFrame) -> None:
                 st.info("Add a third usable variable to the dataset to use this mode.")
             else:
                 colour = st.selectbox("Third variable — colour by", colour_options)
-                complete, _ = usable_sample(data, [x, y, colour])
-                sample_note(complete, len(data), label="records")
-                st.plotly_chart(scatter(data, x, y, colour), use_container_width=True)
+                scale_x, scale_y = st.columns(2)
+                with scale_x:
+                    log_x = _axis_scale_control("Horizontal axis scale", "playground_three_log_x")
+                with scale_y:
+                    log_y = _axis_scale_control("Vertical axis scale", "playground_three_log_y")
+                sample = scale_sample(
+                    data,
+                    [x, y, colour],
+                    log_x_field=x if log_x else None,
+                    log_y_field=y if log_y else None,
+                )
+                sample_note(
+                    len(sample.data),
+                    sample.total,
+                    label="records",
+                    missing=sample.missing,
+                    log_x_excluded=sample.log_x_excluded,
+                    log_y_excluded=sample.log_y_excluded,
+                    log_excluded=sample.log_excluded,
+                    x_label=x,
+                    y_label=y,
+                )
+                st.plotly_chart(
+                    scatter(sample.data, x, y, colour, log_x=log_x, log_y=log_y),
+                    width="stretch",
+                )
                 st.caption("Does colour reveal a pattern, or does it mostly add noise? Check before inferring an explanation.")
     else:
         st.dataframe(data, use_container_width=True, hide_index=True)
