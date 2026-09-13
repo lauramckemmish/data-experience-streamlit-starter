@@ -29,8 +29,8 @@ def apply_visual_system() -> None:
     [data-testid="stSidebar"] .st-key-sidebar_data_source [data-testid="stVerticalBlock"] {{ gap:.12rem; }}
     [data-testid="stSidebar"] .st-key-sidebar_data_source p, [data-testid="stSidebar"] .st-key-sidebar_data_source [data-testid="stCaptionContainer"] {{ color:#fff !important; }}
     [data-testid="stSidebar"] [data-testid="stButton"] > button {{ width:100%; min-height:2rem; padding:.2rem .45rem; font-size:.88rem; }}
-    [data-testid="stSidebar"] [data-testid="stButton"] > button[kind="primary"] {{ background:rgba(255,220,0,.10); border-color:transparent; border-left:4px solid var(--unsw-active-emphasis); color:inherit; }}
-    [data-testid="stButton"] > button:focus-visible, [data-testid="stTabs"] [role="tab"]:focus-visible {{ outline:3px solid currentColor; outline-offset:2px; box-shadow:0 0 0 5px var(--unsw-brand); }}
+    [data-testid="stSidebar"] [data-testid="stButton"] > button[kind="primary"] {{ background:rgba(255,220,0,.10); border-color:transparent; border-left:4px solid var(--unsw-active-emphasis); color:inherit; padding-left:calc(.45rem - 2px); }}
+    [data-testid="stSidebar"] [data-testid="stButton"] > button[kind="primary"]:hover {{ background:rgba(255,220,0,.16); border-color:transparent; border-left-color:var(--unsw-active-emphasis); color:inherit; }}
     [data-testid="stAlert"] {{ border-left:3px solid var(--unsw-information); background:rgba(63,97,196,.08); }}
     [data-testid="stExpander"] {{ border-left:3px solid var(--unsw-exploration); }}
     .st-key-graph_reading_support {{ border-left:2px solid var(--unsw-secondary-accent, #007882); background:rgba(0,120,130,.06); padding:.45rem .65rem; margin:.35rem 0 .55rem; }}
@@ -44,8 +44,16 @@ def apply_visual_system() -> None:
     [class*="st-key-hard_reveal_"] {{ border-left:2px solid var(--unsw-information); padding:.1rem 0 .1rem .65rem; margin:.65rem 0 .8rem; }}
     [class*="st-key-hard_reveal_"] .hard-reveal__label {{ color:var(--unsw-information); }}
     .st-key-teacher_guidance {{ opacity:.86; }}
-    [data-testid="stButton"] > button[kind="primary"] {{ background:transparent; border:2px solid var(--unsw-active-emphasis); color:inherit; font-weight:650; }}
-    [data-testid="stButton"] > button[kind="primary"]:hover {{ background:rgba(255,220,0,.10); border-color:var(--unsw-active-emphasis); color:inherit; }}
+    [data-testid="stButton"] > button[kind="primary"], [data-testid="stFormSubmitButton"] > button[kind="primary"], [data-testid="stBaseButton-primary"], [data-testid="stBaseButton-primaryFormSubmit"] {{ background:transparent; border:2px solid var(--unsw-active-emphasis); color:inherit; font-weight:650; }}
+    [data-testid="stButton"] > button[kind="primary"]:hover, [data-testid="stFormSubmitButton"] > button[kind="primary"]:hover, [data-testid="stBaseButton-primary"]:hover, [data-testid="stBaseButton-primaryFormSubmit"]:hover {{ background:rgba(255,220,0,.10); border-color:var(--unsw-active-emphasis); color:inherit; }}
+    [data-testid="stButton"] > button[kind="secondary"] {{ background:rgba(63,97,196,.08); border-color:rgba(63,97,196,.65); }}
+    [data-testid="stButton"] > button:focus-visible, [data-testid="stFormSubmitButton"] > button:focus-visible, [data-testid="stBaseButton-primary"]:focus-visible, [data-testid="stBaseButton-primaryFormSubmit"]:focus-visible, [data-testid="stTabs"] button:focus-visible, [data-testid="stTabs"] [role="tab"]:focus-visible {{ outline:3px solid currentColor; outline-offset:2px; box-shadow:0 0 0 5px var(--unsw-brand); }}
+    [data-testid="stTabs"] [role="tablist"] {{ gap:.25rem; flex-wrap:wrap; border-bottom:0; }}
+    [data-testid="stTabs"] [data-testid="stTab"] hr {{ display:none; }}
+    [data-testid="stTabs"] [role="tab"] {{ min-height:2rem; padding:.3rem .55rem; background:transparent; border:1px solid transparent; border-radius:.3rem; color:inherit; }}
+    [data-testid="stTabs"] [role="tab"]:hover {{ background:rgba(255,220,0,.08); }}
+    [data-testid="stTabs"] [role="tab"][aria-selected="true"], [data-testid="stTabs"] [role="tab"][data-selected="true"] {{ background:transparent; border:1px solid transparent; border-left:4px solid var(--unsw-active-emphasis); padding-left:calc(.55rem - 3px); }}
+    [data-testid="stTabs"] [role="tab"][aria-selected="true"] p, [data-testid="stTabs"] [role="tab"][data-selected="true"] p {{ color:inherit; font-weight:650; }}
     .type-major-section {{ font-size:clamp(1.35rem, 2.2vw, 1.65rem); line-height:1.2; }}
     .type-subsection {{ font-size:1.25rem; line-height:1.25; }}
     .type-resource-identity {{ font-size:clamp(1.25rem, 2.1vw, 1.55rem); line-height:1.2; }}
