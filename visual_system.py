@@ -43,9 +43,9 @@ def apply_visual_system() -> None:
     .st-key-variable_card {{ border-left:2px solid var(--unsw-secondary-accent, #007882); }}
     .st-key-sample_note {{ margin:.15rem 0; }}
     .st-key-response_box {{ border-left:2px solid var(--unsw-secondary-accent, #007882); padding-left:.65rem; }}
-    .st-key-think_prompt {{ border-left:2px solid #111827; padding:.1rem 0 .1rem .65rem; margin:.5rem 0 .7rem; }}
-    .st-key-think_prompt .think-prompt__label, [class*="st-key-hard_reveal_"] .hard-reveal__label {{ display:block; font-size:.72rem; font-weight:700; letter-spacing:.08em; line-height:1.2; text-transform:uppercase; }}
-    .st-key-think_prompt [data-testid="stMarkdownContainer"] p, [class*="st-key-hard_reveal_"] [data-testid="stMarkdownContainer"] p {{ margin-bottom:.2rem; }}
+    .st-key-notice_prompt, .st-key-compare_prompt, .st-key-predict_prompt, .st-key-explain_prompt, .st-key-conclude_prompt, .st-key-revise_prompt, .st-key-recall_prompt {{ border-left:2px solid #111827; padding:.1rem 0 .1rem .65rem; margin:.5rem 0 .7rem; }}
+    .st-key-notice_prompt .cognitive-prompt__label, .st-key-compare_prompt .cognitive-prompt__label, .st-key-predict_prompt .cognitive-prompt__label, .st-key-explain_prompt .cognitive-prompt__label, .st-key-conclude_prompt .cognitive-prompt__label, .st-key-revise_prompt .cognitive-prompt__label, .st-key-recall_prompt .cognitive-prompt__label, [class*="st-key-hard_reveal_"] .hard-reveal__label {{ display:block; font-size:.72rem; font-weight:700; letter-spacing:.08em; line-height:1.2; text-transform:uppercase; }}
+    .st-key-notice_prompt [data-testid="stMarkdownContainer"] p, .st-key-compare_prompt [data-testid="stMarkdownContainer"] p, .st-key-predict_prompt [data-testid="stMarkdownContainer"] p, .st-key-explain_prompt [data-testid="stMarkdownContainer"] p, .st-key-conclude_prompt [data-testid="stMarkdownContainer"] p, .st-key-revise_prompt [data-testid="stMarkdownContainer"] p, .st-key-recall_prompt [data-testid="stMarkdownContainer"] p, [class*="st-key-hard_reveal_"] [data-testid="stMarkdownContainer"] p {{ margin-bottom:.2rem; }}
     [class*="st-key-hard_reveal_"] {{ border-left:2px solid var(--unsw-information); padding:.1rem 0 .1rem .65rem; margin:.65rem 0 .8rem; }}
     [class*="st-key-hard_reveal_"] .hard-reveal__label {{ color:var(--unsw-information); }}
     .st-key-teacher_guidance {{ opacity:.86; }}

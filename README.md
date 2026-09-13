@@ -1,15 +1,14 @@
 # Data Experiences Streamlit Starter v4
 
-A deployable, dataset-neutral Streamlit master scaffold for CURIOUS-style educational data-science resources.
+A deployable, dataset-neutral Streamlit master scaffold for educational data-science resources.
 
 This repository contains both reusable technical architecture and a shared design playbook for educational data-science experiences. See [ARCHITECTURE.md](ARCHITECTURE.md) for the application design contract and [playbook/README.md](playbook/README.md) for reusable cross-resource design knowledge.
 
-## Stable core experiences
+## Stable reference surfaces
 
-- **CURIOUS** — guided facilitator-led workshop.
-- **Year 8** — scaffolded two-lesson classroom pathway.
-- **Year 10** — deeper two-lesson classroom pathway.
-- **Data Exploration Playground** — open exploration using a stable one-variable / two-variable / three-variable structure.
+- **Template Experience** — a small guided learner journey.
+- **Data Playground** — open exploration using a stable one-variable / two-variable / three-variable structure.
+- **Pattern Reference** — concise canonical examples of selected shared UI and interaction patterns.
 
 ## What v4 stabilises
 
@@ -17,9 +16,9 @@ This repository contains both reusable technical architecture and a shared desig
 - Dataset name, scope and provenance visible on both Home and the global sidebar.
 - Raw-data viewing and CSV download remain globally accessible.
 - Teacher view stays at the top-right of guided/classroom experiences.
-- The Data Exploration Playground uses **1 / 2 / 3 variables** as its stable conceptual structure.
-- Dataset-specific tools such as filtering, modelling or fitting can be added without changing the master experience architecture.
-- Development should proceed **one experience at a time**.
+- The Data Playground uses **1 / 2 / 3 variables** as its stable conceptual structure.
+- The Pattern Reference contains only patterns that need an upstream rendered exemplar.
+- Development should proceed **one surface at a time**.
 
 ## Run locally
 
@@ -58,7 +57,7 @@ and usable-page assertion. Override levels when needed, for example:
 python tools/classroom_concurrency.py --sessions 1 --sessions 20 --sessions 30
 ```
 
-The Starter adapter uses the existing Data Exploration Playground's dataset-preview
+The Starter adapter uses the existing Data Playground's dataset-preview
 disclosure, because this dataset-neutral reference has no more
 meaningful subject-specific class stage. For Exoplanets, the adapter should
 navigate to **Planet Shopping → Combine** and perform its representative
@@ -79,11 +78,11 @@ No secrets are required for the bundled demo dataset.
 
 1. Replace `data/taylor_swift_demo_dataset.csv` (or update the path/loading logic in `data.py`).
 2. Update the dataset identity, scope, source and citation fields in `config.py`.
-3. Design the CURIOUS pedagogy before changing `experiences/curious.py`.
+3. Design the Template Experience pedagogy before changing `experiences/curious.py`.
 4. Keep reusable data preparation in `data.py` and reusable plots in `charts.py`.
 5. Add `models.py` if the topic has substantial fitting/modelling logic.
-6. Develop Year 8 and Year 10 independently when their pedagogy is ready.
-7. Keep the Data Exploration Playground structurally stable and add only scientifically justified dataset-specific tools.
+6. Keep the Data Playground structurally stable and add only scientifically justified dataset-specific tools.
+7. Add a Pattern Reference exemplar only when an accepted shared pattern otherwise lacks a useful upstream home.
 
 ## Architecture
 
@@ -99,11 +98,9 @@ templates/                  short workflows for applying playbook decisions
 experiences/
   landing.py                dataset-first introduction + experience catalogue
   router.py                 routing and navigation state
-  curious.py                guided CURIOUS lesson
-  classroom_shell.py        common two-lesson shell
-  year8.py                  Year 8 route
-  year10.py                 Year 10 route
-  data_playground.py        Data Exploration Playground
+  curious.py                guided Template Experience
+  data_playground.py        Data Playground
+  pattern_reference.py      canonical selected shared-pattern examples
 ```
 
 When adapting the starter, replace the resource-owned hero, dataset orientation,
@@ -111,8 +108,8 @@ About text, stewardship and relevant positionality, contributors, development
 status, feedback, review, support and partnership content. Stewardship is
 split between UNSW identity/permission stewardship and local scientific or
 educational responsibility; neither is automatically inherited. Keep
-“Choose an investigation” for structured guided experiences and “Explore the
-data” for open-ended exploration. Use the established contribution vocabulary
+"Guided investigation" for the Template Experience and "Explore the data" for
+open-ended exploration. Use the established contribution vocabulary
 and credit distinctive perspectives that materially shaped the resource; see
 [`playbook/decisions/contributor-credit.md`](playbook/decisions/contributor-credit.md).
 
@@ -137,16 +134,19 @@ presentation live in `ui_helpers.py`; data counts and field profiles live in
 
 | Pattern | Purpose and important distinction | Worked example |
 | --- | --- | --- |
-| Think prompt | Non-blocking cue for prediction, noticing or reasoning. | `experiences/curious.py`, CURIOUS → Welcome |
-| Hard reveal | Withholds meaningful downstream evidence; render that content only when the helper returns `True`. | `experiences/curious.py`, CURIOUS → 1 · Context |
-| Learner response | Persistent writable response, but not a gate by itself. | `experiences/curious.py`, CURIOUS → 1 · Context |
-| Completion gate | Controls progression separately from reveal semantics. | `experiences/curious.py`, CURIOUS → 1 · Context |
-| Soft reveal | Optional, non-blocking supporting content. | `experiences/curious.py`, CURIOUS → 1 · Context |
+| Semantic prompt | A non-blocking prompt that names the learner's cognitive job: Notice, Compare, Predict, Explain, Conclude, Revise or Recall. | `experiences/curious.py`, Template Experience → Welcome and Context |
+| Self-check | Collapsed, non-gating formative feedback that lets learners compare their reading or thinking. | `experiences/pattern_reference.py` |
+| Hard reveal | Withholds meaningful downstream evidence; render that content only when the helper returns `True`. | `experiences/curious.py`, Template Experience → Welcome |
+| Learner response | Persistent writable response, but not a gate by itself. | `experiences/curious.py`, Template Experience → Welcome |
+| Completion gate | Controls progression separately from reveal semantics. | Shared helper: `ui_helpers.py` |
+| Soft reveal | Optional, non-blocking supporting content. | `experiences/pattern_reference.py` |
 | Choice reveal | Optional learner-selected exploration; no natural Starter exemplar yet. | Shared helper only: `ui_helpers.py` |
 | Graph support | Quiet guidance placed beside a real graph-reading task. | `experiences/data_playground.py`, 2 variables |
 | Variable card | Explains a selected field’s meaning, units or interpretation. | `experiences/data_playground.py`, 1 variable |
 | Sample note | Reports usable rows for the displayed analysis; calculations stay in the data layer. | `experiences/data_playground.py`, 1 and 2 variables |
-| Teacher guidance | Shared visibility/presentation; the experience owns the facilitator content. | `experiences/curious.py`, CURIOUS → 1 · Context |
+| Key idea | Names what evidence supports without implying success or completion. | `experiences/pattern_reference.py` |
+| Role image / media-text pair | Keeps instructional image role and paired explanation explicit. | `experiences/pattern_reference.py` |
+| Teacher guidance | Shared visibility/presentation; the experience owns the facilitator content. | `experiences/curious.py`, Template Experience |
 
 The content contract in `config.py` separates `SHORT_NAME` (compact shell
 identity), `DESCRIPTIVE_NAME` (formal About identity), `HERO_HOOK` (learner-facing

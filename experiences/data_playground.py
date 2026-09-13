@@ -1,4 +1,4 @@
-"""Stable open-ended Data Exploration Playground shell.
+"""Stable open-ended Data Playground shell.
 
 The master pattern is deliberately simple: one variable, two variables and
 three variables. Dataset-specific projects may add constrained filtering,
@@ -17,11 +17,10 @@ from ui_helpers import graph_support, page_header, sample_note, variable_card
 
 
 def render(data: pd.DataFrame) -> None:
-    page_header("Data Exploration Playground", teacher_control=False)
+    page_header("Data Playground", teacher_control=False)
     st.warning(config.DATASET_SOURCE_NOTE)
     st.write(
-        "Choose one, two or three variables. Inspect the evidence, then decide what it supports. "
-        "Use filters or models only when they help answer a question."
+        "Choose one, two or three variables. Inspect the evidence, then decide what it supports."
     )
 
     profile = column_profile(data)
@@ -66,12 +65,6 @@ def render(data: pd.DataFrame) -> None:
             f"The horizontal axis shows {x}; the vertical axis shows {y}.",
             "Look for a relationship, clusters, outliers and places where data are missing.",
         )
-        with st.expander("Dataset-specific analysis tools"):
-            st.write(
-                "A topic-specific app may add constrained filters, fitted models, scale controls or other tools here when they help answer a question. "
-                "Keep the calculations outside this experience module."
-            )
-
     else:
         if len(numeric) < 2:
             st.info("Add at least two numeric variables to the dataset to use this mode.")

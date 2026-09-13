@@ -45,10 +45,10 @@ class _StreamlitStub:
 
 class LandingCatalogueTests(unittest.TestCase):
     def test_plain_catalogue_entries_keep_the_existing_fallbacks(self):
-        plain = next(entry for entry in catalog.experience_catalog() if entry["name"] == "Year 8")
+        plain = {"name": "Plain route", "summary": "Plain summary"}
         presentation = landing._card_presentation(plain, default_button_label="Open experience →")
 
-        self.assertEqual(presentation["title"], "Year 8")
+        self.assertEqual(presentation["title"], "Plain route")
         self.assertEqual(presentation["summary"], plain["summary"])
         self.assertEqual(presentation["button_label"], "Open experience →")
         self.assertIsNone(presentation["audience_badge"])
@@ -109,10 +109,10 @@ class LandingCatalogueTests(unittest.TestCase):
     def test_enabled_destination_identity_is_unchanged_by_presentation_metadata(self):
         self.assertEqual(
             catalog.enabled_experience_names(),
-            ["CURIOUS", "Year 8", "Year 10", "Data Exploration Playground"],
+            ["Template Experience", "Data Playground", "Pattern Reference"],
         )
-        curious = next(entry for entry in catalog.experience_catalog() if entry["name"] == "CURIOUS")
-        self.assertEqual(curious["audience_badge"], "Facilitated workshop")
+        template = next(entry for entry in catalog.experience_catalog() if entry["name"] == "Template Experience")
+        self.assertEqual(template["audience_badge"], "Guided investigation")
 
 
 if __name__ == "__main__":

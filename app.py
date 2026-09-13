@@ -12,13 +12,12 @@ from config import (
     DATASET_SOURCE_LABEL,
     DATASET_SOURCE_NOTE,
     DATASET_SOURCE_URL,
-    EXPERIENCE_CURIOUS,
+    EXPERIENCE_PATTERN_REFERENCE,
     EXPERIENCE_PLAYGROUND,
-    EXPERIENCE_YEAR8,
-    EXPERIENCE_YEAR10,
+    EXPERIENCE_TEMPLATE,
 )
 from data import load_data
-from experiences import curious, data_playground, landing, router, year10, year8
+from experiences import curious, data_playground, landing, pattern_reference, router
 from visual_system import apply_visual_system, sidebar_data_source, sidebar_identity, validate_shared_assets
 
 DATASET_CITATION = getattr(config, "DATASET_CITATION", None)
@@ -39,11 +38,9 @@ with st.sidebar:
 
 if current == router.LANDING:
     landing.render(data, router.open_experience)
-elif current == EXPERIENCE_CURIOUS:
+elif current == EXPERIENCE_TEMPLATE:
     curious.render(data)
-elif current == EXPERIENCE_YEAR8:
-    year8.render(data)
-elif current == EXPERIENCE_YEAR10:
-    year10.render(data)
 elif current == EXPERIENCE_PLAYGROUND:
     data_playground.render(data)
+elif current == EXPERIENCE_PATTERN_REFERENCE:
+    pattern_reference.render()

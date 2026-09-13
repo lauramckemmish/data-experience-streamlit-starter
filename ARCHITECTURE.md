@@ -4,22 +4,23 @@ This repository is a reusable master scaffold for educational data-science exper
 
 This document governs reusable application and software architecture. Cross-resource design knowledge belongs in `playbook/`; individual resources retain local pedagogy and may deliberately deviate where their audience, science, data or delivery context warrants it.
 
-## Stable core experience structure
+## Stable reference-surface structure
 
-The four core routes are deliberately stable:
+The three reference surfaces are deliberately stable:
 
-1. **CURIOUS** — a guided facilitator-led workshop.
-2. **Year 8** — a scaffolded two-lesson classroom pathway.
-3. **Year 10** — a deeper two-lesson classroom pathway.
-4. **Data Exploration Playground** — open exploration organised around one, two and three variables.
+1. **Template Experience** — a small, coherent, guided learner journey.
+2. **Data Playground** — open exploration organised around one, two and three variables.
+3. **Pattern Reference** — a non-narrative home for selected canonical shared-pattern examples.
 
-A topic-specific project may add an extra experience only when the dataset genuinely warrants it. Do not add dataset-specific experiences to the master scaffold.
+The starter is broad and representative, not comprehensive. A shared helper does
+not automatically need a rendered exemplar; keep one only where it supports
+authoring, design, testing or auditing.
 
 ## Stable interface rules
 
 - **Introduction/Home:** dataset identity, short scope statement and provenance are prominent above the experience choices.
 - **Sidebar:** experience navigation, raw dataset access/download and source/provenance.
-- **Top-right of guided/classroom pages:** Teacher view.
+- **Top-right of the Template Experience:** Teacher view.
 - **Main experience page:** only the teaching or exploration content relevant to that experience.
 
 ### Shared content roles
@@ -69,10 +70,12 @@ not generic interaction decoration.
 
 ### Shared interaction distinctions
 
-- **Think** is a non-blocking reasoning cue; it does not imply Respond or hidden evidence.
-- **Hard Reveal** protects consequential evidence when seeing it early would undermine prior reasoning or action. It does not imply prediction specifically.
-- **Information / support** gives learners what they need to know without manufacturing inquiry.
-- Experience modules own the particular cognitive job and learner wording; completion gating remains separate from these roles.
+- **Semantic prompts** name the cognitive job—Notice, Compare, Predict, Explain, Conclude, Revise or Recall—and are non-blocking. A generic Think cue is discouraged because it hides the intended intellectual work.
+- **Self-check** is collapsed formative feedback for comparing a learner's reading or thinking. It is non-gating and distinct from optional enrichment.
+- **Soft reveal** offers optional supporting or enrichment information and never blocks progression.
+- **Hard reveal** protects consequential evidence when seeing it early would undermine prior reasoning or action. It blocks Continue until revealed, but does not imply prediction specifically.
+- **Completion gates** block Continue only for a meaningful required learner action; they remain separate from reveals and prompts.
+- Experience modules own the particular cognitive job, learner wording, and whether a check or reveal is appropriate. Prompt choice and progression choice are separate design decisions.
 
 ## Data-science progression
 
@@ -91,4 +94,4 @@ Not every dataset needs every technique. Add a technique when it helps answer a 
 
 ## Development rule
 
-Work on one experience at a time. Change that experience plus only the shared modules genuinely required by the change. Do not opportunistically redesign other experiences in the same implementation pass.
+Work on one surface at a time. Change that surface plus only the shared modules genuinely required by the change. Do not opportunistically redesign other surfaces in the same implementation pass.

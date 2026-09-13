@@ -21,6 +21,7 @@ class _StreamlitStub:
         self.buttons = []
         self.button_kwargs = []
         self.expanders = []
+        self.expander_kwargs = []
         self.html_fragments = []
         self.markdowns = []
         self.captions = []
@@ -40,6 +41,7 @@ class _StreamlitStub:
 
     def expander(self, label, **_kwargs):
         self.expanders.append(label)
+        self.expander_kwargs.append(_kwargs)
         return _Context()
 
     def button(self, label, **kwargs):
@@ -102,6 +104,40 @@ class SharedInteractionTests(unittest.TestCase):
             )
             self.assertIn("Compare first", stub.markdowns[0])
             self.assertEqual(stub.captions, ["Agree on a comparison before revealing the evidence."])
+
+    def test_semantic_prompts_name_the_cognitive_job_without_gating(self):
+        stub = _StreamlitStub()
+        prompts = (
+            (ui_helpers.notice_prompt, "Notice"),
+            (ui_helpers.compare_prompt, "Compare"),
+            (ui_helpers.predict_prompt, "Predict"),
+            (ui_helpers.explain_prompt, "Explain"),
+            (ui_helpers.conclude_prompt, "Conclude"),
+            (ui_helpers.revise_prompt, "Revise"),
+            (ui_helpers.recall_prompt, "Recall"),
+        )
+        with patch.object(ui_helpers, "st", stub):
+            for render_prompt, label in prompts:
+                render_prompt(f"{label} this evidence.")
+            self.assertIn("Continue →", self.navigation(stub))
+
+        self.assertEqual(len(stub.markdowns), len(prompts))
+        for (_, label), markdown in zip(prompts, stub.markdowns):
+            self.assertIn(label, markdown)
+        self.assertEqual(
+            stub.writes[: len(prompts)],
+            [f"{label} this evidence." for _, label in prompts],
+        )
+
+    def test_self_check_is_collapsed_and_never_blocks_continue(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            with ui_helpers.self_check("Check your reading"):
+                stub.write("Compare this with your own observation.")
+            self.assertIn("Continue →", self.navigation(stub))
+
+        self.assertEqual(stub.expanders, ["Self-check: Check your reading"])
+        self.assertEqual(stub.expander_kwargs, [{"expanded": False}])
 
     def test_multiple_gates_require_all_requirements(self):
         stub = _StreamlitStub()

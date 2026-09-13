@@ -27,15 +27,15 @@ class StarterClassroomAdapter:
         ]
 
     async def arrive(self, page: object) -> None:
-        await page.get_by_role("button", name="Data Exploration Playground", exact=True).click(no_wait_after=True)
-        await page.get_by_role("heading", name="Data Exploration Playground", exact=True).first.wait_for()
+        await page.get_by_role("button", name="Data Playground", exact=True).click(no_wait_after=True)
+        await page.get_by_role("heading", name="Data Playground", exact=True).first.wait_for()
         await page.get_by_text("Dataset preview", exact=True).wait_for()
 
     async def interact(self, page: object, round_number: int) -> None:
         await page.get_by_text("Dataset preview", exact=True).click()
 
     async def assert_usable(self, page: object) -> None:
-        await page.get_by_role("heading", name="Data Exploration Playground", exact=True).first.wait_for()
+        await page.get_by_role("heading", name="Data Playground", exact=True).first.wait_for()
         await page.get_by_text("Dataset preview", exact=True).wait_for()
 
 

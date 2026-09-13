@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from config import EXPERIENCE_CURIOUS, EXPERIENCE_PLAYGROUND
+from config import EXPERIENCE_PATTERN_REFERENCE, EXPERIENCE_PLAYGROUND, EXPERIENCE_TEMPLATE
 from experiences.catalog import enabled_experience_names
 
 LANDING = "Home"
@@ -25,7 +25,7 @@ def open_experience(name: str) -> None:
     st.session_state["experience"] = name
     st.session_state["experience_navigation"] = name
     st.session_state["teacher_view"] = False
-    if name == EXPERIENCE_CURIOUS:
+    if name == EXPERIENCE_TEMPLATE:
         st.session_state["curious_part"] = 0
         st.session_state.pop("curious_step_selector", None)
         st.session_state["curious_scroll_to_top"] = True
@@ -60,15 +60,18 @@ def render_sidebar_navigation() -> None:
     st.button("🏠 Start here", type="primary" if current == LANDING else "secondary",
               use_container_width=True, disabled=current == LANDING,
               on_click=go_home)
-    st.markdown("#### Experiences")
-    experience_names = [name for name in options[1:] if name != EXPERIENCE_PLAYGROUND]
-    for name in experience_names:
+    for section_label, name in (
+        ("Learn", EXPERIENCE_TEMPLATE),
+        ("Explore data", EXPERIENCE_PLAYGROUND),
+        ("Reference", EXPERIENCE_PATTERN_REFERENCE),
+    ):
+        st.markdown(f"#### {section_label}")
         selected = name == current
-        st.button(name, type="primary" if selected else "secondary",
-                  use_container_width=True, disabled=selected,
-                  on_click=open_experience, args=(name,))
-    st.markdown("#### Explore")
-    selected = EXPERIENCE_PLAYGROUND == current
-    st.button(EXPERIENCE_PLAYGROUND, type="primary" if selected else "secondary",
-              use_container_width=True, disabled=selected,
-              on_click=open_experience, args=(EXPERIENCE_PLAYGROUND,))
+        st.button(
+            name,
+            type="primary" if selected else "secondary",
+            use_container_width=True,
+            disabled=selected,
+            on_click=open_experience,
+            args=(name,),
+        )

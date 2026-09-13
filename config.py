@@ -27,10 +27,9 @@ APP_ICON = "📊"
 APP_SUBTITLE = "Use data in guided and open-ended investigations"
 LANDING_ORIENTATION = "This starter uses a small demonstration dataset. Adapt this context to name the question, dataset and evidence learners will investigate."
 
-EXPERIENCE_CURIOUS = "CURIOUS"
-EXPERIENCE_YEAR8 = "Year 8"
-EXPERIENCE_YEAR10 = "Year 10"
-EXPERIENCE_PLAYGROUND = "Data Exploration Playground"
+EXPERIENCE_TEMPLATE = "Template Experience"
+EXPERIENCE_PLAYGROUND = "Data Playground"
+EXPERIENCE_PATTERN_REFERENCE = "Pattern Reference"
 
 # Dataset metadata shown prominently on the introduction page and in the sidebar.
 # Update these when adapting the starter to a real dataset.

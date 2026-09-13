@@ -1,10 +1,9 @@
-"""Single catalogue of the four stable core experiences."""
+"""Single catalogue of the starter's three reference surfaces."""
 
 from config import (
-    EXPERIENCE_CURIOUS,
+    EXPERIENCE_PATTERN_REFERENCE,
     EXPERIENCE_PLAYGROUND,
-    EXPERIENCE_YEAR8,
-    EXPERIENCE_YEAR10,
+    EXPERIENCE_TEMPLATE,
 )
 
 
@@ -12,24 +11,21 @@ def experience_catalog(*, enabled_only: bool = True):
     """Return experience metadata, optionally including disabled experiences."""
     catalog = [
         {
-            "name": EXPERIENCE_CURIOUS,
-            "summary": "A guided, facilitator-led workshop built around a small number of purposeful questions.",
-            "audience_badge": "Facilitated workshop",
-            "enabled": True,
-        },
-        {
-            "name": EXPERIENCE_YEAR8,
-            "summary": "A scaffolded two-lesson classroom pathway for working with data, variables, graphs and interpretation.",
-            "enabled": True,
-        },
-        {
-            "name": EXPERIENCE_YEAR10,
-            "summary": "A deeper two-lesson classroom pathway with more independent analysis, comparison or modelling where the dataset supports it.",
+            "name": EXPERIENCE_TEMPLATE,
+            "summary": "A small guided investigation that moves from a question and prediction to evidence and a learner response.",
+            "audience_badge": "Guided investigation",
             "enabled": True,
         },
         {
             "name": EXPERIENCE_PLAYGROUND,
-            "summary": "Open exploration of one, two and three variables, with filtering or fitting when it helps answer a question.",
+            "summary": "Open exploration of variables, distributions, relationships, missingness and evidence.",
+            "audience_badge": "Open data exploration",
+            "enabled": True,
+        },
+        {
+            "name": EXPERIENCE_PATTERN_REFERENCE,
+            "summary": "Canonical examples of selected shared interface and interaction patterns.",
+            "audience_badge": "Authoring reference",
             "enabled": True,
         },
     ]
