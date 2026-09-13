@@ -9,6 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import streamlit as st
 
@@ -55,6 +56,7 @@ class ScaleSample:
     missing: int
     log_x_excluded: int
     log_y_excluded: int
+    log_both_excluded: int
     log_excluded: int
 
 
@@ -65,24 +67,24 @@ def scale_sample(
     log_x_field: str | None = None,
     log_y_field: str | None = None,
 ) -> ScaleSample:
-    """Prepare complete rows and remove non-positive values needed by log axes.
+    """Prepare complete rows and remove values invalid for selected log axes.
 
     ``missing`` counts rows without a required value. ``log_x_excluded`` and
     ``log_y_excluded`` count the selected complete rows with invalid values on
     their respective axes; ``log_excluded`` is their non-overlapping union.
+    A logarithmic axis can only display finite, positive values.
     """
     complete_mask = data[required].notna().all(axis=1)
     complete = data.loc[complete_mask]
-    log_x_mask = (
-        complete[log_x_field].le(0)
-        if log_x_field is not None
-        else pd.Series(False, index=complete.index)
-    )
-    log_y_mask = (
-        complete[log_y_field].le(0)
-        if log_y_field is not None
-        else pd.Series(False, index=complete.index)
-    )
+
+    def invalid_for_log(field: str | None) -> pd.Series:
+        if field is None:
+            return pd.Series(False, index=complete.index)
+        values = complete[field]
+        return values.le(0) | ~pd.Series(np.isfinite(values), index=complete.index)
+
+    log_x_mask = invalid_for_log(log_x_field)
+    log_y_mask = invalid_for_log(log_y_field)
     log_mask = log_x_mask | log_y_mask
     return ScaleSample(
         data=complete.loc[~log_mask],
@@ -90,5 +92,6 @@ def scale_sample(
         missing=int((~complete_mask).sum()),
         log_x_excluded=int(log_x_mask.sum()),
         log_y_excluded=int(log_y_mask.sum()),
+        log_both_excluded=int((log_x_mask & log_y_mask).sum()),
         log_excluded=int(log_mask.sum()),
     )

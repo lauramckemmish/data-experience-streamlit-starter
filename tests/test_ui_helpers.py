@@ -227,6 +227,27 @@ class SharedInteractionTests(unittest.TestCase):
             self.assertEqual(stub.expanders, ["Teacher guidance: Stage"])
             self.assertEqual(stub.session_state["stage_response"], "An observation")
 
+    def test_sample_note_separates_missing_and_overlapping_log_exclusions(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.sample_note(
+                1,
+                6,
+                missing=2,
+                log_x_excluded=2,
+                log_y_excluded=2,
+                log_both_excluded=1,
+                log_excluded=3,
+                x_label="x",
+                y_label="y",
+            )
+
+        note = stub.captions[-1]
+        self.assertIn("2 omitted because a required value is missing", note)
+        self.assertIn("3 additional records excluded", note)
+        self.assertIn("2 on x; 2 on y", note)
+        self.assertIn("counted once", note)
+
     def test_resource_identity_uses_one_safe_grid_component(self):
         stub = _StreamlitStub()
         with patch.object(ui_helpers, "st", stub):

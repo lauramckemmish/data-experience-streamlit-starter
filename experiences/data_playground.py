@@ -44,6 +44,13 @@ def _axis_scale_control(label: str, key: str) -> bool:
     ) == "Log"
 
 
+def _empty_chart_message(log_x: bool, log_y: bool = False) -> str:
+    """Explain an empty selection without treating log-invalid values as missing."""
+    if log_x or log_y:
+        return "No records can be plotted with this logarithmic scale. Choose Linear or fields with positive values."
+    return "No records have all of the values needed for this chart. Choose different fields."
+
+
 def render(data: pd.DataFrame) -> None:
     part = int(st.session_state.get("playground_part", 0))
     part = max(0, min(part, len(PLAYGROUND_LABELS) - 1))
@@ -89,7 +96,10 @@ def render(data: pd.DataFrame) -> None:
             log_excluded=sample.log_excluded,
             x_label=field,
         )
-        st.plotly_chart(histogram(sample.data, field, log_x=log_x), width="stretch")
+        if sample.data.empty:
+            st.info(_empty_chart_message(log_x))
+        else:
+            st.plotly_chart(histogram(sample.data, field, log_x=log_x), width="stretch")
         st.caption("What does this distribution show? What cannot it tell you on its own?")
 
     elif part == 1:
@@ -116,11 +126,15 @@ def render(data: pd.DataFrame) -> None:
                 missing=sample.missing,
                 log_x_excluded=sample.log_x_excluded,
                 log_y_excluded=sample.log_y_excluded,
+                log_both_excluded=sample.log_both_excluded,
                 log_excluded=sample.log_excluded,
                 x_label=x,
                 y_label=y,
             )
-            st.plotly_chart(scatter(sample.data, x, y, log_x=log_x, log_y=log_y), width="stretch")
+            if sample.data.empty:
+                st.info(_empty_chart_message(log_x, log_y))
+            else:
+                st.plotly_chart(scatter(sample.data, x, y, log_x=log_x, log_y=log_y), width="stretch")
             graph_support(
                 f"The horizontal axis shows {x}; the vertical axis shows {y}.",
                 "Look for a relationship, clusters, outliers and places where data are missing.",
@@ -154,14 +168,18 @@ def render(data: pd.DataFrame) -> None:
                     missing=sample.missing,
                     log_x_excluded=sample.log_x_excluded,
                     log_y_excluded=sample.log_y_excluded,
+                    log_both_excluded=sample.log_both_excluded,
                     log_excluded=sample.log_excluded,
                     x_label=x,
                     y_label=y,
                 )
-                st.plotly_chart(
-                    scatter(sample.data, x, y, colour, log_x=log_x, log_y=log_y),
-                    width="stretch",
-                )
+                if sample.data.empty:
+                    st.info(_empty_chart_message(log_x, log_y))
+                else:
+                    st.plotly_chart(
+                        scatter(sample.data, x, y, colour, log_x=log_x, log_y=log_y),
+                        width="stretch",
+                    )
                 st.caption("Does colour reveal a pattern, or does it mostly add noise? Check before inferring an explanation.")
     else:
         st.dataframe(data, use_container_width=True, hide_index=True)

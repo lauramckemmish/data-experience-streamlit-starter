@@ -190,6 +190,7 @@ def sample_note(
     missing: int | None = None,
     log_x_excluded: int = 0,
     log_y_excluded: int = 0,
+    log_both_excluded: int = 0,
     log_excluded: int = 0,
     x_label: str = "horizontal-axis",
     y_label: str = "vertical-axis",
@@ -202,12 +203,17 @@ def sample_note(
     ]
     if log_excluded:
         messages.append(
-            f"{log_excluded:,} additional records excluded because a logarithmic axis requires positive values."
+            f"{log_excluded:,} additional records excluded because a logarithmic axis needs positive values."
         )
+        axis_reasons = []
         if log_x_excluded:
-            messages.append(f"{log_x_excluded:,} have a zero or negative {x_label} value.")
+            axis_reasons.append(f"{log_x_excluded:,} on {x_label}")
         if log_y_excluded:
-            messages.append(f"{log_y_excluded:,} have a zero or negative {y_label} value.")
+            axis_reasons.append(f"{log_y_excluded:,} on {y_label}")
+        if axis_reasons:
+            messages.append(f"Invalid values: {'; '.join(axis_reasons)}.")
+        if log_both_excluded:
+            messages.append(f"{log_both_excluded:,} record(s) are invalid on both axes and counted once.")
     with st.container(key="sample_note"):
         st.caption(" ".join(messages))
 
