@@ -30,6 +30,37 @@ def column_profile(data: pd.DataFrame) -> dict[str, list[str]]:
     return {"numeric": numeric, "categorical": categorical}
 
 
+def categorical_filter_fields(data: pd.DataFrame, *, max_categories: int = 12) -> list[str]:
+    """Return bounded categorical fields appropriate for the playground filter."""
+    return [
+        field
+        for field in column_profile(data)["categorical"]
+        if 2 <= data[field].nunique(dropna=True) <= max_categories
+    ]
+
+
+def categorical_values(data: pd.DataFrame, field: str) -> list[object]:
+    """Return stable, present category values for one eligible filter field."""
+    return sorted(data[field].dropna().unique().tolist(), key=str)
+
+
+def filter_categorical_values(
+    data: pd.DataFrame,
+    field: str,
+    selected: list[object],
+) -> pd.DataFrame:
+    """Filter one categorical field, treating all selected categories as unfiltered.
+
+    Selected categories are combined by union. Selecting every available category
+    deliberately retains rows with a missing value in the filter field too, so the
+    full-dataset state remains identical to the unfiltered dataset.
+    """
+    available = categorical_values(data, field)
+    if set(selected) == set(available):
+        return data.copy()
+    return data.loc[data[field].isin(selected)].copy()
+
+
 def field_profile(data: pd.DataFrame, field: str) -> dict[str, int | str]:
     """Return neutral display metadata for one selected dataset field."""
     values = data[field]

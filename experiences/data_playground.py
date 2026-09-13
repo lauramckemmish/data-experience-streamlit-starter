@@ -12,7 +12,14 @@ import streamlit as st
 import config
 
 from charts import histogram, scatter
-from data import column_profile, field_profile, scale_sample
+from data import (
+    categorical_filter_fields,
+    categorical_values,
+    column_profile,
+    field_profile,
+    filter_categorical_values,
+    scale_sample,
+)
 from experiences import router
 from ui_helpers import (
     graph_support,
@@ -51,6 +58,32 @@ def _empty_chart_message(log_x: bool, log_y: bool = False) -> str:
     return "No records have all of the values needed for this chart. Choose different fields."
 
 
+def _render_categorical_filter(data: pd.DataFrame) -> tuple[pd.DataFrame, bool]:
+    """Render the playground's one bounded categorical filter."""
+    fields = categorical_filter_fields(data)
+    if not fields:
+        st.caption("No suitable categorical field is available for filtering this dataset.")
+        return data, False
+
+    filter_field = st.selectbox("Filter by category", fields, key="playground_filter_field")
+    categories = categorical_values(data, filter_field)
+    selected = st.multiselect(
+        "Categories to include",
+        categories,
+        default=categories,
+        key=f"playground_filter_values_{filter_field}",
+    )
+    filtered = filter_categorical_values(data, filter_field, selected)
+    is_full_selection = set(selected) == set(categories)
+    if is_full_selection:
+        st.caption(f"Current population: all {len(data):,} records.")
+    else:
+        st.caption(f"Current population: {len(filtered):,} of {len(data):,} records.")
+        if filtered.empty:
+            st.info("No records match these categories. Choose at least one category to explore data.")
+    return filtered, not is_full_selection
+
+
 def render(data: pd.DataFrame) -> None:
     part = int(st.session_state.get("playground_part", 0))
     part = max(0, min(part, len(PLAYGROUND_LABELS) - 1))
@@ -69,6 +102,8 @@ def render(data: pd.DataFrame) -> None:
         st.dataframe(data, use_container_width=True)
         return
 
+    filtered_data, filter_active = _render_categorical_filter(data)
+
     _, selected = step_tabs(PLAYGROUND_LABELS, "playground_step_selector", part)
     if selected != part:
         part = selected
@@ -79,14 +114,14 @@ def render(data: pd.DataFrame) -> None:
     if part == 0:
         st.caption("Choose a variable, then look for its shape, spread, unusual values and missing data.")
         field = st.selectbox("Variable", numeric)
-        details = field_profile(data, field)
+        details = field_profile(filtered_data, field)
         variable_card(
             field,
             f"A numeric field in this example dataset. Use its values to compare records and look for spread or unusual values.",
-            scale_note=f"{details['missing']:,} of {len(data):,} records have no value for this field.",
+            scale_note=f"{details['missing']:,} of {len(filtered_data):,} records have no value for this field.",
         )
         log_x = _axis_scale_control("Horizontal axis scale", "playground_one_log_x")
-        sample = scale_sample(data, [field], log_x_field=field if log_x else None)
+        sample = scale_sample(filtered_data, [field], log_x_field=field if log_x else None)
         sample_note(
             len(sample.data),
             sample.total,
@@ -114,7 +149,7 @@ def render(data: pd.DataFrame) -> None:
             with scale_y:
                 log_y = _axis_scale_control("Vertical axis scale", "playground_two_log_y")
             sample = scale_sample(
-                data,
+                filtered_data,
                 [x, y],
                 log_x_field=x if log_x else None,
                 log_y_field=y if log_y else None,
@@ -156,7 +191,7 @@ def render(data: pd.DataFrame) -> None:
                 with scale_y:
                     log_y = _axis_scale_control("Vertical axis scale", "playground_three_log_y")
                 sample = scale_sample(
-                    data,
+                    filtered_data,
                     [x, y, colour],
                     log_x_field=x if log_x else None,
                     log_y_field=y if log_y else None,
@@ -182,7 +217,9 @@ def render(data: pd.DataFrame) -> None:
                     )
                 st.caption("Does colour reveal a pattern, or does it mostly add noise? Check before inferring an explanation.")
     else:
-        st.dataframe(data, use_container_width=True, hide_index=True)
+        if filter_active:
+            st.caption("Dataset preview shows the current filtered subset.")
+        st.dataframe(filtered_data, use_container_width=True, hide_index=True)
 
     step_buttons(
         PLAYGROUND_LABELS,
