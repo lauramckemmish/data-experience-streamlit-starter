@@ -13,10 +13,29 @@ import config
 
 from charts import histogram, scatter
 from data import column_profile, field_profile, usable_sample
-from ui_helpers import graph_support, page_header, sample_note, variable_card
+from experiences import router
+from ui_helpers import (
+    graph_support,
+    page_header,
+    sample_note,
+    scroll_to_top_if_requested,
+    step_buttons,
+    step_tabs,
+    variable_card,
+)
+
+
+PLAYGROUND_LABELS = [
+    "One variable",
+    "Two variables",
+    "Three variables",
+    "Dataset preview",
+]
 
 
 def render(data: pd.DataFrame) -> None:
+    part = int(st.session_state.get("playground_part", 0))
+    part = max(0, min(part, len(PLAYGROUND_LABELS) - 1))
     page_header("Data Playground", teacher_control=False)
     st.warning(config.DATASET_SOURCE_NOTE)
     st.write(
@@ -32,13 +51,14 @@ def render(data: pd.DataFrame) -> None:
         st.dataframe(data, use_container_width=True)
         return
 
-    mode = st.radio(
-        "How many variables do you want to explore?",
-        ["1 variable", "2 variables", "3 variables"],
-        horizontal=True,
-    )
+    _, selected = step_tabs(PLAYGROUND_LABELS, "playground_step_selector", part)
+    if selected != part:
+        part = selected
+        st.session_state["playground_part"] = part
+        st.session_state["playground_scroll_to_top"] = True
+    scroll_to_top_if_requested("playground_scroll_to_top")
 
-    if mode == "1 variable":
+    if part == 0:
         st.caption("Choose a variable, then look for its shape, spread, unusual values and missing data.")
         field = st.selectbox("Variable", numeric)
         details = field_profile(data, field)
@@ -52,32 +72,44 @@ def render(data: pd.DataFrame) -> None:
         st.plotly_chart(histogram(data, field), use_container_width=True)
         st.caption("What does this distribution show? What cannot it tell you on its own?")
 
-    elif mode == "2 variables":
+    elif part == 1:
         if len(numeric) < 2:
             st.info("Add at least two numeric variables to the dataset to use this mode.")
-            return
-        x = st.selectbox("Horizontal axis", numeric, index=0)
-        y = st.selectbox("Vertical axis", numeric, index=1)
-        complete, _ = usable_sample(data, [x, y])
-        sample_note(complete, len(data), label="records")
-        st.plotly_chart(scatter(data, x, y), use_container_width=True)
-        graph_support(
-            f"The horizontal axis shows {x}; the vertical axis shows {y}.",
-            "Look for a relationship, clusters, outliers and places where data are missing.",
-        )
+        else:
+            x = st.selectbox("Horizontal axis", numeric, index=0)
+            y = st.selectbox("Vertical axis", numeric, index=1)
+            complete, _ = usable_sample(data, [x, y])
+            sample_note(complete, len(data), label="records")
+            st.plotly_chart(scatter(data, x, y), use_container_width=True)
+            graph_support(
+                f"The horizontal axis shows {x}; the vertical axis shows {y}.",
+                "Look for a relationship, clusters, outliers and places where data are missing.",
+            )
+    elif part == 2:
+        if len(numeric) < 2:
+            st.info("Add at least two numeric variables to the dataset to use this mode.")
+        else:
+            x = st.selectbox("Horizontal axis", numeric, index=0, key="three_x")
+            y = st.selectbox("Vertical axis", numeric, index=1, key="three_y")
+            colour_options = [*categorical, *[column for column in numeric if column not in {x, y}]]
+            if not colour_options:
+                st.info("Add a third usable variable to the dataset to use this mode.")
+            else:
+                colour = st.selectbox("Third variable — colour by", colour_options)
+                complete, _ = usable_sample(data, [x, y, colour])
+                sample_note(complete, len(data), label="records")
+                st.plotly_chart(scatter(data, x, y, colour), use_container_width=True)
+                st.caption("Does colour reveal a pattern, or does it mostly add noise? Check before inferring an explanation.")
     else:
-        if len(numeric) < 2:
-            st.info("Add at least two numeric variables to the dataset to use this mode.")
-            return
-        x = st.selectbox("Horizontal axis", numeric, index=0, key="three_x")
-        y = st.selectbox("Vertical axis", numeric, index=1, key="three_y")
-        colour_options = [*categorical, *[column for column in numeric if column not in {x, y}]]
-        if not colour_options:
-            st.info("Add a third usable variable to the dataset to use this mode.")
-            return
-        colour = st.selectbox("Third variable — colour by", colour_options)
-        st.plotly_chart(scatter(data, x, y, colour), use_container_width=True)
-        st.caption("Does colour reveal a pattern, or does it mostly add noise? Check before inferring an explanation.")
-
-    with st.expander("Dataset preview"):
         st.dataframe(data, use_container_width=True, hide_index=True)
+
+    step_buttons(
+        PLAYGROUND_LABELS,
+        "playground_step_selector",
+        "playground_part",
+        "playground_scroll_to_top",
+        part,
+        "playground",
+        terminal_action=router.go_home,
+        terminal_label="Back to experiences",
+    )
