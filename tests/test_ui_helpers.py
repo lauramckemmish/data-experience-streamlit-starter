@@ -19,6 +19,7 @@ class _StreamlitStub:
     def __init__(self):
         self.session_state = {}
         self.buttons = []
+        self.button_kwargs = []
         self.expanders = []
         self.html_fragments = []
         self.markdowns = []
@@ -36,6 +37,7 @@ class _StreamlitStub:
 
     def button(self, label, **kwargs):
         self.buttons.append(label)
+        self.button_kwargs.append((label, kwargs))
         return False
 
     def info(self, *_args, **_kwargs):
@@ -121,6 +123,50 @@ class SharedInteractionTests(unittest.TestCase):
             self.assertNotIn("Continue →", self.navigation(stub))
             stub.buttons.clear()
             self.assertIn("Continue →", self.navigation(stub, step=0))
+
+    def test_final_step_has_no_right_action_without_terminal_action(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            buttons = self.navigation(stub, step=1)
+        self.assertEqual(buttons, ["← Back"])
+
+    def test_terminal_action_is_rendered_on_the_final_step(self):
+        stub = _StreamlitStub()
+
+        def return_to_experiences():
+            pass
+
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.step_buttons(
+                ["One", "Two"],
+                "tab",
+                "step",
+                "scroll",
+                1,
+                "test",
+                terminal_action=return_to_experiences,
+                terminal_label="Back to experiences",
+            )
+
+        self.assertEqual(stub.buttons, ["← Back", "Back to experiences"])
+        label, kwargs = stub.button_kwargs[-1]
+        self.assertEqual(label, "Back to experiences")
+        self.assertIs(kwargs["on_click"], return_to_experiences)
+        self.assertEqual(kwargs["key"], "test_terminal")
+
+    def test_terminal_action_requires_a_label(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            with self.assertRaisesRegex(ValueError, "terminal_label"):
+                ui_helpers.step_buttons(
+                    ["One", "Two"],
+                    "tab",
+                    "step",
+                    "scroll",
+                    1,
+                    "test",
+                    terminal_action=lambda: None,
+                )
 
     def test_response_persists_and_teacher_guidance_is_visibility_only(self):
         stub = _StreamlitStub()

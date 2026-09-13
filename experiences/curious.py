@@ -9,6 +9,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
+from experiences import router
 from ui_helpers import (
     hard_reveal,
     page_header,
@@ -99,4 +100,6 @@ def render(data: pd.DataFrame) -> None:
         "curious_scroll_to_top",
         part,
         "curious",
+        terminal_action=router.go_home,
+        terminal_label="Back to experiences",
     )
