@@ -14,6 +14,7 @@ def experience_catalog(*, enabled_only: bool = True):
         {
             "name": EXPERIENCE_CURIOUS,
             "summary": "A guided, facilitator-led workshop built around a small number of purposeful questions.",
+            "audience_badge": "Facilitated workshop",
             "enabled": True,
         },
         {
