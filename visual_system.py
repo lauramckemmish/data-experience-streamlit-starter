@@ -20,6 +20,11 @@ def apply_visual_system() -> None:
     :root {{ --unsw-brand:{SEMANTIC_TOKENS['brand']}; --unsw-active-emphasis:{SEMANTIC_TOKENS['active_emphasis']}; --unsw-information:{SEMANTIC_TOKENS['information']}; --unsw-exploration:{SEMANTIC_TOKENS['exploration']}; }}
     [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{ gap:.35rem; }}
     [data-testid="stSidebar"] {{ border-right:1px solid rgba(255,220,0,.35); }}
+    [class*="st-key-media_text_"] [data-testid="stHorizontalBlock"] {{ align-items:center; }}
+    @media (max-width:700px) {{
+        [class*="st-key-media_text_"] [data-testid="stHorizontalBlock"] {{ flex-direction:column; gap:.65rem; }}
+        [class*="st-key-media_text_"] [data-testid="column"] {{ width:100% !important; flex:1 1 100% !important; }}
+    }}
     [data-testid="stSidebar"] .st-key-sidebar_brand {{ background:var(--unsw-brand); color:#000; padding:.65rem .7rem .6rem; margin:-.15rem -.35rem .6rem; border-radius:0 0 .3rem .3rem; }}
     [data-testid="stSidebar"] .st-key-sidebar_brand h3 {{ color:#000 !important; }}
     /* The sidebar identity plate is intentionally compact; config supplies the landscape mark. */
