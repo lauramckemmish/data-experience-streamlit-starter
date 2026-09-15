@@ -18,6 +18,7 @@ from config import (
     EXPERIENCE_TEMPLATE,
 )
 from experiences.catalog import experience_catalog
+from ui_helpers import facilitator_orientation
 from visual_system import render_resource_context
 
 
@@ -81,6 +82,8 @@ def render(data: pd.DataFrame, open_experience) -> None:
         st.write(LANDING_ORIENTATION)
     with hero_visual:
         st.image(Path(__file__).resolve().parent.parent / "assets" / "starter-hero.svg", caption="Replace with a contextual image for your resource.", width="stretch")
+
+    facilitator_orientation()
 
     st.markdown("## Choose a starting point")
     st.write("Begin with a guided investigation, explore the data openly, or inspect the shared reference patterns.")

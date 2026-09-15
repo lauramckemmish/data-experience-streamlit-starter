@@ -12,6 +12,7 @@ import streamlit as st
 from experiences import router
 from ui_helpers import (
     hard_reveal,
+    facilitator_preparation,
     notice_prompt,
     page_header,
     placeholder_callout,
@@ -20,7 +21,6 @@ from ui_helpers import (
     scroll_to_top_if_requested,
     step_buttons,
     step_tabs,
-    teacher_guidance,
 )
 
 STEP_LABELS = [
@@ -41,8 +41,7 @@ def render(data: pd.DataFrame) -> None:
         st.session_state["curious_scroll_to_top"] = True
     scroll_to_top_if_requested("curious_scroll_to_top")
 
-    teacher_guidance(
-        STEP_LABELS[part],
+    facilitator_preparation(
         "Let learners make a quick prediction before revealing evidence. Listen for a specific observation or question, then let them compare it with what the data show.",
     )
 

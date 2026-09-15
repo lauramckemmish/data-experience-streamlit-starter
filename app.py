@@ -18,6 +18,7 @@ from config import (
 )
 from data import load_data
 from experiences import curious, data_playground, landing, pattern_reference, router
+from ui_helpers import facilitator_notes_control
 from visual_system import apply_visual_system, sidebar_data_source, sidebar_identity, validate_shared_assets
 
 DATASET_CITATION = getattr(config, "DATASET_CITATION", None)
@@ -35,6 +36,8 @@ with st.sidebar:
     sidebar_identity(SHORT_NAME, UNSW_LOGO_PATH)
     sidebar_data_source(len(data), len(data.columns), DATASET_SOURCE_LABEL)
     router.render_sidebar_navigation()
+
+facilitator_notes_control()
 
 if current == router.LANDING:
     landing.render(data, router.open_experience)

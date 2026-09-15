@@ -29,6 +29,7 @@ class _StreamlitStub:
         self.images = []
         self.containers = []
         self.column_args = []
+        self.toggles = []
 
     def columns(self, *args, **kwargs):
         self.column_args.append((args, kwargs))
@@ -72,6 +73,10 @@ class _StreamlitStub:
 
     def text_area(self, _label, *, key, **_kwargs):
         return self.session_state.setdefault(key, "")
+
+    def toggle(self, label, *, key, **_kwargs):
+        self.toggles.append((label, key))
+        return self.session_state.setdefault(key, False)
 
 
 class SharedInteractionTests(unittest.TestCase):
@@ -214,18 +219,72 @@ class SharedInteractionTests(unittest.TestCase):
                     terminal_action=lambda: None,
                 )
 
-    def test_response_persists_and_teacher_guidance_is_visibility_only(self):
+    def test_facilitator_notes_are_visibility_only_and_preparation_is_collapsed(self):
         stub = _StreamlitStub()
         with patch.object(ui_helpers, "st", stub):
             self.assertEqual(ui_helpers.response_box("Respond", "stage_response"), "")
             stub.session_state["stage_response"] = "An observation"
             self.assertEqual(ui_helpers.response_box("Respond", "stage_response"), "An observation")
-            ui_helpers.teacher_guidance("Stage", "Listen for evidence")
+            ui_helpers.facilitator_preparation("Listen for evidence")
             self.assertEqual(stub.expanders, [])
-            stub.session_state["teacher_view"] = True
-            ui_helpers.teacher_guidance("Stage", "Listen for evidence")
-            self.assertEqual(stub.expanders, ["Teacher guidance: Stage"])
+            stub.session_state[ui_helpers.FACILITATOR_NOTES_KEY] = True
+            ui_helpers.facilitator_preparation("Listen for evidence")
+            self.assertEqual(stub.expanders, ["For facilitators"])
+            self.assertEqual(stub.expander_kwargs, [{"expanded": False}])
             self.assertEqual(stub.session_state["stage_response"], "An observation")
+
+    def test_facilitator_control_and_live_cues_use_only_canonical_labels(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.facilitator_notes_control()
+            self.assertEqual(stub.toggles, [("Facilitator notes", ui_helpers.FACILITATOR_NOTES_KEY)])
+            stub.session_state[ui_helpers.FACILITATOR_NOTES_KEY] = True
+            for label in ui_helpers.FACILITATOR_LIVE_LABELS:
+                ui_helpers.facilitator_live_cue(label, "A delivery decision.")
+            with self.assertRaisesRegex(ValueError, "Unknown facilitator live cue"):
+                ui_helpers.facilitator_live_cue("SKIP", "Not a canonical label.")
+
+        self.assertEqual(len(stub.containers), 4)
+        self.assertEqual(len(stub.markdowns), 4)
+        self.assertEqual(stub.writes[-4:], ["A delivery decision."] * 4)
+
+    def test_facilitator_orientation_is_conditional_and_student_safe(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.facilitator_orientation()
+            self.assertEqual(stub.markdowns, [])
+            self.assertEqual(stub.writes, [])
+
+            stub.session_state[ui_helpers.FACILITATOR_NOTES_KEY] = True
+            ui_helpers.facilitator_orientation()
+
+        self.assertEqual(stub.markdowns, ["**Facilitator notes**"])
+        orientation = stub.writes[-1]
+        self.assertIn("walk through the learner experience", orientation)
+        self.assertIn("Facilitator notes on", orientation)
+        self.assertNotIn("answer", orientation.lower())
+
+    def test_facilitator_notes_persist_across_ordinary_routes_without_touching_learning_state(self):
+        from experiences import router
+
+        stub = _StreamlitStub()
+        stub.session_state.update(
+            {
+                ui_helpers.FACILITATOR_NOTES_KEY: True,
+                "stage_response": "An observation",
+                "curious_context_evidence": True,
+                "_ui_helpers_continue_blocked": True,
+            }
+        )
+        with patch.object(router, "st", stub):
+            router.open_experience("Home")
+            router.open_experience("Template Experience")
+            router.open_experience("Pattern Reference")
+
+        self.assertTrue(stub.session_state[ui_helpers.FACILITATOR_NOTES_KEY])
+        self.assertEqual(stub.session_state["stage_response"], "An observation")
+        self.assertTrue(stub.session_state["curious_context_evidence"])
+        self.assertTrue(stub.session_state["_ui_helpers_continue_blocked"])
 
     def test_sample_note_separates_missing_and_overlapping_log_exclusions(self):
         stub = _StreamlitStub()
@@ -310,6 +369,20 @@ class SharedInteractionTests(unittest.TestCase):
         self.assertIn('class*="st-key-media_text_"', styles)
         self.assertIn("@media (max-width:700px)", styles)
         self.assertIn("flex-direction:column", styles)
+
+    def test_visual_system_uses_one_navy_facilitator_family(self):
+        import visual_system
+
+        self.assertEqual(visual_system.SEMANTIC_TOKENS["facilitator"], "#294C70")
+        self.assertNotIn("facilitator_prep", visual_system.SEMANTIC_TOKENS)
+        self.assertNotIn("facilitator_live", visual_system.SEMANTIC_TOKENS)
+        self.assertNotEqual(
+            visual_system.SEMANTIC_TOKENS["facilitator"],
+            visual_system.SEMANTIC_TOKENS["secondary_accent"],
+        )
+        styles = inspect.getsource(visual_system.apply_visual_system)
+        self.assertIn("--unsw-facilitator", styles)
+        self.assertIn("overflow-wrap:anywhere", styles)
 
 
 if __name__ == "__main__":

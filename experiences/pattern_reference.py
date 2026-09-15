@@ -7,8 +7,11 @@ import streamlit as st
 
 from experiences import router
 from ui_helpers import (
+    facilitator_live_cue,
+    facilitator_preparation,
     key_idea,
     media_text_pair,
+    notice_prompt,
     page_header,
     role_image,
     scroll_to_top_if_requested,
@@ -22,6 +25,7 @@ from ui_helpers import (
 REFERENCE_LABELS = [
     "Prompts & reveals",
     "Key idea",
+    "Facilitator support",
     "Images",
     "Media layout",
 ]
@@ -31,7 +35,7 @@ def render() -> None:
     """Render the small non-narrative pattern reference surface."""
     part = int(st.session_state.get("pattern_reference_part", 0))
     part = max(0, min(part, len(REFERENCE_LABELS) - 1))
-    page_header("Pattern Reference", teacher_control=False)
+    page_header("Pattern Reference")
     st.caption("Canonical shared-pattern examples.")
     _, selected = step_tabs(REFERENCE_LABELS, "pattern_reference_step_selector", part)
     if selected != part:
@@ -41,11 +45,16 @@ def render() -> None:
     scroll_to_top_if_requested("pattern_reference_scroll_to_top")
 
     if part == 0:
+        notice_prompt("Identify one feature of the evidence that you would inspect first.")
+
         with self_check("Compare your observation"):
             st.write("A useful observation points to specific evidence and explains why it may matter.")
 
         with soft_reveal("Optional supporting detail"):
             st.write("This optional detail supports interpretation without changing what learners must do next.")
+
+        st.info("**Alert:** This neutral support treatment clarifies scope or a useful instruction.")
+        st.success("**Success:** This treatment is reserved for a genuinely checkable response.")
 
     elif part == 1:
         key_idea(
@@ -53,6 +62,28 @@ def render() -> None:
         )
 
     elif part == 2:
+        facilitator_preparation(
+            "Use this collapsed space only when preparation changes how a capable "
+            "facilitator understands or enacts the stage."
+        )
+        facilitator_live_cue(
+            "CORE LEARNING",
+            "Protect the opportunity to compare evidence before moving to explanation.",
+        )
+        facilitator_live_cue(
+            "STREAMLINE",
+            "Invite a brief paired comparison, then collect one evidence-based observation.",
+        )
+        facilitator_live_cue(
+            "EXTENSION",
+            "Invite learners to test whether the pattern holds for another relevant grouping.",
+        )
+        facilitator_live_cue(
+            "FACILITATION NOTE",
+            "Use the displayed evidence to decide whether more shared observation time is useful.",
+        )
+
+    elif part == 3:
         _, image_column, _ = st.columns([2, 1, 2])
         with image_column:
             role_image(

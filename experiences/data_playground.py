@@ -87,7 +87,7 @@ def _render_categorical_filter(data: pd.DataFrame) -> tuple[pd.DataFrame, bool]:
 def render(data: pd.DataFrame) -> None:
     part = int(st.session_state.get("playground_part", 0))
     part = max(0, min(part, len(PLAYGROUND_LABELS) - 1))
-    page_header("Data Playground", teacher_control=False)
+    page_header("Data Playground")
     st.warning(config.DATASET_SOURCE_NOTE)
     st.write(
         "Choose one, two or three variables. Inspect the evidence, then decide what it supports."

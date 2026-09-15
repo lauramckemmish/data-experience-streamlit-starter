@@ -20,7 +20,7 @@ authoring, design, testing or auditing.
 
 - **Introduction/Home:** dataset identity, short scope statement and provenance are prominent above the experience choices.
 - **Sidebar:** experience navigation, raw dataset access/download and source/provenance.
-- **Top-right of the Template Experience:** Teacher view.
+- **Top-right shell control:** Facilitator notes, available across the learner journey.
 - **Main experience page:** only the teaching or exploration content relevant to that experience.
 
 ### Shared content roles
@@ -57,14 +57,14 @@ future translation is out of scope here.
 
 The shared layer owns semantic interaction machinery, reusable state and
 progression behaviour, canonical visual treatment, generic data-literacy
-presentation, and Teacher-view visibility. Experience modules own the
+presentation, and Facilitator-notes visibility. Experience modules own the
 scientific question, learner wording, sequence, explanations, facilitation
 advice, and dataset-specific interpretation. The data layer owns calculations,
 filtering, usable-row counts, missing-data logic, and transformations.
 
 Shared semantic meaning should have shared visual meaning, while native
 Streamlit primitives remain preferred where they already work well. Visual
-hierarchy should keep optional, data-literacy, and teacher support quieter than
+hierarchy should keep optional, data-literacy, and facilitator support quieter than
 the main learner evidence and tasks. Yellow is institutional/brand emphasis,
 not generic interaction decoration.
 
@@ -75,6 +75,7 @@ not generic interaction decoration.
 - **Soft reveal** offers optional supporting or enrichment information and never blocks progression.
 - **Hard reveal** protects consequential evidence when seeing it early would undermine prior reasoning or action. It blocks Continue until revealed, but does not imply prediction specifically.
 - **Completion gates** block Continue only for a meaningful required learner action; they remain separate from reveals and prompts.
+- **Facilitator notes** are optional adult-support content, visible through the shared shell toggle and independent of learner state. Stage-local preparation and compact live cues use shared treatments; experience modules own when and what to say.
 - Experience modules own the particular cognitive job, learner wording, and whether a check or reveal is appropriate. Prompt choice and progression choice are separate design decisions.
 
 ## Data-science progression

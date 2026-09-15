@@ -15,7 +15,7 @@ This repository contains both reusable technical architecture and a shared desig
 - A **dataset-first introduction page** above the experience catalogue.
 - Dataset name, scope and provenance visible on both Home and the global sidebar.
 - Raw-data viewing and CSV download remain globally accessible.
-- Teacher view stays at the top-right of guided/classroom experiences.
+- Facilitator notes stay available from the shell across the learner journey.
 - The Data Playground uses **1 / 2 / 3 variables** as its stable conceptual structure.
 - The Pattern Reference contains only patterns that need an upstream rendered exemplar.
 - Development should proceed **one surface at a time**.
@@ -146,7 +146,8 @@ presentation live in `ui_helpers.py`; data counts and field profiles live in
 | Sample note | Reports usable rows for the displayed analysis; calculations stay in the data layer. | `experiences/data_playground.py`, 1 and 2 variables |
 | Key idea | Names what evidence supports without implying success or completion. | `experiences/pattern_reference.py` |
 | Role image / media-text pair | Keeps instructional image role and paired explanation explicit. | `experiences/pattern_reference.py` |
-| Teacher guidance | Shared visibility/presentation; the experience owns the facilitator content. | `experiences/curious.py`, Template Experience |
+| Facilitator preparation | Collapsed, optional stage-local preparation; the experience owns the content. | `experiences/curious.py`, Template Experience |
+| Facilitator live cue | A compact, glanceable delivery cue: CORE LEARNING, STREAMLINE, EXTENSION or FACILITATION NOTE. | `experiences/pattern_reference.py` |
 
 The content contract in `config.py` separates `SHORT_NAME` (compact shell
 identity), `DESCRIPTIVE_NAME` (formal About identity), `HERO_HOOK` (learner-facing

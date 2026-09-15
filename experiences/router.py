@@ -24,7 +24,6 @@ def open_experience(name: str) -> None:
         return
     st.session_state["experience"] = name
     st.session_state["experience_navigation"] = name
-    st.session_state["teacher_view"] = False
     if name == EXPERIENCE_TEMPLATE:
         st.session_state["curious_part"] = 0
         st.session_state.pop("curious_step_selector", None)

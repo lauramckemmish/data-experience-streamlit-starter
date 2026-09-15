@@ -18,6 +18,7 @@ class _Context:
 
 class _StreamlitStub:
     def __init__(self):
+        self.session_state = {}
         self.badges = []
         self.images = []
         self.markdowns = []
