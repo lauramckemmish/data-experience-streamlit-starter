@@ -7,6 +7,8 @@ import streamlit as st
 
 from experiences import router
 from ui_helpers import (
+    curriculum_summary,
+    curriculum_tags,
     facilitator_live_cue,
     facilitator_preparation,
     key_idea,
@@ -62,6 +64,15 @@ def render() -> None:
         )
 
     elif part == 2:
+        st.caption("Illustrative curriculum-rendering example only; this starter does not claim a formal mapping.")
+        curriculum_summary(
+            "NSW curriculum — Stage 5 Data Science 2",
+            "SC5-DA2-01",
+            "Illustrative example: learners inspect data representations and use evidence to communicate a finding.",
+            detailed_content_note=True,
+        )
+        st.markdown("#### Example stage: inspect a representation")
+        curriculum_tags([("SC5-DA2-01.L5", "✓"), ("L6", "◐")], key="inspect_representation")
         facilitator_preparation(
             "Use this collapsed space only when preparation changes how a capable "
             "facilitator understands or enacts the stage."
@@ -82,6 +93,13 @@ def render() -> None:
             "FACILITATION NOTE",
             "Use the displayed evidence to decide whether more shared observation time is useful.",
         )
+        st.markdown("#### Example stage: explain a finding")
+        curriculum_tags(
+            [("SC5-DA2-01.L6", "◐"), ("SC5-WS-06.2", "✓")],
+            key="explain_finding",
+        )
+        st.markdown("#### Example stage: communicate an evidence-based claim")
+        curriculum_tags([("SC5-WS-06.2", "✓")], key="communicate_claim")
 
     elif part == 3:
         _, image_column, _ = st.columns([2, 1, 2])

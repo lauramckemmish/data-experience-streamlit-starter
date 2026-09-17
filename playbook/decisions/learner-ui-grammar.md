@@ -27,6 +27,22 @@ Use the following grammar when the same intellectual job occurs.
 | Support delivery | Conditional, visually subordinate **Facilitator notes**, separate from learner content. | Facilitation, curriculum, or classroom guidance helps the person delivering the experience. | Learners need the material to complete the core journey. | Learner progress must not depend on opening Facilitator notes. Use the established shared Facilitator-notes shell where it can express the need. | Their depth and content remain local. **Facilitator notes** is the canonical UI/component label; do not introduce Teacher notes or Teacher guidance as parallel names for this pattern. |
 | Move between stages | Established staged steps with Back and Continue. | Learners are moving through a guided sequence. | Continue would be mistaken for evidence reveal, meaningful commitment, or a data/model action. | Back remains available; Continue is ordinary navigation and reflects any essential gates. Use established shared staged-navigation machinery. | Step labels should name the real intellectual action: Think, Estimate, Explore, Compare, Discuss, Predict, Interpret, Test, or another appropriate local term. |
 
+## Curriculum metadata in Facilitator notes
+
+For mature school-facing experiences, use a compact experience-level curriculum
+summary near the start of Facilitator notes and small local tags only where the
+curriculum work occurs. This is adult-facing metadata, not learner instruction,
+and stages must not be mechanically tagged.
+
+`ui_helpers.curriculum_summary` and `ui_helpers.curriculum_tags` render content
+supplied by an experience; they do not look up outcomes, infer alignment, alter
+identifiers or decide Stage 4/5 suitability. Use **✓** for direct alignment and
+**◐** for partial alignment on ordinary live surfaces. Potential and not-addressed
+marks normally belong in design or portfolio documentation. Detailed-content
+suffixes are Data to Discovery shorthand beneath official NESA outcomes, not
+official codes; consult `DATA_TO_DISCOVERY_NESA_SCIENCE_7_10_REFERENCE.md` for
+the project-level curriculum source.
+
 ## Shared implementation rule
 
 When multiple experiences perform the same semantic UI job, reuse the same

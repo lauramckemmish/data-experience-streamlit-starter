@@ -57,6 +57,17 @@ def apply_visual_system() -> None:
     [class*="st-key-facilitator_live_"] [data-testid="stMarkdownContainer"] p {{ overflow-wrap:anywhere; word-break:normal; }}
     .facilitator-live__label {{ display:block; color:var(--unsw-facilitator); font-size:.72rem; font-weight:750; letter-spacing:.08em; line-height:1.2; }}
     [class*="st-key-facilitator_live_"] p {{ margin-bottom:.15rem; line-height:1.4; }}
+    .st-key-curriculum_summary {{ border-left:3px solid var(--unsw-facilitator); background:rgba(41,76,112,.045); padding:.45rem .65rem; margin:.45rem 0 .7rem; }}
+    .curriculum-summary p {{ margin:0 0 .22rem; }}
+    .curriculum-summary__title {{ color:var(--unsw-facilitator); font-size:.82rem; font-weight:750; letter-spacing:.03em; }}
+    .curriculum-summary__outcome {{ font-size:.82rem; }}
+    .curriculum-summary__outcome span, .curriculum-summary__legend, .curriculum-summary__note {{ color:rgba(49,51,63,.82); font-size:.76rem; }}
+    .curriculum-summary__body {{ font-size:.9rem; line-height:1.4; }}
+    .curriculum-summary__note {{ margin-bottom:0 !important; }}
+    [class*="st-key-curriculum_tags_"] {{ margin:-.3rem 0 .55rem; }}
+    .curriculum-tags {{ color:rgba(49,51,63,.88); font-size:.78rem; line-height:1.5; overflow-wrap:anywhere; }}
+    .curriculum-tags__label {{ color:var(--unsw-facilitator); font-weight:700; }}
+    .curriculum-tags__item {{ white-space:nowrap; }}
     [data-testid="stButton"] > button[kind="primary"], [data-testid="stFormSubmitButton"] > button[kind="primary"], [data-testid="stBaseButton-primary"], [data-testid="stBaseButton-primaryFormSubmit"] {{ background:transparent; border:2px solid var(--unsw-active-emphasis); color:inherit; font-weight:650; }}
     [data-testid="stButton"] > button[kind="primary"]:hover, [data-testid="stFormSubmitButton"] > button[kind="primary"]:hover, [data-testid="stBaseButton-primary"]:hover, [data-testid="stBaseButton-primaryFormSubmit"]:hover {{ background:rgba(255,220,0,.10); border-color:var(--unsw-active-emphasis); color:inherit; }}
     [data-testid="stButton"] > button[kind="secondary"] {{ background:rgba(63,97,196,.08); border-color:rgba(63,97,196,.65); }}

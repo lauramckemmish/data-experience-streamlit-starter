@@ -148,6 +148,7 @@ presentation live in `ui_helpers.py`; data counts and field profiles live in
 | Role image / media-text pair | Keeps instructional image role and paired explanation explicit. | `experiences/pattern_reference.py` |
 | Facilitator preparation | Collapsed, optional stage-local preparation; the experience owns the content. | `experiences/curious.py`, Template Experience |
 | Facilitator live cue | A compact, glanceable delivery cue: CORE LEARNING, STREAMLINE, EXTENSION or FACILITATION NOTE. | `experiences/pattern_reference.py` |
+| Curriculum summary and tags | Adult-facing curriculum context: a compact experience summary plus local supplied alignment tags. | `experiences/pattern_reference.py`, Facilitator support |
 
 The content contract in `config.py` separates `SHORT_NAME` (compact shell
 identity), `DESCRIPTIVE_NAME` (formal About identity), `HERO_HOOK` (learner-facing

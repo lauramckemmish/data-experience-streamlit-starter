@@ -286,6 +286,48 @@ class SharedInteractionTests(unittest.TestCase):
         self.assertTrue(stub.session_state["curious_context_evidence"])
         self.assertTrue(stub.session_state["_ui_helpers_continue_blocked"])
 
+    def test_curriculum_summary_renders_supplied_content_and_optional_notes(self):
+        stub = _StreamlitStub()
+        stub.session_state[ui_helpers.FACILITATOR_NOTES_KEY] = True
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.curriculum_summary(
+                "NSW curriculum — Stage 5 Data Science 2",
+                "SC5-DA2-01",
+                "Supplied experience summary.",
+                detailed_content_note=True,
+            )
+
+        rendered = stub.markdowns[-1]
+        self.assertIn("NSW curriculum — Stage 5 Data Science 2", rendered)
+        self.assertIn("SC5-DA2-01", rendered)
+        self.assertIn("Supplied experience summary.", rendered)
+        self.assertIn("✓ direct alignment", rendered)
+        self.assertIn("Data to Discovery shorthand", rendered)
+
+    def test_curriculum_summary_can_omit_legend(self):
+        stub = _StreamlitStub()
+        stub.session_state[ui_helpers.FACILITATOR_NOTES_KEY] = True
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.curriculum_summary("Title", "SC5-DA2-01", "Summary", show_legend=False)
+
+        self.assertNotIn("✓ direct alignment", stub.markdowns[-1])
+
+    def test_curriculum_tags_preserve_supplied_full_ids_shorthand_and_marks(self):
+        stub = _StreamlitStub()
+        stub.session_state[ui_helpers.FACILITATOR_NOTES_KEY] = True
+        tags = [("SC5-DA2-01.L5", "✓"), ("L6", "◐"), ("SC5-WS-06.2", "✓")]
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.curriculum_tags(tags, key="stage_example")
+
+        rendered = stub.markdowns[-1]
+        for identifier, mark in tags:
+            self.assertIn(identifier, rendered)
+            self.assertIn(mark, rendered)
+        self.assertIn("direct alignment", rendered)
+        self.assertIn("partial alignment", rendered)
+        self.assertNotIn("SC5-DA2-01.L6", rendered)
+        self.assertEqual(stub.containers[-1]["key"], "curriculum_tags_stage_example")
+
     def test_sample_note_separates_missing_and_overlapping_log_exclusions(self):
         stub = _StreamlitStub()
         with patch.object(ui_helpers, "st", stub):
