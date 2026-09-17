@@ -57,7 +57,7 @@ def apply_visual_system() -> None:
     [class*="st-key-facilitator_live_"] [data-testid="stMarkdownContainer"] p {{ overflow-wrap:anywhere; word-break:normal; }}
     .facilitator-live__label {{ display:block; color:var(--unsw-facilitator); font-size:.72rem; font-weight:750; letter-spacing:.08em; line-height:1.2; }}
     [class*="st-key-facilitator_live_"] p {{ margin-bottom:.15rem; line-height:1.4; }}
-    .st-key-curriculum_summary {{ border-left:3px solid var(--unsw-facilitator); background:rgba(41,76,112,.045); padding:.45rem .65rem; margin:.45rem 0 .7rem; }}
+    .st-key-curriculum_summary {{ border-left:3px solid var(--unsw-facilitator); background:rgba(41,76,112,.045); padding:.45rem .65rem 1.05rem; margin:.45rem 0 .7rem; }}
     .curriculum-summary p {{ margin:0 0 .22rem; }}
     .curriculum-summary__title {{ color:var(--unsw-facilitator); font-size:.82rem; font-weight:750; letter-spacing:.03em; }}
     .curriculum-summary__outcome {{ font-size:.82rem; }}
