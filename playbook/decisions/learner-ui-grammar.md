@@ -16,10 +16,11 @@ Use the following grammar when the same intellectual job occurs.
 
 | Intellectual action | Standard learner-facing treatment | When to use it | When not to use it | Progression/state rule | Local-pedagogy boundary |
 | --- | --- | --- | --- | --- | --- |
-| Form a judgement | A short reasoning cue: spoken estimate, Think, discussion prompt, prediction, interpretation, or trust judgement. | Learners benefit from forming a judgement before later evidence or explanation. | Written submission would merely simulate engagement; verbal/group reasoning has no educational reason to become a form. | Usually non-blocking; require commitment only when it genuinely matters before evidence. | Word, widget, individual/group mode, and prompt are local. Do not impose fixed vocabulary. |
+| Name a cognitive job | A short semantic prompt: **Notice**, **Compare**, **Predict**, **Explain**, **Conclude**, **Revise**, or, where genuinely relevant, **Recall**. | Learners benefit from knowing what intellectual work to do with the evidence. | A generic Think cue would conceal the specific job, or a written submission would merely simulate engagement. | Prompts are non-blocking; require commitment only when it genuinely matters before evidence. | The wording, spoken/typed/group mode and choice of cognitive job remain local. |
 | Explore or compare evidence | A control changes displayed data, evidence, a model/view, a comparison, or makes a genuinely necessary commitment before evidence. | Search, filtering, selection, and view changes do intellectual work. | The control merely makes a page appear interactive. Free text must not be a progression gate by itself. | State belongs to what it changes; an essential commitment may gate the next reveal. | Open search, constrained selection, and the scientific comparison remain local. |
 | Protect consequential evidence | A hard reveal with a locally clear prerequisite/reason. | Seeing evidence or conclusion early would undermine the intended reasoning sequence. | Ordinary continuation, routine page staging, or optional depth. | Evidence/conclusion starts hidden; revealed state persists; Continue remains unavailable when completing the reveal is essential. Use the established shared hard-reveal helper where it can express the need. | The experience owns whether the prerequisite is prediction, comparison, interpretation, trust, or another action, and owns its wording. |
 | Offer optional depth | A soft reveal/optional expander. | Provenance, source detail, optional scientific explanation, or facilitator-independent extension adds value without being required. | Evidence or explanation is necessary for the core reasoning journey. | Never blocks progression. Use the established shared soft-reveal helper where it can express the need. | Label and content are local. |
+| Compare formative thinking | A collapsed **Self-check** after the learner has attempted a reading, comparison, explanation or conclusion. | Learners can benefit from comparing their reasoning with feedback or an example. | The content is merely optional enrichment, formal scoring, or an essential staged revelation. | Never blocks progression. It is distinct from both soft and hard reveals. | The experience owns the feedback wording and content. |
 | State a scientific conclusion | A named conclusion treatment, such as Key idea, Big idea, or scientific conclusion. | A conclusion must be distinguished from learner prediction or ordinary explanatory text. | The statement is learner-response validation or generic encouragement. | No gate is implied unless deliberately protected by a hard reveal. | Local wording may vary. Meaning comes from the named treatment/context, not colour alone; green or `st.success` is not itself “scientific conclusion.” |
 | Validate a narrow response | Success-style validation only for a genuinely checkable response where that judgement is pedagogically appropriate. | A bounded check helps learners test a precise claim. | Generic praise, celebration for clicking, universal conclusion styling, or nuanced scientific interpretation. | Validation must not reduce interpretive science to simplistic right/wrong assessment. | Misconception work may need explanatory feedback rather than positive/negative marking. |
 | Support, qualify, and limit evidence | Clearly labelled neutral support near the evidence/model: scope, range, missingness, instructions, guardrails, or limitations. Captions/sample notes suit lower-priority detail. | Learners need to know what is available, missing, in range, or unsupported by evidence. | Ordinary uncertainty should look like an application error, or qualification is hidden away. | No gate is implied. Warnings/errors are for actual unavailable, invalid, or exceptional conditions. | This is a semantic contract, not one universal widget. `st.info`-style presentation is broad neutral support, not a tightly defined category. |
@@ -76,6 +77,18 @@ parallel delivery-note shells, or duplicated established primitives.
 ## Why this decision exists
 
 Learner-facing interaction should make the intellectual job visible. Shared mechanics can remain understandable while resources preserve different scientific questions, evidence structures, classroom conditions, and reasoning journeys. Optional support, consequential action, response validation, and scientific claims should not become visually interchangeable.
+
+## Choosing prompts and progression independently
+
+Most substantive learning screens benefit from a deliberate learner prompt and/or
+check, but neither makes a reveal mandatory. Choose the semantic prompt for the
+cognitive work on that screen, then separately choose whether no feedback,
+self-check, soft reveal, hard reveal, or a completion gate is warranted. A
+common rhythm is evidence → named prompt → self-check → synthesis → Continue;
+where sequencing matters, a prediction or problem can precede a hard reveal.
+These are patterns, not fixed templates. Hard gating is appropriate only when
+early access would undermine the reasoning; completion gates must correspond to
+meaningful learner action, not arbitrary clicking.
 
 ## Boundaries and failure modes
 

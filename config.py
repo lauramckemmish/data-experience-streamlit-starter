@@ -12,6 +12,7 @@ SIDEBAR_INSTITUTIONAL_LOGO = ASSETS_DIR / "unsw-sydney-logo-landscape.png"
 # Landscape is the compact horizontal identity treatment for both identity rows.
 ABOUT_INSTITUTIONAL_LOGO = ASSETS_DIR / "unsw-sydney-logo-landscape.png"
 SIDEBAR_LANDSCAPE_LOGO = ASSETS_DIR / "unsw-sydney-logo-landscape.png"
+PORTRAIT_INSTITUTIONAL_LOGO = ASSETS_DIR / "unsw-sydney-logo-portrait.png"
 
 # Resource content contract: these roles have different information jobs.
 # short_name is the compact persistent identity used in the shell; keep it brief.
