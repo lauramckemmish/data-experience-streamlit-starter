@@ -476,7 +476,7 @@ def response_box(
     label: str = "Your response",
 ) -> str:
     """Render a persistent, non-gating learner response field."""
-    with st.container(key="response_box"):
+    with st.container(key=f"response_box_{key}"):
         st.write(prompt)
         if sentence_starters:
             st.caption(f"**Sentence starters:** {sentence_starters}")

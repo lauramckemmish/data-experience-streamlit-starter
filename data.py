@@ -137,6 +137,8 @@ def validate_field_metadata(metadata: Mapping[str, FieldMetadata] = FIELD_METADA
             raise ValueError(f"Only numeric field {field.name!r} can be log eligible.")
         if field.filter_eligible and field.kind != "categorical":
             raise ValueError(f"Only categorical field {field.name!r} can be filter eligible.")
+        if field.another_angle_eligible and field.kind != "categorical":
+            raise ValueError(f"Only categorical field {field.name!r} can be another-angle eligible.")
         if field.category_limit is not None and field.category_limit < 2:
             raise ValueError(f"Field {field.name!r} needs a category limit of at least two.")
 
@@ -162,7 +164,12 @@ def playground_grouping_fields(data: pd.DataFrame) -> list[str]:
     return [
         field.name
         for field in FIELD_METADATA.values()
-        if field.name in data.columns and field.kind == "categorical" and field.another_angle_eligible
+        if field.name in data.columns
+        and field.kind == "categorical"
+        and field.another_angle_eligible
+        and 2 <= data[field.name].nunique(dropna=True) <= (
+            field.category_limit or DEFAULT_CATEGORICAL_CARDINALITY_LIMIT
+        )
     ]
 
 

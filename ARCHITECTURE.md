@@ -107,10 +107,15 @@ unsupported analytical routes and retain their own science, local wording, and
 pedagogy.
 
 The canonical opening journey is **Start here → Know your data → One variable
-→ Two variables**. One- and two-variable representations dispatch from the
-configured field kinds rather than a learner-facing chart menu. Later routes
-remain capability-dependent: an experience may omit them when its data cannot
-support a truthful analysis, while retaining local science and pedagogy.
+→ Two variables → Another angle → Follow it further**. One- and two-variable
+representations dispatch from the configured field kinds rather than a
+learner-facing chart menu. Another angle tests an observation using a
+capability-driven categorical grouping or subset, not merely a third-variable
+display; grouping and filtering remain stage-local. Follow it further moves
+from observation → question → next evidence without treating a pattern as its
+own explanation. Fitting and continuous numeric colour remain deferred shared
+pattern hypotheses. An experience may omit unsupported routes when its data
+cannot support a truthful analysis, while retaining local science and pedagogy.
 
 ## Development rule
 

@@ -233,6 +233,17 @@ class SharedInteractionTests(unittest.TestCase):
             self.assertEqual(stub.expander_kwargs, [{"expanded": False}])
             self.assertEqual(stub.session_state["stage_response"], "An observation")
 
+    def test_response_boxes_use_their_response_keys_for_unique_containers(self):
+        stub = _StreamlitStub()
+        with patch.object(ui_helpers, "st", stub):
+            ui_helpers.response_box("First", "first_response")
+            ui_helpers.response_box("Second", "second_response")
+
+        self.assertEqual(
+            [container["key"] for container in stub.containers],
+            ["response_box_first_response", "response_box_second_response"],
+        )
+
     def test_facilitator_control_and_live_cues_use_only_canonical_labels(self):
         stub = _StreamlitStub()
         with patch.object(ui_helpers, "st", stub):
