@@ -82,13 +82,15 @@ def _render_inventory(data: pd.DataFrame) -> None:
     st.header("Know your data")
     st.write("Before making a graph, inspect what each field represents and what is missing from the dataset.")
     st.caption("This inventory includes every configured field, including fields that are not graph choices.")
-    for field in playground_inventory(data).to_dict("records"):
-        with st.container(border=True):
-            st.markdown(f"#### {field['Variable']}")
-            st.caption(f"Kind / role: {field['Kind / role']}")
-            st.markdown("**What it represents**")
-            st.write(field["What it represents"])
-            st.caption(f"Unit: {field['Unit']} · Missing data: {field['Missing data']}")
+    fields = playground_inventory(data).to_dict("records")
+    for row_start in range(0, len(fields), 2):
+        columns = st.columns(2, gap="medium")
+        for column, field in zip(columns, fields[row_start : row_start + 2]):
+            with column:
+                with st.container(border=True):
+                    st.markdown(f"**{field['Variable']}** · {field['Kind / role']}")
+                    st.write(field["What it represents"])
+                    st.caption(f"Unit: {field['Unit']} · Missing: {field['Missing data']}")
 
 
 def _render_numeric_one_variable(data: pd.DataFrame, field: str) -> None:
