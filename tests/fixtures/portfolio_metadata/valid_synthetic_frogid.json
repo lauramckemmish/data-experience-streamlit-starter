@@ -1,0 +1,29 @@
+{
+  "schema_version": "data-to-discovery/1.0",
+  "resource": {
+    "resource_id": "synthetic-frogid",
+    "title": "Synthetic FrogID-like resource",
+    "summary": "Testing-only citizen-science fixture.",
+    "repository": "https://example.org/repos/synthetic-frogid",
+    "app_url": "https://example.org/synthetic-frogid"
+  },
+  "experiences": [
+    {
+      "experience_id": "synthetic-frogid/frog-calls-and-citizen-science",
+      "title": "Frog calls and citizen science",
+      "summary": "Investigate frog observations contributed through citizen science.",
+      "kind": "guided_experience",
+      "published": true,
+      "stages": [],
+      "duration_minutes": {"minimum": 30, "maximum": 45},
+      "science_focus": ["frogs", "bioacoustics"],
+      "data_science_focus": ["data-visualisation", "classification"],
+      "curriculum": [],
+      "umbrellas": [],
+      "delivery_modes": ["classroom"],
+      "programmes": [],
+      "evidence_types": ["citizen_science", "observational_measurements"],
+      "launch": {"url": "https://example.org/synthetic-frogid/frog-calls-and-citizen-science"}
+    }
+  ]
+}

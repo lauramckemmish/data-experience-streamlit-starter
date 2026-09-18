@@ -4,6 +4,15 @@ This repository is a reusable master scaffold for educational data-science exper
 
 This document governs reusable application and software architecture. Cross-resource design knowledge belongs in `playbook/`; individual resources retain local pedagogy and may deliberately deviate where their audience, science, data or delivery context warrants it.
 
+## Portable portfolio metadata
+
+The Starter defines authoring infrastructure for the Data to Discovery portable
+portfolio metadata contract in [`docs/PORTFOLIO_METADATA_CONTRACT.md`](docs/PORTFOLIO_METADATA_CONTRACT.md).
+Individual scientific-resource apps publish their own manifests; a future
+portfolio consumes them. The Starter does not publish its own local reference
+surfaces, and the portable contract does not replace local catalogues, routing,
+or pedagogy.
+
 ## Stable reference-surface structure
 
 The three reference surfaces are deliberately stable:

@@ -1,0 +1,7 @@
+{
+  "schema_version": "data-to-discovery/1.0",
+  "resource": {"resource_id": "synthetic-values", "title": "Invalid values", "summary": "Testing-only invalid fixture.", "repository": "https://example.org/repo", "app_url": "https://example.org/app"},
+  "experiences": [
+    {"experience_id": "synthetic-values/bad-values", "title": "Bad values", "summary": "Bad values.", "kind": "game", "published": false, "stages": ["Year 8", "Year 8"], "duration_minutes": null, "science_focus": ["Bad Token"], "data_science_focus": ["modelling"], "curriculum": [], "umbrellas": ["unknown-umbrella"], "delivery_modes": ["workshop"], "programmes": ["curious"], "evidence_types": ["spreadsheet"], "launch": null}
+  ]
+}

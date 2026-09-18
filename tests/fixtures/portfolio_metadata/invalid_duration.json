@@ -1,0 +1,7 @@
+{
+  "schema_version": "data-to-discovery/1.0",
+  "resource": {"resource_id": "synthetic-duration", "title": "Invalid duration", "summary": "Testing-only invalid fixture.", "repository": "https://example.org/repo", "app_url": "https://example.org/app"},
+  "experiences": [
+    {"experience_id": "synthetic-duration/bad-range", "title": "Bad range", "summary": "Bad range.", "kind": "guided_experience", "published": false, "stages": [], "duration_minutes": {"minimum": 60, "maximum": 15}, "science_focus": ["biology"], "data_science_focus": ["modelling"], "curriculum": [], "umbrellas": [], "delivery_modes": [], "programmes": [], "evidence_types": ["curated_dataset"], "launch": null}
+  ]
+}

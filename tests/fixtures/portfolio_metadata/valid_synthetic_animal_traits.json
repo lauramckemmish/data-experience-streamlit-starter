@@ -1,0 +1,65 @@
+{
+  "schema_version": "data-to-discovery/1.0",
+  "resource": {
+    "resource_id": "synthetic-animal-traits",
+    "title": "Synthetic animal traits resource",
+    "summary": "Testing-only fixture for Stage 4 and open exploration metadata.",
+    "repository": "https://example.org/repos/synthetic-animal-traits",
+    "app_url": "https://example.org/synthetic-animal-traits"
+  },
+  "experiences": [
+    {
+      "experience_id": "synthetic-animal-traits/mice-to-elephants-and-beyond",
+      "title": "Mice to elephants: and beyond",
+      "summary": "A guided Stage 4 investigation using animal-trait data.",
+      "kind": "guided_experience",
+      "published": true,
+      "stages": ["Stage 4"],
+      "duration_minutes": null,
+      "science_focus": ["animal-traits", "comparative-biology"],
+      "data_science_focus": ["modelling", "prediction"],
+      "curriculum": [
+        {
+          "framework": "nsw-science-7-10",
+          "outcomes": [
+            {
+              "outcome_code": "SC4-DA1-01",
+              "alignment": "DIRECT",
+              "detailed_content": [
+                {"content_id": "SC4-DA1-01.M2", "alignment": "DIRECT"},
+                {"content_id": "SC4-DA1-01.C1", "alignment": "PARTIAL"}
+              ]
+            }
+          ]
+        }
+      ],
+      "umbrellas": ["wild-data"],
+      "delivery_modes": ["classroom"],
+      "programmes": [],
+      "evidence_types": ["curated_dataset", "derived_model"],
+      "launch": {"url": "https://example.org/synthetic-animal-traits/mice-to-elephants-and-beyond"},
+      "thumbnail": {
+        "url": "https://example.org/assets/mice-to-elephants.png",
+        "alt": "A mouse and an elephant beside a comparison chart",
+        "caption": "Synthetic testing-only artwork."
+      }
+    },
+    {
+      "experience_id": "synthetic-animal-traits/data-exploration-playground",
+      "title": "Data exploration playground",
+      "summary": "Open exploration of animal-trait data.",
+      "kind": "explore_resource",
+      "published": true,
+      "stages": [],
+      "duration_minutes": null,
+      "science_focus": ["animal-traits"],
+      "data_science_focus": ["data-visualisation", "modelling"],
+      "curriculum": [],
+      "umbrellas": [],
+      "delivery_modes": ["independent"],
+      "programmes": [],
+      "evidence_types": ["curated_dataset", "derived_model"],
+      "launch": {"url": "https://example.org/synthetic-animal-traits/data-exploration-playground"}
+    }
+  ]
+}

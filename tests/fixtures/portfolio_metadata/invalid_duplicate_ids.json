@@ -1,0 +1,14 @@
+{
+  "schema_version": "data-to-discovery/1.0",
+  "resource": {
+    "resource_id": "synthetic-duplicate",
+    "title": "Duplicate identifiers",
+    "summary": "Testing-only invalid fixture.",
+    "repository": "https://example.org/repo",
+    "app_url": "https://example.org/app"
+  },
+  "experiences": [
+    {"experience_id": "synthetic-duplicate/one", "title": "One", "summary": "One.", "kind": "guided_experience", "published": false, "stages": [], "duration_minutes": null, "science_focus": ["biology"], "data_science_focus": ["modelling"], "curriculum": [], "umbrellas": [], "delivery_modes": [], "programmes": [], "evidence_types": ["curated_dataset"], "launch": null},
+    {"experience_id": "synthetic-duplicate/one", "title": "Two", "summary": "Two.", "kind": "guided_experience", "published": false, "stages": [], "duration_minutes": null, "science_focus": ["biology"], "data_science_focus": ["modelling"], "curriculum": [], "umbrellas": [], "delivery_modes": [], "programmes": [], "evidence_types": ["curated_dataset"], "launch": null}
+  ]
+}

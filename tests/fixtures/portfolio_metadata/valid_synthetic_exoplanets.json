@@ -1,0 +1,46 @@
+{
+  "schema_version": "data-to-discovery/1.0",
+  "resource": {
+    "resource_id": "synthetic-exoplanets",
+    "title": "Synthetic exoplanet resource",
+    "summary": "Testing-only fixture for distinct public experiences behind shared local routing.",
+    "repository": "https://example.org/repos/synthetic-exoplanets",
+    "app_url": "https://example.org/synthetic-exoplanets"
+  },
+  "experiences": [
+    {
+      "experience_id": "synthetic-exoplanets/solar-system-normal",
+      "title": "Is our Solar System normal?",
+      "summary": "Compare our Solar System with exoplanet populations.",
+      "kind": "guided_experience",
+      "published": true,
+      "stages": [],
+      "duration_minutes": null,
+      "science_focus": ["exoplanets", "planetary-systems"],
+      "data_science_focus": ["comparative-analysis", "data-visualisation"],
+      "curriculum": [],
+      "umbrellas": [],
+      "delivery_modes": ["facilitated"],
+      "programmes": ["CURIOUS"],
+      "evidence_types": ["scientific_catalogue", "observational_measurements"],
+      "launch": {"url": "https://example.org/synthetic-exoplanets/solar-system-normal"}
+    },
+    {
+      "experience_id": "synthetic-exoplanets/strange-new-worlds",
+      "title": "Strange new worlds",
+      "summary": "Explore diverse planets beyond our Solar System.",
+      "kind": "guided_experience",
+      "published": true,
+      "stages": ["Stage 4"],
+      "duration_minutes": {"minimum": 50, "maximum": 50},
+      "science_focus": ["exoplanets", "planetary-systems"],
+      "data_science_focus": ["data-visualisation", "comparative-analysis"],
+      "curriculum": [],
+      "umbrellas": [],
+      "delivery_modes": ["classroom"],
+      "programmes": [],
+      "evidence_types": ["scientific_catalogue"],
+      "launch": {"url": "https://example.org/synthetic-exoplanets/strange-new-worlds"}
+    }
+  ]
+}
