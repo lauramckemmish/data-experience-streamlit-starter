@@ -93,6 +93,25 @@ The reusable toolkit may include:
 
 Not every dataset needs every technique. Add a technique when it helps answer a scientific question, not merely because the software can do it.
 
+## Data Playground field capabilities
+
+Shared Playground machinery consumes a small, experience-supplied per-field
+contract in `data.py`: internal name, learner label, kind, concise meaning,
+analytical role, and one-/two-variable eligibility. Optional capabilities cover
+units, log display, filtering, grouping, and a modest categorical cardinality
+guardrail. Pandas dtype alone does not establish scientific or pedagogical
+eligibility. Missingness is calculated from the source dataframe, never stored
+in field configuration. A local experience may also suppress one otherwise
+valid variable pair with a short configured reason. Experiences may omit
+unsupported analytical routes and retain their own science, local wording, and
+pedagogy.
+
+The canonical opening journey is **Start here → Know your data → One variable
+→ Two variables**. One- and two-variable representations dispatch from the
+configured field kinds rather than a learner-facing chart menu. Later routes
+remain capability-dependent: an experience may omit them when its data cannot
+support a truthful analysis, while retaining local science and pedagogy.
+
 ## Development rule
 
 Work on one surface at a time. Change that surface plus only the shared modules genuinely required by the change. Do not opportunistically redesign other surfaces in the same implementation pass.
